@@ -1,0 +1,74 @@
+Al igual que en la sección anterior las soluciones de este capitulo no son únicas y puede que algunas sean redundantes, además otra aclaración de vital importancia es que todos los autómatas presentados no se muestran sus estados limbo, es decir presentaremos AFD simplificados.\\
+
+\textbf{Punto 1:}
+\begin{itemize}
+    \item[✎] Como la cadena mínima es $\lambda$ entonces el estado inicial tiene que ser de aceptación, luego como también se aceptan $aes$ arbitrarias estas pueden ser aceptadas por medio de un bucle. Apenas aparezca una $b$ el autómata cambiara de estado pero ese seria también de aceptación, incluyendo un bucle para las $bes$ arbitrarias:\\
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \path [thick]
+            (q0) edge [loop above] node {$a$} ()
+            (q0) edge node [above] {$b$} (q1)
+            (q1) edge [loop above] node {$b$} ();
+        \end{tikzpicture}
+    \end{center}
+
+    \item[✎] Nuevamente el estado inicial es de aceptación ya que $\lambda$ pertenece a el lenguaje, luego basta con tomar dos caminos para el caso donde sean cadenas de $aes$ y el de cadenas de $bes$:
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, above right of=q0, accepting] {$q_1$};
+            \node (q2) [state, below right of=q0, accepting] {$q_2$};
+            \path[thick]
+            (q0) edge [bend left] node [above left] {$a$} (q1)
+            (q0) edge [bend right] node [below left] {$b$} (q2)
+            (q1) edge [loop above] node {$a$} ()
+            (q2) edge [loop below] node {$b$} ();
+        \end{tikzpicture}    
+    \end{center}
+
+    \item[✎] Note que todas las cadenas de este lenguaje son de la forma $ab\dots ab$, es decir siempre son bloques $ab$ y todas las cadenas empiezan en $a$ y terminan en $b$:
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$b$} (q0);
+        \end{tikzpicture}
+    \end{center}
+
+    \item[✎] Bastante similar a la anterior excepto que la cadena mínima aceptada es $ab$ debido al $+$, así que forzamos esa cadena:
+    \begin{center}
+        \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, accepting, right of=q1] {$q_2$};
+            \path[thick]
+            (q0) edge node [above] {$a$} (q1)
+            (q1) edge [bend left] node [above] {$b$} (q2)
+            (q2) edge [bend left] node [below] {$a$} (q1);
+        \end{tikzpicture}     
+    \end{center}
+
+    \item[✎]Note que debido a la expresión se forman dos caminos, uno son las cadenas que empiezan por $a$ y luego tienen una cantidad de $bes$ arbitrarias. El otro son aquellas que comienzan por un numero de $bes$ arbitrarias pero están forzadas a terminar en $a$ para ser aceptadas:
+    \begin{center}
+        \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, below right of=q0, accepting] {$q_1$};
+            \node (q2) [state, above right of=q0] {$q_2$};
+            \node (q3) [state,  below right of=q2, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above left] {$b$} (q2)
+            (q0) edge [bend right] node [below left] {$a$} (q1)
+            (q1) edge [loop below] node [below] {$b$} ()
+            (q2) edge [loop above] node [above] {$b$} ()
+            (q2) edge [bend left] node [above right] {$a$} (q3);
+        \end{tikzpicture}
+    \end{center}
+
+    \item[✎]
+    
+    
+\end{itemize}

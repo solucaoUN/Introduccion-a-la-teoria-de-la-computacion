@@ -1,0 +1,67 @@
+\documentclass[12pt,a4paper]{report} 
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{yhmath}
+\usepackage[breaklinks = true]{hyperref}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows.meta, positioning}
+\tikzset{
+->,
+>=stealth,
+initial text = $ $
+}
+
+\setlength\parindent{0pt}
+
+
+
+
+%%%%%%
+\usepackage{newunicodechar}
+\usepackage{fontspec}
+
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+
+\newfontface{\pencilfont}{DejaVu Sans}[Scale=MatchUppercase]
+
+\newunicodechar{✎}{{\pencilfont ✎}}
+
+%%%%%%%
+
+\title{Introducción a la teoría de la computación - Solutions manual}
+\author{mmanosalva\\eochoaq}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\cleardoublepage
+
+\chapter{Sección 1.5.}
+\input{1.5}
+\chapter{Sección 1.7.}
+\input{1.7}
+\chapter{Sección 1.10.}
+\input{1.10}
+\chapter{Sección 1.12.}
+\input{1.12}
+\chapter{Sección 1.13.}
+\input{1.13}
+\chapter{Sección 2.2.}
+\input{2.2}
+\chapter{Sección 2.5.}
+\input{2.5}
+
+
+
+\end{document}

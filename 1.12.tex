@@ -1,0 +1,9 @@
+\textbf{Punto 1:} Esto ocurre ya que la clausura de Kleene son todas las posibles concatenaciones de elementos de un lenguaje, por tanto unir las de dos lenguajes contempla las clausuras de ambos por separado y luego las une, mientras que unir los lenguajes y luego hacer la clausura contempla todas las posibles concatenaciones de elementos que se encontraban en ambos lenguajes, de hecho se podría ver con un argumento similar que $(A\cup B)^*\supset A^* \cup B^*$.\\
+
+
+\textbf{Punto 2:} En este caso ocurre algo similar y es que faltan cadenas de $(A \cup B)^*$, por ejemplo considere $A=\{a\}$ y $B=\{b\}$, entonces por ejemplo es imposible obtener la cadena $(ba)^2$ a traves de $A^* \cup B^* \cup A^* B^* \cup B^* A^*$, estos mismos lenguajes sirven para darnos cuenta en el punto 1 que $(A \cup B)^*\supset A^*\cup B^*$, es este caso es lo mismo, $(A \cup B)^* \supset$ $A^* \cup B^* \cup A^* B^* \cup B^* A^*$.\\
+
+Para ver la falsedad de estas afirmaciones recomendamos siempre usar lenguajes pequeños (con pocas cadenas) de tal manera que no nos gastemos mucho tiempo haciendo cuentas. 
+
+
+$\hfill \blacklozenge$

@@ -1,0 +1,21 @@
+\textbf{Punto 1:} Considere $\displaystyle\Sigma=\{a,b\}$ los lenguajes $A=$\O \text{ }y $B={a}$, por definición de concatenación de lenguajes:
+
+$$AB=\text{\O}=BA$$
+
+\textbf{Punto 2:} Sea $\displaystyle\Sigma=\{a,b,c\}$, considere los lenguajes $A=\{a\}$, $B=\{b\}$ y $C=\{c\}$, entonces:
+
+\begin{align*}
+    A\cdot(B\cap C)&=\text{\O}  &&\longleftarrow(A\cdot \text{\O = \O})\\
+    &=\{ab\}\cap\{bc\}\\
+\end{align*}
+La intersección es vacía porque $ab$ como cadena es diferente de $bc$\\
+
+\textbf{Punto 3:}
+
+\begin{proof}
+Sea $u\in A\cdot(B\cap C)$, entonces $u=a_ix_i$ para algún $a_i\in A$ y $x_i \in B\cap C$, luego como $x_i\in B\cap C$ $x_i\in B$ y $x_i \in C$, por tanto $u \in A\cdot B$ y $u\in A\cdot C$, así $u\in A\cdot B \cap A\cdot C$, concluimos que $A \cdot(B \cap C) \subseteq A \cdot B \cap A \cdot C$
+
+\end{proof}
+
+
+$\hfill \blacklozenge$
