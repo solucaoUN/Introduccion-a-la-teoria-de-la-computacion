@@ -1,8 +1,0 @@
-\babel@toc {spanish}{}\relax 
-\contentsline {chapter}{\numberline {1}Sección 1.5.}{2}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Sección 1.7.}{4}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Sección 1.10.}{5}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Sección 1.12.}{6}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Sección 1.13.}{7}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Sección 2.2.}{9}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Sección 2.5.}{14}{chapter.7}%
