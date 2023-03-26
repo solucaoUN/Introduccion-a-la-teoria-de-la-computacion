@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.3.22)  24 MAR 2023 23:29
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.3.22)  25 MAR 2023 23:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1850,7 +1850,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 6--7
 
 [14
 
-] [15] [16]) [17] (main.aux
+] [15] [16] [17]
+Underfull \hbox (badness 10000) in paragraph at lines 220--221
+
+ []
+
+[18] [19]) [20] (main.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
@@ -1858,12 +1863,12 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 79AAE2D3973A1220FA1262F4EA0A97E0;778.
  ) 
 Here is how much of TeX's memory you used:
- 41329 strings out of 411472
- 981033 string characters out of 5818264
- 1863012 words of memory out of 5000000
- 60836 multiletter control sequences out of 15000+600000
+ 41330 strings out of 411472
+ 981049 string characters out of 5818264
+ 1867012 words of memory out of 5000000
+ 60837 multiletter control sequences out of 15000+600000
  531519 words of font info for 142 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  89i,13n,121p,821b,1012s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (18 pages).
+Output written on main.pdf (21 pages).

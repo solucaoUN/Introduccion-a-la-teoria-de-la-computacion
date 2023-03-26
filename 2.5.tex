@@ -69,7 +69,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}
     \end{center}
 
-    \item Observe que las cadena minima de este lenguaje tiene una sola $a$ asi que el estado inicial no es de acpetación, luego note que en ambos casos de la $*$ el elemento es una $a$, por lo que forzamos dos $aes$ y posteriormente realizamos respectivamente el bucle de $aes$ y de $abes$: 
+    \item Observe que las cadena mínima de este lenguaje tiene una sola $a$ así que el estado inicial no es de aceptación, luego note que en ambos casos de la $*$ el elemento es una $a$, por lo que forzamos dos $aes$ y posteriormente realizamos respectivamente el bucle de $aes$ y de $abes$: 
     \begin{center}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial] {$q_0$};
@@ -83,7 +83,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}
     \end{center}
     
-    \item Observe que la cadena minima es $aa$ entonces debemos forzar ese camino. Ahora note que en ese camino podemos generar el bucle para $a^+$. Note que hay dos posibilidades para las $bes$, o inicia la cadena con solo una $a$ y luego tiene una cantidad arbitraria de $bes$ o empieza con $aes$ arbitrarias y luego tiene $bes$ arbitrarias, pero note que siempre que aparece al menos una $b$ la cadena siempre acaba en $a$:
+    \item Observe que la cadena mínima es $aa$ entonces debemos forzar ese camino. Ahora note que en ese camino podemos generar el bucle para $a^+$. Note que hay dos posibilidades para las $bes$, o inicia la cadena con solo una $a$ y luego tiene una cantidad arbitraria de $bes$ o empieza con $aes$ arbitrarias y luego tiene $bes$ arbitrarias, pero note que siempre que aparece al menos una $b$ la cadena siempre acaba en $a$:
 
     \begin{center}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
@@ -103,7 +103,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}
     \end{center}
 
-    \item Primero notemos que las cadenas minimas son $a$ y $b$, asi que debemos forzar dos caminos que las acepten. Ahora observe que si sale una $a$ existen dos posibilidades, es seguida inmediatamente de una $b$ o salen $aes$ arbitrarias y luego si una $b$. Note que este analisis tambien es valido respectivamente con $b$:
+    \item Primero notemos que las cadenas mínimas son $a$ y $b$, así que debemos forzar dos caminos que las acepten. Ahora observe que si sale una $a$ existen dos posibilidades, es seguida inmediatamente de una $b$ o salen $aes$ arbitrarias y luego si una $b$. Note que este análisis también es valido respectivamente con $b$:
 
         \begin{center}
             \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
@@ -128,7 +128,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             \end{tikzpicture}
         \end{center}
 
-        \item Observe que nuestras dos cadenas minimas de aceptacion son $ab$ y $ba$ asi que forzamos esos dos caminos. Posterirmente para hacer que aparezcan las $bes$ arbitrarias podemos agregar un bucle en el camino donde generamos $ba$. Si lo dejaramos hasta ahi nos faltarian las cadenas de la forma $b^*ab$ pero esto se arregla facilmente conectando el camino de $ba$ al de $ab$ colocando una $b$ entre estados de aceptacion:
+        \item Observe que nuestras dos cadenas mínimas de aceptación son $ab$ y $ba$ así que forzamos esos dos caminos. Posteriormente para hacer que aparezcan las $bes$ arbitrarias podemos agregar un bucle en el camino donde generamos $ba$. Si lo dejáramos hasta ahí nos faltarían las cadenas de la forma $b^*ab$ pero esto se arregla fácilmente conectando el camino de $ba$ al de $ab$ colocando una $b$ entre estados de aceptación:
         \begin{center}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial] {$q_0$};
@@ -146,7 +146,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             \end{tikzpicture}
         \end{center}
 
-        \item Note que el lenguaje es muy parecido a excepcion de que las cadenas forzosamente acaban en por lo menos una $a$, pero lo que podemos hacer es usar el automata construido previamente y aquellos estados de aceptacion forzamos que salga una $a$ hacia un nuevo estado de aceptacion que generara la concatenacion de $a^+$:
+        \item Note que el lenguaje es muy parecido a excepción de que las cadenas forzosamente acaban en por lo menos una $a$, pero lo que podemos hacer es usar el autómata construido previamente y aquellos estados de aceptación forzamos que salga una $a$ hacia un nuevo estado de aceptación que generara la concatenación de $a^+$:
 
         \begin{center}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
@@ -168,8 +168,192 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
                 (q5) edge [loop right] node [right] {$a$} ();
             \end{tikzpicture}
         \end{center} 
-
-
+    \end{itemize}
 \textbf{Punto 2:}
-    
+\begin{itemize}[label={✎}]
+    \item Recordemos que si por ejemplo queremos construir un autómata que acepte el lenguaje de las cadenas que tienen una cantidad par de $aes$ hacemos la siguiente construcción:
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0);
+        \end{tikzpicture}
+    \end{center}
+Note como la construcción para cantidad par de $bes$ es la misma entonces basta simplemente con agregar un camino para estas en el autómata ya diseñado hacia un nuevo estado:
+\begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q0) edge [bend left] node [right] {$b$} (q2)
+            (q2) edge [bend left] node [left] {$b$} (q0);
+        \end{tikzpicture}
+    \end{center}
+
+Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aquí entra en juego la recomendación de usar 4 estados para la construcción y de esta forma podremos crear estos caminos para aceptar aquellas cadenas que antes no y que si son generadas por el lenguaje:
+
+\begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \node (q3) [state, below of=q1] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q0) edge [bend left] node [right] {$b$} (q2)
+            (q2) edge [bend left] node [left] {$b$} (q0)
+            (q2) edge [bend left] node [above] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$a$} (q2)
+            (q1) edge [bend left] node [right] {$b$} (q3)
+            (q3) edge [bend left] node [left] {$b$} (q1);
+        \end{tikzpicture}
+    \end{center}
+
+    Algo importante a destacar aquí es que el único estado de aceptación es $q_0$ ya que en los demás siempre hay cantidad impar de $aes$ o $bes$. Esto es relevante ya que es la esencia del siguiente ejercicio.
+
+    \item Observe que para este ejercicio tenemos ocho posibilidades en total, bueno para ser exactos simplemente tenemos que hacer $7$ ya que en el anterior ya cubrimos el caso par de $aes$ y par de $bes$. La forma en que determinaremos que estados se vuelven de aceptación es considerando cadenas básicas que cumplen las condiciones y en que estado terminan.\\
+
+    \textbf{Caso 1: }Impar de $aes$ o impar de $bes$. Note que en el autómata original $q_1,q_2$ y $q_3$ no son de aceptación ya que en todos $aes$ o $bes$ son impares, luego en este caso estos tres se vuelven de aceptación mientras que $q_0$ ya no lo es.
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, below of=q0, accepting] {$q_2$};
+            \node (q3) [state, below of=q1, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q0) edge [bend left] node [right] {$b$} (q2)
+            (q2) edge [bend left] node [left] {$b$} (q0)
+            (q2) edge [bend left] node [above] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$a$} (q2)
+            (q1) edge [bend left] node [right] {$b$} (q3)
+            (q3) edge [bend left] node [left] {$b$} (q1);
+        \end{tikzpicture}
+    \end{center}
+
+    \textbf{Caso 2: }Par de $aes$ o par de $bes$. Observe que el estado $q_0$ lo mantenemos como aceptación, luego note que la cadena $abb$ es aceptada por la condición y si seguimos este camino en el autómata $q_1$ debe ser de aceptación. De la misma manera $q_2$ tiene que ser de aceptación ya que la cadena $baa$ también es aceptada.
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, below of=q0, accepting] {$q_2$};
+            \node (q3) [state, below of=q1] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q0) edge [bend left] node [right] {$b$} (q2)
+            (q2) edge [bend left] node [left] {$b$} (q0)
+            (q2) edge [bend left] node [above] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$a$} (q2)
+            (q1) edge [bend left] node [right] {$b$} (q3)
+            (q3) edge [bend left] node [left] {$b$} (q1);
+        \end{tikzpicture}
+    \end{center}
+
+    \textbf{Caso 3: }Impar de $aes$ e impar de $bes$. Note que en la construcción anterior el estado $q_3$ no es de aceptación ya que es el único lugar donde $aes$ y $bes$ son impares, entonces para este caso ese va a ser nuestro único estado de aceptación.
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \node (q3) [state, below of=q1, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q0) edge [bend left] node [right] {$b$} (q2)
+            (q2) edge [bend left] node [left] {$b$} (q0)
+            (q2) edge [bend left] node [above] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$a$} (q2)
+            (q1) edge [bend left] node [right] {$b$} (q3)
+            (q3) edge [bend left] node [left] {$b$} (q1);
+        \end{tikzpicture}
+    \end{center}
+
+    \textbf{Caso 4: }Par de $aes$ e impar de $bes$. Observe que una cadena aceptada por estas condiciones es la cadena $baa$ y esta es aceptada en $q_2$ luego este tiene que ser de aceptación. Ahora note que ninguno de los demás es de aceptación ya que $q_0,q_1$ aceptan cadenas con un numero par de $bes$ y $q_3$ acepta cadenas con un numero impar de $aes$.
+\begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0, accepting] {$q_2$};
+            \node (q3) [state, below of=q1] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q0) edge [bend left] node [right] {$b$} (q2)
+            (q2) edge [bend left] node [left] {$b$} (q0)
+            (q2) edge [bend left] node [above] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$a$} (q2)
+            (q1) edge [bend left] node [right] {$b$} (q3)
+            (q3) edge [bend left] node [left] {$b$} (q1);
+        \end{tikzpicture}
+    \end{center}
+    \textbf{Caso 5: }Impar de $aes$ o par de $bes$. Por las $bes$ pares $q_0$ es de aceptación. Por el impar de $aes$, $q_1$ y $q_3$ son de aceptación.
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \node (q3) [state, below of=q1, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q0) edge [bend left] node [right] {$b$} (q2)
+            (q2) edge [bend left] node [left] {$b$} (q0)
+            (q2) edge [bend left] node [above] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$a$} (q2)
+            (q1) edge [bend left] node [right] {$b$} (q3)
+            (q3) edge [bend left] node [left] {$b$} (q1);
+        \end{tikzpicture}
+    \end{center}
+    \textbf{Caso 6: }Impar de $aes$ y par de $bes$. Una cadena que debe ser aceptada es por ejemplo $abb$, luego el estado que la acepta es $q_1$, ademas note que los demás estados no son de aceptación ya que aceptan las cadenas $\lambda,b$ y $ab$ que no cumplen las condiciones.
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \node (q3) [state, below of=q1] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q0) edge [bend left] node [right] {$b$} (q2)
+            (q2) edge [bend left] node [left] {$b$} (q0)
+            (q2) edge [bend left] node [above] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$a$} (q2)
+            (q1) edge [bend left] node [right] {$b$} (q3)
+            (q3) edge [bend left] node [left] {$b$} (q1);
+        \end{tikzpicture}
+    \end{center}
+    \textbf{Caso 7: }Par de $aes$ o Impar de $bes$.
+    \begin{center}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state,  initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0, accepting] {$q_2$};
+            \node (q3) [state, below of=q1, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q0) edge [bend left] node [right] {$b$} (q2)
+            (q2) edge [bend left] node [left] {$b$} (q0)
+            (q2) edge [bend left] node [above] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$a$} (q2)
+            (q1) edge [bend left] node [right] {$b$} (q3)
+            (q3) edge [bend left] node [left] {$b$} (q1);
+        \end{tikzpicture}
+    \end{center}
+
+Observe que por ejemplo la condición del caso $7$ es la negación de la condición del caso $6$. Ademas los estados de aceptación del caso $6$ son de no aceptación en el caso $7$ y viceversa. Esto quedaría mas que nada como una mera curiosidad sino fuera por que posteriormente se mostrara que esta es una forma de construir autómatas para lenguajes que tienen una condición negativa. Primero se construirá el autómata que acepta la condición positiva y luego para aceptar la negación se cambian los estados de aceptación a no aceptación y viceversa.
+\end{itemize}
+
+
+\textbf{Punto 3: }
+\begin{itemize}[label={✎}]
+    \item 
 \end{itemize}
