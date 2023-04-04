@@ -928,15 +928,153 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         \hline
         \end{tabular}   
         \end{center}
-        En el AFN original teníamos que los estados de aceptación eran $q_0$ y $q_3$ luego en el AFD los estados de aceptación son todos aquellos que contengan alguno de estos dos. Luego el AFD equivalente es el siguiente:
+        En el AFN original teníamos que los estados de aceptación eran $q_0$ y $q_3$ luego en el AFD los estados de aceptación son todos aquellos que contengan alguno de estos dos. Por  estética definiremos $q_4:=\{q_1,q_2\},q_5:=\{q_0,q_3\}$ y $q_6:=\{q_0,q_1,q_2\}$. 
         \begin{center}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
-            \node (q1q2) [state, right of=q0] {$\{q_1,q_2\}$};
-            \node (q0q3) [state, right of=q1q2, accepting] {$\{q_0,q_3\}$};
-            \node (q0q1q2) [state, right of=q0q3, accepting] {$\{q_0,q_1,q_2\}$};
+            \node (q4) [state, right of=q0] {$q_4$};
+            \node (q5) [state, right of=q4, accepting] {$q_5$};
+            \node (q6) [state, right of=q5, accepting] {$q_6$};
+            \path[thick]
+            (q0) edge node [above] {$b$} (q4)
+            (q4) edge node [above] {$a$} (q5)
+            (q5) edge [bend left] node [above] {$b$} (q6)
+            (q6) edge [bend left] node [below] {$a$} (q5)
+            (q6) edge [bend left=60] node [below] {$b$} (q4);
             \end{tikzpicture}
         \end{center}
-        
 
+        \item Realicemos la extensión de la tabla.
+
+        \begin{center}
+         \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta$ & $a$ & $b$\\
+        \hline 
+        $q_0$ & $\varnothing$ & $\{q_1,q_2\}$ \\ 
+        \hline
+        $q_1$ &$\{q_0,q_1\}$ &$\varnothing$ \\ 
+        \hline
+        $q_2$& $\{q_3\}$& $\varnothing$ \\ 
+        \hline
+        $q_3$&$\varnothing$&$\{q_0\}$\\ 
+        \hline
+        \hline
+        $\{q_1,q_2\}$&$\{q_0,q_1,q_3\}$&$\varnothing$\\ 
+        \hline
+        $\{q_0,q_1\}$&$\{q_0,q_1\}$&$\{q_1,q_2\}$\\ 
+        \hline
+        $\{q_0,q_1,q_3\}$&$\{q_0,q_1\}$&$\{q_0,q_1,q_2\}$\\
+        \hline
+        $\{q_0,q_1,q_2\}$&$\{q_0,q_1,q_3\}$&$\{q_1,q_2\}$\\ 
+        \hline       
+        \end{tabular}   
+        \end{center}
+        Nuevamente los estados de aceptación del AFD son todos aquellos que contienen $q_0$ o $q_3$. Ahora definimos $q_4:=\{q_1,q_2\},q_5:=\{q_0,q_1,q_3\},q_6:=\{q_0,q_1\}$ y $q_7:=\{q_0,q_1,q_2\}$.
+
+        \begin{center}
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q4) [state, right of=q0] {$q_4$};
+            \node (q5) [state, right of=q4, accepting] {$q_5$};
+            \node (q6) [state, right of=q5, accepting] {$q_6$};
+            \node (q7) [state, below of=q5, accepting] {$q_7$};
+            \path[thick]
+            (q0) edge node [above] {$b$} (q4)
+            (q4) edge node [above] {$a$} (q5)
+            (q5) edge node [above] {$a$} (q6)
+            (q6) edge [bend right=45] node [above] {$b$} (q4)
+            (q6) edge [loop below] node [below] {$a$} ()
+            (q5) edge [bend right] node [left] {$b$} (q7)
+            (q7) edge [bend right] node [right] {$a$} (q5)
+            (q7) edge [bend left] node [below] {$b$} (q4);
+            \end{tikzpicture}
+        \end{center}
+
+        \item Realicemos la extensión de la tabla.
+        \begin{center}
+         \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta$ & $a$ & $b$\\
+        \hline 
+        $q_0$ & $\varnothing$ & $\{q_0,q_1\}$\\ 
+        \hline
+        $q_1$ &$\{q_1,q_2\}$ &$\varnothing$ \\ 
+        \hline
+        $q_2$& $\varnothing$& $\{q_1\}$ \\  
+        \hline
+        \hline
+        $\{q_0,q_1\}$&$\{q_1,q_2\}$&$\{q_0,q_1\}$\\
+        \hline
+        $\{q_1,q_2\}$&$\{q_1,q_2\}$&$\{q_1\}$\\ 
+        \hline             
+        \end{tabular}   
+        \end{center}
+        Los estados de aceptación serán aquellos que contengan $q_1$ y $q_2$, ademas definimos $q_3:=\{q_0,q_1\}$ y $q_4:=\{q_1,q_2\}$.
+        \begin{center}
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q3) [state, right of=q0, accepting] {$q_3$};
+            \node (q4) [state, right of=q3, accepting] {$q_4$};
+            \node (q1) [state, right of=q4, accepting] {$q_1$};
+            \path[thick]
+            (q0) edge node [above] {$b$} (q3)
+            (q3) edge node [above] {$a$} (q4)
+            (q3) edge [loop above] node [above] {$b$} ()
+            (q4) edge [loop above] node [above] {$a$} ()
+            (q4) edge [bend left] node [above] {$b$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q4);
+            \end{tikzpicture}
+        \end{center}
+
+        \item Creo que ya es evidente que es lo primero que haremos.
+        \begin{center}
+         \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta$ & $a$ & $b$\\
+        \hline 
+        $q_0$ & $\{q_0,q_1\}$ & $\varnothing$\\ 
+        \hline
+        $q_1$ &$\varnothing$ &$\{q_2\}$ \\ 
+        \hline
+        $q_2$& $\{q_0,q_1\}$& $\varnothing$ \\  
+        \hline
+        \hline
+        $\{q_0,q_1\}$&$\{q_0,q_1\}$&$\{q_2\}$\\
+        \hline           
+        \end{tabular}   
+        \end{center}
+        Los estados de aceptación son aquellos que contienen $q_0$ y $q_2$, ademas definimos $q_3:=\{q_0,q_1\}$.
+        \begin{center}
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q3) [state, right of=q0, accepting] {$q_3$};
+            \node (q2) [state, right of=q3, accepting] {$q_2$};
+            \path[thick]
+            (q0) edge node [above] {$a$} (q3)
+            (q3) edge [loop above] node [above] {$a$} ()
+            (q3) edge [bend left] node [above] {$b$} (q2)
+            (q2) edge [bend left] node [below] {$a$} (q3);
+            \end{tikzpicture}
+        \end{center}
     \end{itemize}
+
+    \textbf{Punto 2:}\\
+Note primero como ayuda que la expresión regular que describe $L_3$ es:
+$$(0\cup1)^*1(0\cup1)^2$$
+ Luego el AFN que describe este lenguaje surge de una construcción bastante natural solo observando la expresión regular.
+ \begin{center}
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, right of=q1] {$q_2$};
+            \node (q3) [state, right of=q2, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [loop above] node [above] {$0,1$} ()
+            (q0) edge node [above] {$1$} (q1)
+            (q1) edge node [above] {$0,1$} (q2)
+            (q2) edge node [above] {$0,1$} (q3);
+            \end{tikzpicture}
+        \end{center}
+
+Ahora realicemos la extensión de la tabla.
