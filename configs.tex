@@ -108,11 +108,20 @@
     headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
     numbered=no,
     mdframed={
-        linewidth=2pt,
+        linewidth=2.5pt,
         rightline=false, topline=false, bottomline=false,
         linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
     },
 ]{thmexplanationbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!3,
+    }
+]{mblue}
 
 
 \declaretheorem[style=thmgreenbox, name=Definición]{definition}
@@ -121,8 +130,21 @@
 \declaretheorem[style=thmredbox, name=Teorema]{theorem}
 \declaretheorem[style=thmredbox, name=Lema]{lemma}
 \declaretheorem[style=thmredbox, numbered=no, name=Corolario]{corollary}
+\declaretheorem[style=mblue, numbered=no, name=Tikz:]{temp}
 
-\declaretheorem[style=thmproofbox, name=\textit{Demostración}]{replacementproof}
+
+
+\usepackage{environ}
+
+\NewEnviron{basedtikz}[1][]{%
+  \begin{temp}
+    \noindent\textbf{}\par
+    \centering
+    \BODY
+  \end{temp}
+}
+
+
 
 
 \declaretheorem[style=thmblueline, numbered=no, name=Nota]{note}

@@ -149,7 +149,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
 \textbf{Punto 1:}
 \begin{itemize}[label={✎}]
     \item Como la cadena mínima es $\lambda$ entonces el estado inicial tiene que ser de aceptación, luego como también se aceptan $aes$ arbitrarias estas pueden ser aceptadas por medio de un bucle. Apenas aparezca una $b$ el autómata cambiara de estado pero ese seria también de aceptación, incluyendo un bucle para las $bes$ arbitrarias:\\
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0, accepting] {$q_1$};
@@ -158,10 +158,10 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             (q0) edge node [above] {$b$} (q1)
             (q1) edge [loop above] node {$b$} ();
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
     \item Nuevamente el estado inicial es de aceptación ya que $\lambda$ pertenece a el lenguaje, luego basta con tomar dos caminos para el caso donde sean cadenas de $aes$ y el de cadenas de $bes$:
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q1) [state, above right of=q0, accepting] {$q_1$};
@@ -172,10 +172,10 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             (q1) edge [loop above] node {$a$} ()
             (q2) edge [loop below] node {$b$} ();
         \end{tikzpicture}    
-    \end{center}
+    \end{basedtikz}
 
     \item Note que todas las cadenas de este lenguaje son de la forma $ab\dots ab$, es decir siempre son bloques $ab$ y todas las cadenas empiezan en $a$ y terminan en $b$:
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -183,10 +183,10 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             (q0) edge [bend left] node [above] {$a$} (q1)
             (q1) edge [bend left] node [below] {$b$} (q0);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
     \item Bastante similar a la anterior excepto que la cadena mínima aceptada es $ab$ debido al $+$, así que forzamos esa cadena:
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -196,10 +196,10 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             (q1) edge [bend left] node [above] {$b$} (q2)
             (q2) edge [bend left] node [below] {$a$} (q1);
         \end{tikzpicture}     
-    \end{center}
+    \end{basedtikz}
 
     \item Note que debido a la expresión se forman dos caminos, uno son las cadenas que empiezan por $a$ y luego tienen una cantidad de $bes$ arbitrarias. El otro son aquellas que comienzan por un numero de $bes$ arbitrarias pero están forzadas a terminar en $a$ para ser aceptadas:
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
             \node (q1) [state, below right of=q0, accepting] {$q_1$};
@@ -212,10 +212,10 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             (q2) edge [loop above] node [above] {$b$} ()
             (q2) edge [bend left] node [above right] {$a$} (q3);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
     \item Observe que las cadena mínima de este lenguaje tiene una sola $a$ así que el estado inicial no es de aceptación, luego note que en ambos casos de la $*$ el elemento es una $a$, por lo que forzamos dos $aes$ y posteriormente realizamos respectivamente el bucle de $aes$ y de $abes$: 
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial] {$q_0$};
                 \node (q1) [state, right of=q0, accepting] {$q_1$};
@@ -226,11 +226,11 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
                 (q2) edge [loop above] node [above] {$a$} ()
                 (q2) edge [bend left] node [below] {$b$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
     
     \item Observe que la cadena mínima es $aa$ entonces debemos forzar ese camino. Ahora note que en ese camino podemos generar el bucle para $a^+$. Note que hay dos posibilidades para las $bes$, o inicia la cadena con solo una $a$ y luego tiene una cantidad arbitraria de $bes$ o empieza con $aes$ arbitrarias y luego tiene $bes$ arbitrarias, pero note que siempre que aparece al menos una $b$ la cadena siempre acaba en $a$:
 
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -246,11 +246,11 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             (q3) edge [loop above] node [above] {$b$} ()
             (q3) edge [bend left] node [above] {$a$} (q4);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
     \item Primero notemos que las cadenas mínimas son $a$ y $b$, así que debemos forzar dos caminos que las acepten. Ahora observe que si sale una $a$ existen dos posibilidades, es seguida inmediatamente de una $b$ o salen $aes$ arbitrarias y luego si una $b$. Note que este análisis también es valido respectivamente con $b$:
 
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
             \node (q1) [state, above right of=q0, accepting] {$q_1$};
@@ -271,10 +271,10 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             (q1) edge node [below] {$b$} (q5)
             (q3) edge node [above] {$a$} (q5);     
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
 
         \item Observe que nuestras dos cadenas mínimas de aceptación son $ab$ y $ba$ así que forzamos esos dos caminos. Posteriormente para hacer que aparezcan las $bes$ arbitrarias podemos agregar un bucle en el camino donde generamos $ba$. Si lo dejáramos hasta ahí nos faltarían las cadenas de la forma $b^*ab$ pero esto se arregla fácilmente conectando el camino de $ba$ al de $ab$ colocando una $b$ entre estados de aceptación:
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial] {$q_0$};
                 \node (q1) [state, above right of=q0] {$q_1$};
@@ -289,11 +289,11 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
                 (q3) edge node [below] {$a$} (q4)
                 (q4) edge node [right] {$b$} (q2);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
 
         \item Note que el lenguaje es muy parecido a excepción de que las cadenas forzosamente acaban en por lo menos una $a$, pero lo que podemos hacer es usar el autómata construido previamente y aquellos estados de aceptación forzamos que salga una $a$ hacia un nuevo estado de aceptación que generara la concatenación de $a^+$:
 
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial] {$q_0$};
                 \node (q1) [state, above right of=q0] {$q_1$};
@@ -312,12 +312,12 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
                 (q4) edge [bend right] node [below] {$a$} (q5)
                 (q5) edge [loop right] node [right] {$a$} ();
             \end{tikzpicture}
-        \end{center} 
+        \end{basedtikz} 
     \end{itemize}
 \textbf{Punto 2:}
 \begin{itemize}[label={✎}]
     \item Recordemos que si por ejemplo queremos construir un autómata que acepte el lenguaje de las cadenas que tienen una cantidad par de $aes$ hacemos la siguiente construcción:
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -325,9 +325,9 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             (q0) edge [bend left] node [above] {$a$} (q1)
             (q1) edge [bend left] node [below] {$a$} (q0);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 Note como la construcción para cantidad par de $bes$ es la misma entonces basta simplemente con agregar un camino para estas en el autómata ya diseñado hacia un nuevo estado:
-\begin{center}
+\begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -338,11 +338,11 @@ Note como la construcción para cantidad par de $bes$ es la misma entonces basta
             (q0) edge [bend left] node [right] {$b$} (q2)
             (q2) edge [bend left] node [left] {$b$} (q0);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
 Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aquí entra en juego la recomendación de usar 4 estados para la construcción y de esta forma podremos crear estos caminos para aceptar aquellas cadenas que antes no y que si son generadas por el lenguaje:
 
-\begin{center}
+\begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -358,14 +358,14 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
             (q1) edge [bend left] node [right] {$b$} (q3)
             (q3) edge [bend left] node [left] {$b$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
     Algo importante a destacar aquí es que el único estado de aceptación es $q_0$ ya que en los demás siempre hay cantidad impar de $aes$ o $bes$. Esto es relevante ya que es la esencia del siguiente ejercicio.
 
     \item Observe que para este ejercicio tenemos ocho posibilidades en total, bueno para ser exactos simplemente tenemos que hacer $7$ ya que en el anterior ya cubrimos el caso par de $aes$ y par de $bes$. La forma en que determinaremos que estados se vuelven de aceptación es considerando cadenas básicas que cumplen las condiciones y en que estado terminan.\\
 
     \textbf{Caso 1: }Impar de $aes$ o impar de $bes$. Note que en el autómata original $q_1,q_2$ y $q_3$ no son de aceptación ya que en todos $aes$ o $bes$ son impares, luego en este caso estos tres se vuelven de aceptación mientras que $q_0$ ya no lo es.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial] {$q_0$};
             \node (q1) [state, right of=q0, accepting] {$q_1$};
@@ -381,10 +381,10 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
             (q1) edge [bend left] node [right] {$b$} (q3)
             (q3) edge [bend left] node [left] {$b$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
     \textbf{Caso 2: }Par de $aes$ o par de $bes$. Observe que el estado $q_0$ lo mantenemos como aceptación, luego note que la cadena $abb$ es aceptada por la condición y si seguimos este camino en el autómata $q_1$ debe ser de aceptación. De la misma manera $q_2$ tiene que ser de aceptación ya que la cadena $baa$ también es aceptada.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0, accepting] {$q_1$};
@@ -400,10 +400,10 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
             (q1) edge [bend left] node [right] {$b$} (q3)
             (q3) edge [bend left] node [left] {$b$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
     \textbf{Caso 3: }Impar de $aes$ e impar de $bes$. Note que en la construcción anterior el estado $q_3$ no es de aceptación ya que es el único lugar donde $aes$ y $bes$ son impares, entonces para este caso ese va a ser nuestro único estado de aceptación.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -419,10 +419,10 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
             (q1) edge [bend left] node [right] {$b$} (q3)
             (q3) edge [bend left] node [left] {$b$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
     \textbf{Caso 4: }Par de $aes$ e impar de $bes$. Observe que una cadena aceptada por estas condiciones es la cadena $baa$ y esta es aceptada en $q_2$ luego este tiene que ser de aceptación. Ahora note que ninguno de los demás es de aceptación ya que $q_0,q_1$ aceptan cadenas con un numero par de $bes$ y $q_3$ acepta cadenas con un numero impar de $aes$.
-\begin{center}
+\begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -438,9 +438,9 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
             (q1) edge [bend left] node [right] {$b$} (q3)
             (q3) edge [bend left] node [left] {$b$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
     \textbf{Caso 5: }Impar de $aes$ o par de $bes$. Por las $bes$ pares $q_0$ es de aceptación. Por el impar de $aes$, $q_1$ y $q_3$ son de aceptación.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0, accepting] {$q_1$};
@@ -456,9 +456,9 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
             (q1) edge [bend left] node [right] {$b$} (q3)
             (q3) edge [bend left] node [left] {$b$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
     \textbf{Caso 6: }Impar de $aes$ y par de $bes$. Una cadena que debe ser aceptada es por ejemplo $abb$, luego el estado que la acepta es $q_1$, ademas note que los demás estados no son de aceptación ya que aceptan las cadenas $\lambda,b$ y $ab$ que no cumplen las condiciones.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial] {$q_0$};
             \node (q1) [state, right of=q0, accepting] {$q_1$};
@@ -474,9 +474,9 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
             (q1) edge [bend left] node [right] {$b$} (q3)
             (q3) edge [bend left] node [left] {$b$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
     \textbf{Caso 7: }Par de $aes$ o Impar de $bes$.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -492,7 +492,7 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
             (q1) edge [bend left] node [right] {$b$} (q3)
             (q3) edge [bend left] node [left] {$b$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 
 Observe que por ejemplo la condición del caso $7$ es la negación de la condición del caso $6$. Ademas los estados de aceptación del caso $6$ son de no aceptación en el caso $7$ y viceversa. Esto quedaría mas que nada como una mera curiosidad sino fuera por que posteriormente se mostrara que esta es una forma de construir autómatas para lenguajes que tienen una condición negativa. Primero se construirá el autómata que acepta la condición positiva y luego para aceptar la negación se cambian los estados de aceptación a no aceptación y viceversa.
 \end{itemize}
@@ -501,7 +501,7 @@ Observe que por ejemplo la condición del caso $7$ es la negación de la condici
 \textbf{Punto 3: }
 \begin{itemize}[label={✎}]
     \item Primero debemos forzar el camino para aceptar $01$ que es la cadena mínima.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
         \node (q1) [state, right of=q0] {$q_1$};
@@ -510,9 +510,9 @@ Observe que por ejemplo la condición del caso $7$ es la negación de la condici
         (q0) edge [bend left] node [above] {$0$} (q1)
         (q1) edge [bend left] node [above] {$1$} (q2);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
     Ahora observe la cadena puede empezar por unos arbitrarios, estos lo generamos por medio de un bucle en el estado inicial. Luego lo mismo pasa en $q_1$ pero con ceros. Por ultimo al estar ya en el estado de aceptación note que si sale un $0$ o un $1$ la cadena dejaría de ser de aceptada y uno estaría tentado a pensar que van a un estado limbo y que el autómata quedaría de la siguiente forma:
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
         \node (q1) [state, right of=q0] {$q_1$};
@@ -523,9 +523,9 @@ Observe que por ejemplo la condición del caso $7$ es la negación de la condici
         (q1) edge [loop above] node [above] {$0$} ()
         (q1) edge [bend left] node [above] {$1$} (q2);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son aceptadas por el autómata. Esto se arregla fácilmente con añadir los bucles correspondientes desde el ultimo estado.
-    \begin{center}
+    \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
         \node (q1) [state, right of=q0] {$q_1$};
@@ -538,9 +538,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q2) edge [bend left=60] node [below] {$1$} (q0)
         (q1) edge [bend left] node [above] {$1$} (q2);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         \item Primero forzamos la mínima cadena par de unos que es $11$, luego realizamos la construcción para obtener cantidad par de unos y añadimos bucles de $0$ en todos los estados ya que estos no tienen restricción alguna.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
         \node (q1) [state, right of=q0] {$q_1$};
@@ -553,9 +553,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q1) edge [bend left] node [above] {$1$} (q2)
         (q2) edge [loop above] node [above] {$0$} ();
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         \item Al igual que hacíamos con las expresiones regulares, hacemos primero que se acepten todas las cadenas de longitud $4$ que son las mínimas y posteriormente por medio de un bucle se generaran todas las demás.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
         \node (q1) [state, right of=q0] {$q_1$};
@@ -569,9 +569,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q3) edge node [above] {$0,1$} (q4)
         (q4) edge [loop above] node [above] {$0,1$} ();
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         \item Nuevamente forzaremos el hecho de que hayan al menos dos unos seguidos, en el primer estado agregaremos un bucle de $0$ ya que estos pueden ser arbitrarios y en el ultimo un bucle $0,1$ ya que ahi ya se cumple la condición entonces da igual que salga después
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
         \node (q1) [state, right of=q0] {$q_1$};
@@ -583,11 +583,11 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q1) edge node [above] {$1$} (q2)
         (q2) edge [loop above] node [above] {$0,1$} ();
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         Note que agregamos una flecha de $q_1$ a $q_0$ con etiqueta $0$ ya que esto permite aceptar cadenas como $101011001$ que sin este no serian aceptadas.
 
         \item Observe que debemos construir el camino forzando a que halla por lo menos un $1$ entre dos ceros (no olvide que la cadena $\lambda$ es de aceptación en este lenguaje).
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial, accepting] {$q_0$};
                 \node (q1) [state, right of=q0] {$q_1$};
@@ -601,10 +601,10 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
                 (q2) edge node [above] {$0$} (q3)
                 (q3) edge [bend left] node [below] {$1$} (q0);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         Note que estamos acostumbrados a que cuando hacemos la construcción de pares el bucle se hace con los que queremos forzar a ser pares, pero en este caso se vuelve al estado inicial por medio de un $1$ es debido a que la condición de que no pueden haber $2$ ceros consecutivos.
         \item Note que podemos formar los respectivos bucles por separado ya que la cadena empieza por $01$ o por $101$ y luego estas se concatenan en cualquier  orden pero siempre son esos dos bloques.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial, accepting] {$q_0$};
                 \node (q1) [state, below left of=q0] {$q_1$};
@@ -617,9 +617,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
                 (q1) edge node [below] {$0$} (q2)
                 (q2) edge node [above] {$1$} (q0);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         \item (No se como explicarlo bien aun)
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
             \node (q1) [state, right of=q0, accepting] {$q_1$};
@@ -639,13 +639,13 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
             (q5) edge [bend left] node [below] {$0$} (q4)
             (q5) edge [loop above] node [above] {$1$} ();
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
 \end{itemize}
 
 \textbf{Punto 4:}
 \begin{itemize}[label={✎}]
     \item Basta con forzar los bucles para cada elemento y el hecho de que todas las cadenas tienen la misma secuencia de elementos, $aes$ arbitrarias luego $bes$ arbitrarias y por ultimo $ces$ arbitrarias.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0, accepting] {$q_1$};
@@ -657,9 +657,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
             (q0) edge node [above] {$b$} (q1) 
             (q1) edge node [above] {$c$} (q2);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
     \item Haremos una construcción por dos caminos distintos a partir de las cadenas mínimas. La primera es el camino que se forma con la cadena $a$.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
         \node (q1) [state, above right of=q0, accepting] {$q_1$};
@@ -676,10 +676,10 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q3) edge [bend left] node [above] {$b$} (q4)
         (q4) edge [loop right] node [right] {$b$} ();
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
     Esta construcción se puede ver un tanto enredada pero si nos fijamos detalladamente simplemente se están considerando tres casos, primero las cadenas de la forma $ac^*$, segundo las cadenas de la forma $ab^*$ y por ultimo las $aa^+b^*$ (note que es necesario dividir estos dos últimos caminos así debido a la definición de los AFD).
     Ahora solo nos falta construir el camino para aceptar cadenas de la forma $b^*ca^*$.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
         \node (q1) [state, above right of=q0, accepting] {$q_1$};
@@ -703,10 +703,10 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q6) edge [loop below] node [below] {$a$} ()
         (q0) edge node [above] {$c$} (q6);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
     Note como forzamos la cadena mínima $c$ y usamos un estado extra para generar el bucle de $bes$ ya que si no lo hacemos y colocamos ese bucle en $q_0$ alteraríamos toda la parte superior del autómata. De esta forma ya estamos considerando todas las cadenas que son dadas aceptadas en el lenguaje.
     \item Observe que las cadenas mínimas son $ba$ y $ca$ luego basta con forzarlas y notar que ademas de las $aes$ arbitrarias iniciales siempre luego de una $b$ o $c$ va una $a$ y viceversa.
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$}; 
         \node (q1) [state, right of=q0] {$q_1$};
@@ -717,13 +717,13 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q1) edge [bend left] node [above] {$a$} (q2)
         (q2) edge [bend left] node [below] {$b,c$} (q1);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
 \end{itemize}
 
 \textbf{Punto 5:} Primero es bastante evidente por la definición que se nos da que la expresión regular que determina a $L$ es:
 $$(aa)^*(bbb)^*=\left(a^2\right)^*\left(b^3\right)^*$$
 Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero realizar la construcción para obtener una cantidad par de $aes$ y posteriormente agregamos un camino para aceptar cantidad de $bes$ que sean múltiplos de $3$ (esta construcción es muy parecida a la de pares solo que en vez de concatenar bloques $bb$ estamos concatenando bloques $bbb$).
-    \begin{center}
+    \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -738,7 +738,7 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q3) edge node [above] {$b$} (q4)
             (q4) edge [bend left=45] node [below] {$b$} (q2);
         \end{tikzpicture}
-    \end{center}
+    \end{basedtikz}
     Uno podría pensar que para hacer que se aceptaran esos bloques de $bbb$ sobra ese estado final y se puede ahorrar haciendo que vaya una flecha de $q_3$ a $q_0$ con la etiqueta $b$, pero note que eso causaría que las cadenas de la forma $(bbb)^*(aa)^*$ fueran aceptadas lo cual no es contemplado dentro del lenguaje.
     
     $\hfill \blacklozenge$
@@ -752,7 +752,7 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
   \begin{itemize}[label={✎}]
 
         \item Tenemos que asegurar que toda cadena empiece por una $a$, luego simplemente generamos los dos bucles necesarios uno para $aes$ arbitrarias y el otro para bloques $ab$.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial] {$q_0$}; 
                \node (q1) [state, right of=q0, accepting] {$q_1$};
@@ -763,10 +763,10 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
                (q1) edge [bend left] node [above] {$a$} (q2)
                (q2) edge [bend left] node [below] {$b$} (q1);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         Observe que este es un AFN ya que hay dos flechas con etiqueta $a$ saliendo desde $q_1$.
         \item Para la construcción forzamos la cadena mínima $aa$ junto a el bucle de $aes$ inicial.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial] {$q_0$}; 
                \node (q1) [state, right of=q0] {$q_1$};
@@ -780,10 +780,10 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
                (q3) edge [loop below] node [below] {$b$} ()
                (q3) edge [bend right] node [below] {$a$} (q2);  
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         Note que las $bes$ intermedias las agregamos por medio de un estado extra generando un camino nuevo.
         \item Basta con construir un camino para las cadenas mínimas $a$ y $b$, luego construimos dos caminos extra para aceptar $a^*b$ y $b^*a$ respectivamente.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial] {$q_0$}; 
                \node (q1) [state, above right of=q0] {$q_1$}; 
@@ -798,9 +798,9 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
                (q1) edge [loop above] node [above] {$a$} ()
                (q2) edge [loop below] node [below] {$b$} ();
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         \item Forzaremos las $bes$ arbitrarias en el primer estado y luego generamos los caminos correspondientes para la concatenación de $ab$ y $ba$.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial, accepting] {$q_0$}; 
                \node (q1) [state, above right of=q0] {$q_1$}; 
@@ -815,9 +815,9 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
                (q2) edge [bend right] node [below] {$a$} (q3)
                (q3) edge [bend right] node [above] {$b$} (q2);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         \item Observe que el lenguaje es exactamente igual al anterior a excepción de que ahora las cadenas pueden terminar en un numero arbitrario de $aes$, pero como estamos construyendo un AFN basta con notar que agregando un nuevo estado que sea de aceptación con un bucle de $aes$ es suficiente.
-        \begin{center}
+        \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial, accepting] {$q_0$}; 
                \node (q1) [state, above right of=q0] {$q_1$}; 
@@ -835,14 +835,14 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
                (q3) edge node [above] {$a$} (q4)
                (q4) edge [loop above] node [above] {$a$} ();
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
     \end{itemize}
 
     \textbf{Punto 2:}  
 
     \begin{itemize}[label={✎}]
         \item Simplemente construimos los caminos para aceptar $01$ y $001$ por separado.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q1) [state, above right of=q0] {$q_1$};
@@ -855,9 +855,10 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q2) edge node [below] {$0$} (q3)
             (q3) edge node [above] {$1$} (q0);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         \item Nuevamente basta con construir los caminos correspondientes a $01^*0$ y $10^*$.
-        \begin{center}
+        
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -871,10 +872,12 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q0) edge [loop above] node [above] {$1$} ()
             (q1) edge [loop above] node [above] {$1$} ();
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
+
         Observe que es necesario incluir ese bucle con etiqueta $1$ para aceptar cuando solo hay unos en la expresión $10^*$ (es decir en el caso donde $1$ se concatena con $\lambda$). 
+
         \item Construimos los caminos de las cadenas $10^*1$ y $01$.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
             \node (q1) [state, right of=q0] {$q_1$};
@@ -891,7 +894,7 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q4) edge node [below] {$0$} (q1)
             (q4) edge [loop below] node [below] {$1$} ();
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
         Note que usamos un estado adicional para construir el camino para aceptar $1^*01$.
     \end{itemize}
 
@@ -906,8 +909,9 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
 
     \begin{itemize}[label={✎}]
         \item Primero realicemos la extensión de la tabla.
-        \begin{center}
-         \begin{tabular}{|c|c|c|}
+       
+       \begin{center}
+               \begin{tabular}{|c|c|c|}
         \hline
         $\Delta$ & $a$ & $b$\\
         \hline 
@@ -919,17 +923,18 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         \hline
         $q_3$&$\varnothing$&$\{q_0\}$\\ 
         \hline
-        \hline  
+    
         $\{q_1,q_2\}$&$\{q_0,q_3\}$&$\varnothing$\\ 
         \hline
         $\{q_0,q_3\}$&$\varnothing$&$\{q_0,q_1,q_2\}$\\
         \hline
         $\{q_0,q_1,q_2\}$&$\{q_0,q_3\}$&$\{q_1,q_2\}$\\ 
         \hline
-        \end{tabular}   
-        \end{center}
+        \end{tabular}
+       \end{center}
+       
         En el AFN original teníamos que los estados de aceptación eran $q_0$ y $q_3$ luego en el AFD los estados de aceptación son todos aquellos que contengan alguno de estos dos. Por  estética definiremos $q_4:=\{q_1,q_2\},q_5:=\{q_0,q_3\}$ y $q_6:=\{q_0,q_1,q_2\}$. 
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q4) [state, right of=q0] {$q_4$};
@@ -942,12 +947,12 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q6) edge [bend left] node [below] {$a$} (q5)
             (q6) edge [bend left=60] node [below] {$b$} (q4);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
 
         \item Realicemos la extensión de la tabla.
 
         \begin{center}
-         \begin{tabular}{|c|c|c|}
+            \begin{tabular}{|c|c|c|}
         \hline
         $\Delta$ & $a$ & $b$\\
         \hline 
@@ -972,7 +977,7 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         \end{center}
         Nuevamente los estados de aceptación del AFD son todos aquellos que contienen $q_0$ o $q_3$. Ahora definimos $q_4:=\{q_1,q_2\},q_5:=\{q_0,q_1,q_3\},q_6:=\{q_0,q_1\}$ y $q_7:=\{q_0,q_1,q_2\}$.
 
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q4) [state, right of=q0] {$q_4$};
@@ -989,11 +994,11 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q7) edge [bend right] node [right] {$a$} (q5)
             (q7) edge [bend left] node [below] {$b$} (q4);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
 
         \item Realicemos la extensión de la tabla.
         \begin{center}
-         \begin{tabular}{|c|c|c|}
+             \begin{tabular}{|c|c|c|}
         \hline
         $\Delta$ & $a$ & $b$\\
         \hline 
@@ -1011,7 +1016,7 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         \end{tabular}   
         \end{center}
         Los estados de aceptación serán aquellos que contengan $q_1$ y $q_2$, ademas definimos $q_3:=\{q_0,q_1\}$ y $q_4:=\{q_1,q_2\}$.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
             \node (q3) [state, right of=q0, accepting] {$q_3$};
@@ -1025,11 +1030,11 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q4) edge [bend left] node [above] {$b$} (q1)
             (q1) edge [bend left] node [below] {$a$} (q4);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
 
         \item Creo que ya es evidente que es lo primero que haremos.
-        \begin{center}
-         \begin{tabular}{|c|c|c|}
+      \begin{center}
+          \begin{tabular}{|c|c|c|}
         \hline
         $\Delta$ & $a$ & $b$\\
         \hline 
@@ -1043,9 +1048,9 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         $\{q_0,q_1\}$&$\{q_0,q_1\}$&$\{q_2\}$\\
         \hline           
         \end{tabular}   
-        \end{center}
+      \end{center}
         Los estados de aceptación son aquellos que contienen $q_0$ y $q_2$, ademas definimos $q_3:=\{q_0,q_1\}$.
-        \begin{center}
+        \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
             \node (q3) [state, right of=q0, accepting] {$q_3$};
@@ -1056,25 +1061,29 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q3) edge [bend left] node [above] {$b$} (q2)
             (q2) edge [bend left] node [below] {$a$} (q3);
             \end{tikzpicture}
-        \end{center}
+        \end{basedtikz}
     \end{itemize}
 
     \textbf{Punto 2:}\\
+
 Note primero como ayuda que la expresión regular que describe $L_3$ es:
 $$(0\cup1)^*1(0\cup1)^2$$
  Luego el AFN que describe este lenguaje surge de una construcción bastante natural solo observando la expresión regular.
- \begin{center}
-            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
-            \node (q0) [state, initial] {$q_0$};
-            \node (q1) [state, right of=q0] {$q_1$};
-            \node (q2) [state, right of=q1] {$q_2$};
-            \node (q3) [state, right of=q2, accepting] {$q_3$};
-            \path[thick]
-            (q0) edge [loop above] node [above] {$0,1$} ()
-            (q0) edge node [above] {$1$} (q1)
-            (q1) edge node [above] {$0,1$} (q2)
-            (q2) edge node [above] {$0,1$} (q3);
-            \end{tikzpicture}
-        \end{center}
+ 
+ \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+    \node (q0) [state, initial] {$q_0$};
+    \node (q1) [state, right of=q0] {$q_1$};
+    \node (q2) [state, right of=q1] {$q_2$};
+    \node (q3) [state, right of=q2, accepting] {$q_3$};
+    \path[thick]
+    (q0) edge [loop above] node [above] {$0,1$} ()
+    (q0) edge node [above] {$1$} (q1)
+    (q1) edge node [above] {$0,1$} (q2)
+    (q2) edge node [above] {$0,1$} (q3);
+    \end{tikzpicture}
+\end{basedtikz}
 
 Ahora realicemos la extensión de la tabla.
+
+
