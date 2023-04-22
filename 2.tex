@@ -199,6 +199,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
     \end{basedtikz}
 
     \item Note que debido a la expresión se forman dos caminos, uno son las cadenas que empiezan por $a$ y luego tienen una cantidad de $bes$ arbitrarias. El otro son aquellas que comienzan por un numero de $bes$ arbitrarias pero están forzadas a terminar en $a$ para ser aceptadas:
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
@@ -214,7 +215,8 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}
     \end{basedtikz}
 
-    \item Observe que las cadena mínima de este lenguaje tiene una sola $a$ así que el estado inicial no es de aceptación, luego note que en ambos casos de la $*$ el elemento es una $a$, por lo que forzamos dos $aes$ y posteriormente realizamos respectivamente el bucle de $aes$ y de $abes$: 
+    \item Observe que las cadena mínima de este lenguaje tiene una sola $a$ así que el estado inicial no es de aceptación, luego note que en ambos casos de la $*$ el elemento es una $a$, por lo que forzamos dos $aes$ y posteriormente realizamos respectivamente el bucle de $aes$ y de $abes$:
+
     \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial] {$q_0$};
@@ -227,9 +229,9 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
                 (q2) edge [bend left] node [below] {$b$} (q1);
         \end{tikzpicture}
     \end{basedtikz}
-    
+     
     \item Observe que la cadena mínima es $aa$ entonces debemos forzar ese camino. Ahora note que en ese camino podemos generar el bucle para $a^+$. Note que hay dos posibilidades para las $bes$, o inicia la cadena con solo una $a$ y luego tiene una cantidad arbitraria de $bes$ o empieza con $aes$ arbitrarias y luego tiene $bes$ arbitrarias, pero note que siempre que aparece al menos una $b$ la cadena siempre acaba en $a$:
-
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
@@ -274,6 +276,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{basedtikz}
 
         \item Observe que nuestras dos cadenas mínimas de aceptación son $ab$ y $ba$ así que forzamos esos dos caminos. Posteriormente para hacer que aparezcan las $bes$ arbitrarias podemos agregar un bucle en el camino donde generamos $ba$. Si lo dejáramos hasta ahí nos faltarían las cadenas de la forma $b^*ab$ pero esto se arregla fácilmente conectando el camino de $ba$ al de $ab$ colocando una $b$ entre estados de aceptación:
+        \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial] {$q_0$};
@@ -365,6 +368,7 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
     \item Observe que para este ejercicio tenemos ocho posibilidades en total, bueno para ser exactos simplemente tenemos que hacer $7$ ya que en el anterior ya cubrimos el caso par de $aes$ y par de $bes$. La forma en que determinaremos que estados se vuelven de aceptación es considerando cadenas básicas que cumplen las condiciones y en que estado terminan.\\
 
     \textbf{Caso 1: }Impar de $aes$ o impar de $bes$. Note que en el autómata original $q_1,q_2$ y $q_3$ no son de aceptación ya que en todos $aes$ o $bes$ son impares, luego en este caso estos tres se vuelven de aceptación mientras que $q_0$ ya no lo es.
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial] {$q_0$};
@@ -476,6 +480,7 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
         \end{tikzpicture}
     \end{basedtikz}
     \textbf{Caso 7: }Par de $aes$ o Impar de $bes$.
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial, accepting] {$q_0$};
@@ -619,6 +624,7 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
             \end{tikzpicture}
         \end{basedtikz}
         \item (No se como explicarlo bien aun)
+        \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
@@ -766,6 +772,7 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         \end{basedtikz}
         Observe que este es un AFN ya que hay dos flechas con etiqueta $a$ saliendo desde $q_1$.
         \item Para la construcción forzamos la cadena mínima $aa$ junto a el bucle de $aes$ inicial.
+        \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial] {$q_0$}; 
@@ -800,6 +807,7 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             \end{tikzpicture}
         \end{basedtikz}
         \item Forzaremos las $bes$ arbitrarias en el primer estado y luego generamos los caminos correspondientes para la concatenación de $ab$ y $ba$.
+        \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial, accepting] {$q_0$}; 
@@ -1050,6 +1058,7 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         \end{tabular}   
       \end{center}
         Los estados de aceptación son aquellos que contienen $q_0$ y $q_2$, ademas definimos $q_3:=\{q_0,q_1\}$.
+        \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
@@ -1085,5 +1094,257 @@ $$(0\cup1)^*1(0\cup1)^2$$
 \end{basedtikz}
 
 Ahora realicemos la extensión de la tabla.
+
+\begin{center}
+          \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta$ & $0$ & $1$\\
+        \hline 
+        $q_0$ & $\{q_0\}$ & $\{q_0,q_1\}$\\ 
+        \hline
+        $q_1$ &$\{q_2\}$ &$\{q_2\}$ \\ 
+        \hline
+        $q_2$& $\{q_3\}$& $\{q_3\}$ \\  
+        \hline
+        $q_3$& $\varnothing$& $\varnothing$ \\
+        \hline
+        \hline 
+        $\{q_0,q_1\}$&$\{q_0,q_2\}$&$\{q_0,q_1,q_2\}$\\
+        \hline
+        $\{q_0,q_2\}$&$\{q_0,q_3\}$&$\{q_0,q_1,q_3\}$\\
+        \hline
+        $\{q_0,q_1,q_2\}$&$\{q_0,q_2,q_3\}$&$\{q_0,q_1,q_2,q_3\}$\\
+        \hline
+        $\{q_0,q_3\}$&$\{q_0\}$&$\{q_0,q_1\}$\\
+        \hline
+        $\{q_0,q_1,q_3\}$&$\{q_0,q_2\}$&$\{q_0,q_1,q_2\}$\\
+        \hline
+        $\{q_0,q_2,q_3\}$&$\{q_0,q_3\}$&$\{q_0,q_1,q_3\}$\\
+        \hline
+        $\{q_0,q_1,q_2,q_3\}$&$\{q_0,q_2,q_3\}$&$\{q_0,q_1,q_2,q_3\}$\\
+        \hline
+        \end{tabular}
+      \end{center}
+Ahora observe que en el AFD los estados de aceptación serán aquellos que contengan a $q_3$, ademas definimos $q_4:=\{q_0,q_1\},q_5:=\{q_0,q_2\},q_6:=\{q_0,q_1,q_2\},q_7:=\{q_0,q_3\},q_8:=\{q_0,q_1,q_3\},q_9:=\{q_0,q_2,q_3\}$ y $q_{10}:=\{q_0,q_1,q_2,q_3\}$.
+\pagebreak
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+    \node (q0) [state, initial] {$q_0$};
+    \node (q4) [state, right of=q0] {$q_4$};
+    \node (q5) [state, right of=q4] {$q_5$};
+    \node (q7) [state, right of=q5, accepting] {$q_7$};
+    \node (q6) [state, below of=q4] {$q_6$};
+    \node (q8) [state, right of=q6, accepting] {$q_8$};
+    \node (q9) [state, right of=q8, accepting] {$q_9$};
+    \node (q10) [state, below of=q8, accepting] {$q_{10}$};
+    \path[thick]
+    (q0) edge [loop below] node [below] {$0$} ()
+    (q0) edge node [above] {$1$} (q4)
+    (q4) edge node [above] {$0$} (q5)
+    (q4) edge node [left] {$1$} (q6)
+    (q5) edge node [above] {$0$} (q7)
+    (q5) edge [bend left] node [right] {$1$} (q8)
+    (q7) edge [bend right=60] node [above] {$0$} (q0)
+    (q7) edge [bend right=45] node [above] {$1$} (q4)
+    (q6) edge [bend right=45] node [below] {$0$} (q9)
+    (q6) edge [bend right] node [below] {$1$} (q10)
+    (q8) edge [bend left] node [left] {$0$} (q5)
+    (q8) edge node [above] {$1$} (q6)
+    (q9) edge node [right] {$0$} (q7)
+    (q9) edge node [above] {$1$} (q8)
+    (q10) edge [bend right] node [below] {$0$} (q9)
+    (q10) edge [loop below] node [below] {$1$} ();
+    \end{tikzpicture}
+\end{basedtikz}
+
+\textbf{Punto 3:}(Los puntos de demostraciones serán realizados luego)\\
+
+\textbf{Punto 4:}\\
+
+$\hfill \blacklozenge$
+
+\section{Autómatas con transiciones \texorpdfstring{\boldmath$\lambda$}{lambda} (AFN-\texorpdfstring{\boldmath$\lambda$}{lambda})} 
+
+Si bien previamente habíamos observado como los AFN eran bastante fáciles de construir, en esta sección nos daremos cuenta de que existe incluso construcciones aun mas sencillas, que son los AFN-$\lambda$. En esta sección veremos como construirlos y luego observaremos su relevancia.\\
+
+\textbf{Punto 1:}
+
+\begin{itemize}[label={✎}]
+    \item Para este autómata realizaremos una construcción en serie, concatenando los autómatas respectivos de cada parte del lenguaje, note que $a$ es la mínima cadena de aceptación.
+    \begin{basedtikz}
+       \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+       \node (q0) [state, initial] {$q_0$};
+       \node (q1) [state, below of=q0] {$q_1$};
+       \node (q2) [state, right of=q0] {$q_2$};
+       \node (q3) [state, right of=q2] {$q_3$};
+       \node (q4) [state, right of=q3, accepting] {$q_4$};
+       \path[thick]
+       (q0) edge [loop above] node [above] {$b$} ()
+       (q0) edge [bend right] node [left] {$a$} (q1)
+       (q1) edge [bend right] node [right] {$b$} (q0)
+       (q0) edge node [above] {$\lambda$} (q2)
+       (q2) edge node [above] {$a$} (q3)
+       (q3) edge [loop above] node [above] {$b$} ()
+       (q3) edge node [above] {$\lambda$} (q4)
+       (q4) edge [loop above] node [above] {$a$} ();
+       \end{tikzpicture} 
+    \end{basedtikz}
+
+    \item Basta con realizar una construcción en paralelo para cada expresión de la unión.
+
+    \begin{basedtikz}
+       \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+       \node (q0) [state, initial] {$q_0$};
+       \node (q1) [state, right of=q0] {$q_1$};
+       \node (q2) [state, right of=q1, accepting] {$q_2$};
+       \node (q3) [state, above of=q1] {$q_3$};
+       \node (q4) [state, right of=q3, accepting] {$q_4$};
+       \node (q5) [state, below of=q1] {$q_5$};
+       \node (q6) [state, right of=q5, accepting] {$q_6$};
+       \node (q7) [state, right of=q6] {$q_7$};
+       \node (q8) [state, below of=q6] {$q_6$};
+       \path[thick]
+       (q0) edge node [above] {$\lambda$} (q1)
+       (q0) edge node [above] {$\lambda$} (q3)
+       (q0) edge node [below] {$\lambda$} (q5)
+       (q1) edge node [above] {$b$} (q2)
+       (q2) edge [loop right] node [right] {$a$} ()
+       (q3) edge node [above] {$a$} (q4)
+       (q4) edge [loop right] node [right] {$b$} ()
+       (q5) edge node [above] {$b$} (q6)
+       (q6) edge [bend left] node [above] {$a$} (q7)
+       (q7) edge [bend left] node [below] {$b$} (q6)
+       (q6) edge [bend right] node [left] {$b$} (q8)
+       (q8) edge [bend right] node [right] {$a$} (q6);
+       \end{tikzpicture} 
+    \end{basedtikz}
+
+    \item Nuevamente realizaremos una construcción en serie, note que la cadena $\lambda$ es la mínima que se acepta.
+
+    \begin{basedtikz}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+         \node (q0) [state, initial] {$q_0$};
+         \node (q1) [state, below of=q0] {$q_1$};
+         \node (q2) [state, right of=q1] {$q_2$};
+         \node (q3) [state, right of=q0] {$q_3$};
+         \node (q4) [state, right of=q3] {$q_4$};
+         \node (q5) [state, above of=q4] {$q_5$};
+         \node (q6) [state, below of=q4] {$q_6$};
+         \node (q7) [state, right of=q4, accepting] {$q_7$};
+         \path[thick]
+         (q0) edge [loop above] node [above] {$a$} ()
+         (q0) edge node [left] {$a$} (q1)
+         (q1) edge node [below] {$b$} (q2)
+         (q2) edge node [above] {$a$} (q0)
+         (q0) edge node [above] {$\lambda$} (q3)
+         (q3) edge [loop above] node [above] {$b$} ()
+         (q3) edge node [above] {$\lambda$} (q4)
+         (q4) edge [bend left] node [left] {$a$} (q5)
+         (q5) edge [bend left] node [right] {$b$} (q4)
+         (q4) edge [bend left] node [right] {$b$} (q6)
+         (q6) edge [bend left] node [left] {$a$} (q4)
+         (q4) edge node [above] {$\lambda$} (q7)
+         (q7) edge [loop above] node [above] {$a$} ();
+        \end{tikzpicture}
+    \end{basedtikz}
+\end{itemize}
+
+\textbf{Punto 2:}
+
+\begin{itemize}[label={✎}]
+    \item El único autómata que puede resultar un poco complicado de construir es el de la expresión inicial $(1\cup01\cup001)^*$ pero basta con 3 estados, luego simplemente es realizar una construcción en serie.
+    \begin{basedtikz}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+         \node (q0) [state, initial] {$q_0$};
+         \node (q1) [state, below of=q0] {$q_1$};
+         \node (q2) [state, right of=q1] {$q_2$};
+         \node (q3) [state, right of=q0] {$q_3$};  
+         \node (q4) [state, right of=q3] {$q_4$}; 
+         \node (q5) [state, right of=q4, accepting] {$q_5$};
+         \path[thick]
+         (q0) edge [loop above] node [above] {$1$} ()
+         (q0) edge [bend right] node [left] {$0$} (q1)
+         (q1) edge [bend right] node [right] {$1$} (q0)
+         (q1) edge node [below] {$0$} (q2)
+         (q2) edge node [above] {$1$} (q0)
+         (q0) edge node [above] {$\lambda$} (q3)
+         (q3) edge [loop above] node [above] {$0$} ()
+         (q3) edge node [above] {$\lambda$} (q4)
+         (q4) edge [loop above] node [above] {$1$} ()
+         (q4) edge node [above] {$0$} (q5)
+         (q5) edge [loop above] node [above] {$0$} ();
+        \end{tikzpicture}
+    \end{basedtikz}
+
+    \item Nuevamente una construcción en serie basta.
+
+    \begin{basedtikz}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+         \node (q0) [state, initial] {$q_0$};
+         \node (q1) [state, right of=q0] {$q_1$};
+         \node (q2) [state, right of=q1] {$q_2$};
+         \node (q3) [state, below of=q2] {$q_3$};  
+         \node (q4) [state, left of=q3] {$q_4$}; 
+         \node (q5) [state, right of=q2] {$q_5$};
+         \node (q6) [state, above of=q5] {$q_6$};
+         \node (q7) [state, below of=q5] {$q_7$};
+         \node (q8) [state, right of=q5, accepting] {$q_8$};
+         \path[thick]
+         (q0) edge node [above] {$0$} (q1)
+         (q1) edge [loop above] node [above] {$0$} ()
+         (q1) edge node [above] {$1$} (q2)
+         (q2) edge node [right] {$0$} (q3)
+         (q3) edge node [below] {$1$} (q4)
+         (q4) edge node [above] {$0$} (q2)
+         (q2) edge node [above] {$\lambda$} (q5)
+         (q5) edge [bend left] node [left] {$0$} (q6)
+         (q6) edge [bend left] node [right] {$1$} (q5)
+         (q5) edge [bend left] node [right] {$1$} (q7)
+         (q7) edge [bend left] node [left] {$0$} (q5)
+         (q5) edge node [above] {$1$} (q8)
+         (q8) edge [loop above] node [above] {$1$} ();
+        \end{tikzpicture}
+    \end{basedtikz}
+
+    \item Observe que en este caso usaremos tanto la construcción paralela como la construcción en serie ya que uno de los caminos es relativamente complicado de construir pero con esta construcción es mucho mas sencillo.
+    
+    \begin{basedtikz}
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+         \node (q0) [state, initial] {$q_0$};
+         \node (q1) [state, above right of=q0] {$q_1$};
+         \node (q2) [state, right of=q1] {$q_2$};
+         \node (q3) [state, right of=q2, accepting] {$q_3$};
+         \node (q4) [state, below right of=q0] {$q_4$};
+         \node (q5) [state, right of=q4] {$q_5$};
+         \node (q6) [state, below of=q5] {$q_6$};
+         \node (q7) [state, right of=q5] {$q_7$};
+         \node (q8) [state, right of=q7, accepting] {$q_8$};
+         \node (q9) [state, above of=q8] {$q_9$};
+         \node (q10) [state, below of=q8] {$q_{10}$};
+         \path[thick]
+         (q0) edge [bend left] node [above] {$\lambda$} (q1)
+         (q1) edge node [above] {$1$} (q2)
+         (q2) edge node [above] {$0$} (q3)
+         (q3) edge [bend right=45] node [above] {$1$} (q1)
+         (q0) edge [bend right] node [below] {$\lambda$} (q4)
+         (q4) edge [loop above] node [above] {$1$} ()
+         (q4) edge node [above] {$\lambda$} (q5)
+         (q5) edge [loop above] node [above] {$1$} ()
+         (q5) edge [bend right] node [left] {$1$} (q6)
+         (q6) edge [bend right] node [right] {$0$} (q5)
+         (q5) edge node [above] {$0$} (q7)
+         (q7) edge [loop above] node [above] {$0$} ()
+         (q7) edge node [above] {$\lambda$} (q8)
+         (q8) edge [bend left] node [left] {$0$} (q9)
+         (q9) edge [bend left] node [right] {$1$} (q8)
+         (q8) edge [bend left] node [right] {$1$} (q10)
+         (q10) edge [bend left] node [left] {$0$} (q8);
+        \end{tikzpicture}
+    \end{basedtikz}
+\end{itemize}
+
+$\hfill \blacklozenge$
+
+\section{Equivalencia computacional entre los AFN-\texorpdfstring{\boldmath$\lambda$}{lambda} y los AFN}
 
 
