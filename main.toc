@@ -12,3 +12,5 @@
 \contentsline {section}{\numberline {2.4}Equivalencia computacional entre los AFD y los AFN}{26}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Autómatas con transiciones \boldmath $\lambda $ (AFN-\boldmath $\lambda $)}{30}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Equivalencia computacional entre los AFN-\boldmath $\lambda $ y los AFN}{33}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Complemento de un autómata determinista}{36}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Producto cartesiano de autómatas deterministas}{38}{section.2.8}%

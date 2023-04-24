@@ -661,7 +661,8 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
             (q1) edge [loop above] node [above] {$b$} ()
             (q2) edge [loop above] node [above] {$c$} ()
             (q0) edge node [above] {$b$} (q1) 
-            (q1) edge node [above] {$c$} (q2);
+            (q1) edge node [above] {$c$} (q2)
+            (q0) edge [bend right] node [below] {$c$} (q2);
         \end{tikzpicture}
     \end{basedtikz}
     \item Haremos una construcción por dos caminos distintos a partir de las cadenas mínimas. La primera es el camino que se forma con la cadena $a$.
@@ -1347,4 +1348,269 @@ $\hfill \blacklozenge$
 
 \section{Equivalencia computacional entre los AFN-\texorpdfstring{\boldmath$\lambda$}{lambda} y los AFN}
 
+Previamente habíamos observado como si construíamos un AFN para aceptar un lenguaje regular, podíamos por medio de un algoritmo convertirlo en un AFD. En esta sección observaremos como podemos convertir un AFN-$\lambda$ en un AFN.\\
 
+\textbf{Punto 1: }Primero hallemos la $\lambda$-clausura de cada estado:
+\begin{align*}
+    \lambda[q_0]&=\{q_0,q_1,q_2\}\\
+    \lambda[q_1]&=\{q_1,q_2\}\\
+    \lambda[q_2]&=\{q_2\}
+\end{align*}
+Observe que en el autómata original el único estado de aceptación es $q_2$, luego como esta pertenece a $\lambda[q_0],\lambda[q_1]$ y $\lambda[q_2]$, $q_0,q_1$ y $q_2$ son de aceptación en el AFN.
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a$} ()
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q2) edge [loop above] node [above] {$a$} ();
+    \end{tikzpicture}
+\end{basedtikz}
+Antes de hacer la inspección para hallar el AFN, es importante tener en cuenta que las flechas ya existentes con etiquetas distintas a $\lambda$ se mantienen. Como ejemplo de inspección observe que desde $q_0$, por medio de las etiquetas $a$ y $b$ se puede llegar tanto a $q_1$ como a $q_2$ haciendo las concatenaciones $a\lambda,a\lambda\lambda,\lambda b,\lambda b\lambda$ respectivamente. El AFN obtenido es el siguiente:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a$} ()
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q2) edge [loop above] node [above] {$a$} ()
+        (q0) edge node [above] {$a,b$} (q1)
+        (q1) edge node [above] {$a,b$} (q2)
+        (q0) edge [bend right=45] node [below] {$a,b$} (q2);
+    \end{tikzpicture}
+\end{basedtikz}
+
+\textbf{Punto 2: }Primero hallemos la $\lambda$-clausura de cada estado:
+\begin{align*}
+    \lambda[q_0]&=\{q_0,q_3\}\\
+    \lambda[q_1]&=\{q_1,q_2\}\\
+    \lambda[q_2]&=\{q_2\}\\
+    \lambda[q_3]&=\{q_3\}\\ 
+    \lambda[q_4]&=\{q_4\}
+\end{align*}
+$q_2$ y $q_4$ son de aceptación en el original, por tanto observando las $\lambda$-clausuras, $q_1,q_2$ y $q_4$ son de aceptación en el nuevo autómata. Realizando el proceso de inspección el AFN obtenido es el siguiente:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, above right of=q0, accepting] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \node (q3) [state, below right of=q0] {$q_3$};
+        \node (q4) [state, right of=q3, accepting] {$q_4$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a$} (q1)
+        (q1) edge [loop above] node [above] {$a$} ()
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q1) edge node [above] {$a,b$} (q2)
+        (q0) edge node [below] {$a$} (q2)
+        (q3) edge [bend left] node [above] {$b$} (q4)
+        (q4) edge [bend left] node [below] {$a$} (q3)
+        (q0) edge [bend left] node [above] {$b$} (q4);
+    \end{tikzpicture}
+\end{basedtikz}
+Si bien la presentación del autómata podría ser mas pulida recomendamos dejar los estados en las posiciones originales para hacer mas evidente y sencillo el proceso de inspección.\\
+
+\textbf{Punto 3: }Primero hallemos la $\lambda$-clausura de cada estado:
+\begin{align*}
+    \lambda[q_0]&=\{q_0,q_1,q_2\}\\
+    \lambda[q_1]&=\{q_1\}\\
+    \lambda[q_2]&=\{q_2\}\\
+    \lambda[q_3]&=\{q_3\}\\ 
+    \lambda[q_4]&=\{q_4\}
+\end{align*}
+Los estados $q_1$ y $q_2$ son de aceptación en el original, en el nuevo autómata también son de aceptación y ademas lo sera el estado $q_0$. Realizando la inspección obtenemos el siguiente AFN:  
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state, right of=q0, accepting] {$q_2$};
+        \node (q1) [state, above of=q2, accepting] {$q_1$};
+        \node (q3) [state, above right of=q2] {$q_3$};
+        \node (q4) [state, below right of=q2] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$a$} (q1)
+        (q0) edge [bend left=10] node [above] {$a$} (q3)
+        (q1) edge [loop above] node [above] {$a$} ()
+        (q2) edge [bend left=20] node [left] {$a$} (q3)
+        (q3) edge [bend left=20] node [right] {$b$} (q2)
+        (q2) edge [bend right=20] node [left] {$b$} (q4)
+        (q4) edge [bend right=20] node [right] {$a$} (q2)
+        (q0) edge [bend right] node [below] {$b$} (q4);
+    \end{tikzpicture}
+\end{basedtikz} 
+
+\textbf{Punto 4: }Primero hallemos la $\lambda$-clausura de cada estado:
+\begin{align*}
+    \lambda[q_0]&=\{q_0,q_1\}\\
+    \lambda[q_1]&=\{q_1\}\\
+    \lambda[q_2]&=\{q_2,q_3\}\\
+    \lambda[q_3]&=\{q_3\}\\ 
+    \lambda[q_4]&=\{q_1,q_4\}
+\end{align*}
+El único estado de aceptación original es $q_3$ y la única $\lambda$-clausura a la que pertenece es $\lambda[q_2]$ entonces en el nuevo autómata los estados de aceptación son $q_2$ y $q_3$. Realizando el proceso de inspección obtenemos el siguiente AFN:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \node (q3) [state, right of=q2, accepting] {$q_3$};
+        \node (q4) [state, above of=q0] {$q_4$};
+        \path[thick]
+        (q0) edge [bend left] node [left] {$a$} (q4)
+        (q4) edge [bend left] node [right] {$b$} (q0)
+        (q0) edge node [above] {$a$} (q1)
+        (q1) edge node [above] {$a$} (q2)
+        (q2) edge node [above] {$a,b$} (q3)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q3) edge [loop above] node [above] {$a$} ()
+        (q4) edge node [above] {$b$} (q1)
+        (q4) edge [bend left] node [above] {$a$} (q2)
+        (q4) edge [bend left] node [above] {$a$} (q3)
+        (q0) edge [bend right] node [below] {$a$} (q2)
+        (q0) edge [bend right=45] node [below] {$a$} (q3);
+    \end{tikzpicture}
+\end{basedtikz}
+Observe que la importancia radica en el hecho de que de ahora en adelante si nos atascamos en la construcción de un AFD e incluso de un AFN podemos siempre construir un AFN-$\lambda$, luego convertirlo en un AFN y por ultimo convertirlo en un AFD. Si bien es un proceso largo nos garantiza un AFD que funcione.\\
+Por ultimo en esta sección todas las conversiones fueron hechas por inspección, pero se pueden hacer por medio de la formula brindada en las notas. Sugerimos que revisen que las construcciones hechas son correctas por medio de la formula y como ejercicio interesante conviertan los AFN de esta sección en AFD.
+
+$\hfill \blacklozenge$
+
+\section{Complemento de un autómata determinista}
+
+Previamente habíamos mencionado que a partir de un AFD con una condición podíamos construir un AFD para la negación de esa condición cambiando los estados de aceptación. En esta sección eso sera lo que haremos.\\ 
+
+\textbf{Punto 1:} Construyamos primero un AFD tal que acepte todas las cadenas que contienen la subcadena $bc$. Para esto forzamos $bc$ como aceptación y consideramos los bucles necesarios.
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a,c$} ()
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q2) edge [loop above] node [above] {$a,b,c$} ()
+        (q0) edge [bend left] node [above] {$b$} (q1)
+        (q1) edge [bend left] node [below] {$a$} (q0)
+        (q1) edge node [above] {$c$} (q2);
+    \end{tikzpicture}
+\end{basedtikz}
+Ahora simplemente cambiamos los estados de aceptación, es decir $q_0$ y $q_1$ se vuelven de aceptación mientras que $q_2$ deja de serlo. De esta manera obtenemos el AFD que acepta el lenguaje deseado.
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a,c$} ()
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q2) edge [loop above] node [above] {$a,b,c$} ()
+        (q0) edge [bend left] node [above] {$b$} (q1)
+        (q1) edge [bend left] node [below] {$a$} (q0)
+        (q1) edge node [above] {$c$} (q2);
+    \end{tikzpicture}
+\end{basedtikz}
+
+\textbf{Punto 2: }Primero construyamos el AFD que acepte todas las cadenas con tres unos consecutivos.
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \node (q3) [state, right of=q2, accepting] {$q_3$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$0$} ()
+        (q0) edge [bend left] node [above] {$1$} (q1)
+        (q1) edge [bend left] node [below] {$0$} (q0)
+        (q1) edge node [above] {$1$} (q2)
+        (q2) edge node [above] {$1$} (q3)
+        (q2) edge [bend left=60] node [below] {$0$} (q0)
+        (q3) edge [loop above] node [above] {$0,1$} ();
+    \end{tikzpicture}
+\end{basedtikz}
+Luego el AFD que acepta el lenguaje deseado es:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \node (q3) [state, right of=q2] {$q_3$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$0$} ()
+        (q0) edge [bend left] node [above] {$1$} (q1)
+        (q1) edge [bend left] node [below] {$0$} (q0)
+        (q1) edge node [above] {$1$} (q2)
+        (q2) edge node [above] {$1$} (q3)
+        (q2) edge [bend left=60] node [below] {$0$} (q0)
+        (q3) edge [loop above] node [above] {$0,1$} ();
+    \end{tikzpicture}
+\end{basedtikz}
+
+\textbf{Punto 3: }Primero construyamos el AFD que acepta todas las cadenas que terminan en 01.
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$1$} ()
+        (q1) edge [loop above] node [above] {$0$} ()
+        (q1) edge [bend left] node [above] {$1$} (q2)
+        (q2) edge [bend left] node [below] {$0$} (q1)
+        (q0) edge node [above] {$0$} (q1)
+        (q2) edge [bend left=60] node [below] {$1$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Luego el AFD que acepta el lenguaje deseado es:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$1$} ()
+        (q1) edge [loop above] node [above] {$0$} ()
+        (q1) edge [bend left] node [above] {$1$} (q2)
+        (q2) edge [bend left] node [below] {$0$} (q1)
+        (q0) edge node [above] {$0$} (q1)
+        (q2) edge [bend left=60] node [below] {$1$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+
+\textbf{Punto 4: }Primero construyamos el AFD que acepta todas las cadenas que terminan en 22.
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$0,1$} ()
+        (q2) edge [loop above] node [above] {$2$} ()
+        (q0) edge [bend left] node [above] {$2$} (q1)
+        (q1) edge [bend left] node [below] {$0,1$} (q0)
+        (q1) edge node [above] {$2$} (q2)
+        (q2) edge [bend left=60] node [below] {$0,1$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Luego el AFD que acepta el lenguaje deseado es:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$0,1$} ()
+        (q2) edge [loop above] node [above] {$2$} ()
+        (q0) edge [bend left] node [above] {$2$} (q1)
+        (q1) edge [bend left] node [below] {$0,1$} (q0)
+        (q1) edge node [above] {$2$} (q2)
+        (q2) edge [bend left=60] node [below] {$0,1$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+
+Note que en los puntos 1 y 2, los estados $q_2$ y $q_3$ se volvieron limbo respectivamente y es posible quitarlos para una presentación simplificada del AFD, pero es preferible no retirarlos con el propósito de observar correctamente el proceso del complemento.
+
+$\hfill \blacklozenge$ 
+
+\section{Producto cartesiano de autómatas deterministas}
