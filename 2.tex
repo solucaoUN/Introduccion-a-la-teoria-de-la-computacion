@@ -623,7 +623,7 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
                 (q2) edge node [above] {$1$} (q0);
             \end{tikzpicture}
         \end{basedtikz}
-        \item (No se como explicarlo bien aun)
+        \item Este AFD fue construido por medio de un algoritmo que sera presentado en un capitulo posterior. Siendo sincero me fue imposible construir este AFD por mera inspección de la expresión regular.
         \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
@@ -1158,9 +1158,38 @@ Ahora observe que en el AFD los estados de aceptación serán aquellos que conte
     \end{tikzpicture}
 \end{basedtikz}
 
-\textbf{Punto 3:}(Los puntos de demostraciones serán realizados luego)\\
+\textbf{Punto 3:}
+\begin{proof}
+Dados $q\in Q$ y $u,v\in\Sigma^*$ realizaremos recursión sobre la cadena $v$.\\
+Si $v=\lambda$ es evidente por la definición de la extensión de $\delta$ que:
+$$\delta(\delta(q,u),\lambda)=\delta(q,u)=\delta(q,u\lambda)$$
+Como tenemos el caso base consideremos que nuestra hipótesis recursiva se cumple es decir:
+$$\delta(q,uv)=\delta(\delta(q,u),v)$$ 
+Ahora veamos que ocurre con $va$ donde $a\in\Sigma$
+\begin{align*}
+      \delta(q,uva)&=\delta(\delta(q,uv),a)&(\text{Definición de la extensión de }\delta)\\
+      &=\delta(\delta(\delta(q,u),v),a)&(\text{Hipótesis recursiva})\\
+      &=\delta(\delta(q,u),va)&(\text{Definición de la extensión de }\delta)
+  \end{align*} 
+De esta manera concluimos que la propiedad se cumple. 
 
-\textbf{Punto 4:}\\
+\end{proof}
+\textbf{Punto 4:}
+\begin{proof}
+Dados $q\in Q$ y $u,v\in\Sigma^*$ procederemos igual que en el punto anterior.\\
+Si $v=\lambda$ por la definición de la extensión de $\Delta$ se tiene que:
+$$\Delta(\Delta(q,u),\lambda)=\bigcup_{p\in\Delta(q,u)}\Delta(p,\lambda)=\bigcup_{p\in\Delta(q,u)}\{p\}=\Delta(q,u)=\Delta(q,u\lambda)$$ 
+Como tenemos el caso base consideremos que nuestra hipótesis recursiva se cumple es decir:
+$$\Delta(q,uv)=\Delta(\Delta(q,u),v)$$ 
+Ahora veamos que ocurre con $va$ donde $a\in\Sigma$ 
+\begin{align*}
+    \Delta(q,uva)&=\Delta(\Delta(q,uv),a)&(\text{Definición de la extensión de }\Delta)\\
+      &=\Delta(\Delta(\Delta(q,u),v),a)&(\text{Hipótesis recursiva})\\
+      &=\Delta(\Delta(q,u),va)&(\text{Definición de la extensión de }\Delta)  
+  \end{align*} 
+De esta manera concluimos que la propiedad se cumple. 
+ 
+\end{proof}
 
 $\hfill \blacklozenge$
 
@@ -1191,8 +1220,8 @@ Si bien previamente habíamos observado como los AFN eran bastante fáciles de c
        \end{tikzpicture} 
     \end{basedtikz}
 
-    \item Basta con realizar una construcción en paralelo para cada expresión de la unión.
-
+    \item Basta con realizar una construcción en paralelo para cada expresión de la unión. Es decir construimos un AFD para $ab^*,ba^*$ y $b(ab\cup ba)^*$ respectivamente y luego realizamos la construcción en paralelo.
+    \pagebreak
     \begin{basedtikz}
        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
        \node (q0) [state, initial] {$q_0$};
@@ -1254,6 +1283,7 @@ Si bien previamente habíamos observado como los AFN eran bastante fáciles de c
 
 \begin{itemize}[label={✎}]
     \item El único autómata que puede resultar un poco complicado de construir es el de la expresión inicial $(1\cup01\cup001)^*$ pero basta con 3 estados, luego simplemente es realizar una construcción en serie.
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
          \node (q0) [state, initial] {$q_0$};
@@ -1307,8 +1337,8 @@ Si bien previamente habíamos observado como los AFN eran bastante fáciles de c
         \end{tikzpicture}
     \end{basedtikz}
 
-    \item Observe que en este caso usaremos tanto la construcción paralela como la construcción en serie ya que uno de los caminos es relativamente complicado de construir pero con esta construcción es mucho mas sencillo.
-    
+    \item Observe que en este caso usaremos tanto la construcción en paralelo como la construcción en serie ya que uno de los caminos es relativamente complicado de construir pero con esta construcción es mucho mas sencillo.
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
          \node (q0) [state, initial] {$q_0$};
@@ -1497,6 +1527,7 @@ Previamente habíamos mencionado que a partir de un AFD con una condición podí
     \end{tikzpicture}
 \end{basedtikz}
 Ahora simplemente cambiamos los estados de aceptación, es decir $q_0$ y $q_1$ se vuelven de aceptación mientras que $q_2$ deja de serlo. De esta manera obtenemos el AFD que acepta el lenguaje deseado.
+\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial, accepting] {$q_0$};
@@ -1614,3 +1645,30 @@ Note que en los puntos 1 y 2, los estados $q_2$ y $q_3$ se volvieron limbo respe
 $\hfill \blacklozenge$ 
 
 \section{Producto cartesiano de autómatas deterministas}
+
+En esta sección observaremos otra manera de construir AFD para lenguajes que tengan dos condiciones los cuales puede que sean complicados por simple inspección, pero que con el algoritmo, se facilita muchísimo.\\
+
+\textbf{Punto 1: }Primero considere el AFD que acepta las cadenas de longitud impar:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a,b$} (q1)
+        (q1) edge [bend left] node [below] {$a,b$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Ahora construyamos el que acepta las que contienen dos $bes$ consecutivas:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q2) [state, initial] {$q_2$};
+        \node (q3) [state, right of=q2] {$q_3$};
+        \node (q4) [state, right of=q3, accepting] {$q_4$};
+        \path[thick]
+        (q2) edge [loop above] node [above] {$a$} ()
+        (q2) edge [bend left] node [above] {$b$} (q3)
+        (q3) edge [bend left] node [below] {$a$} (q2)
+        (q3) edge node [above] {$b$} (q4)
+        (q4) edge [loop above] node [above] {$a,b$} ();
+    \end{tikzpicture}
+\end{basedtikz}

@@ -10,7 +10,7 @@
 \contentsline {section}{\numberline {2.2}Diseño de autómatas}{10}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Autómatas finitos no-deterministas (AFN)}{23}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Equivalencia computacional entre los AFD y los AFN}{26}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Autómatas con transiciones \boldmath $\lambda $ (AFN-\boldmath $\lambda $)}{30}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Equivalencia computacional entre los AFN-\boldmath $\lambda $ y los AFN}{33}{section.2.6}%
-\contentsline {section}{\numberline {2.7}Complemento de un autómata determinista}{36}{section.2.7}%
-\contentsline {section}{\numberline {2.8}Producto cartesiano de autómatas deterministas}{38}{section.2.8}%
+\contentsline {section}{\numberline {2.5}Autómatas con transiciones \boldmath $\lambda $ (AFN-\boldmath $\lambda $)}{31}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Equivalencia computacional entre los AFN-\boldmath $\lambda $ y los AFN}{34}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Complemento de un autómata determinista}{37}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Producto cartesiano de autómatas deterministas}{39}{section.2.8}%
