@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.5.1)  3 MAY 2023 00:30
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.5.1)  6 MAY 2023 03:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2166,7 +2166,15 @@ Package mdframed Info: mdframed detected package amsthm
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 1674.
-) [40] (main.aux
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1697.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1713.
+ [40]
+Package mdframed Info: Not enough space on this page on input line 1713.
+) [41] (main.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
@@ -2174,12 +2182,12 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: DAA532EB923F4F109604EEF94670E7F6;3708.
  ) 
 Here is how much of TeX's memory you used:
- 41951 strings out of 411472
- 994486 string characters out of 5818265
+ 42002 strings out of 411472
+ 995256 string characters out of 5818265
  1871012 words of memory out of 5000000
- 61456 multiletter control sequences out of 15000+600000
+ 61507 multiletter control sequences out of 15000+600000
  530751 words of font info for 141 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  89i,13n,121p,821b,1275s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (41 pages).
+Output written on main.pdf (42 pages).
