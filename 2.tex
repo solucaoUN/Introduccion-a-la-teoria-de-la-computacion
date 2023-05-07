@@ -1480,6 +1480,7 @@ Los estados $q_1$ y $q_2$ son de aceptación en el original, en el nuevo autóma
     \lambda[q_4]&=\{q_1,q_4\}
 \end{align*}
 El único estado de aceptación original es $q_3$ y la única $\lambda$-clausura a la que pertenece es $\lambda[q_2]$ entonces en el nuevo autómata los estados de aceptación son $q_2$ y $q_3$. Realizando el proceso de inspección obtenemos el siguiente AFN:
+\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -1673,7 +1674,7 @@ Ahora construyamos el AFD $M_2$ que acepta $L_2$ (las cadenas que contienen dos 
     \end{tikzpicture}
 \end{basedtikz}
 
-Entonces $L=L(M_1)-L(M_2)=L_1-L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 6 estados: $(q_0,q_2),(q_0,q_3),(q_0,q_4),(q_1,q_2),(q_1,q_3)$ y $(q_1,q_4)$; Donde los estados de aceptación son $(q_1,q_2)$ y $(q_1,q_3)$ Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
+Entonces $L=L(M_1)-L(M_2)=L_1-L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 6 estados: $(q_0,q_2),(q_0,q_3),(q_0,q_4),(q_1,q_2),(q_1,q_3)$ y $(q_1,q_4)$; donde los estados de aceptación son $(q_1,q_2)$ y $(q_1,q_3)$ Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 5cm, on grid, auto]
         \node (q02) [state, initial] {$(q_0,q_2)$};
@@ -1711,10 +1712,60 @@ Note que los estados $(q_0,q_4)$ y $(q_1,q_4)$ son estados limbo, así el autóm
         (q12) edge [bend left] node [above] {$b$} (q03);
         \end{tikzpicture}
 \end{basedtikz}
+Observe que la solución presentada es igual a la del ejemplo correspondiente a este lenguaje, salvo la posición de los estados.\\
 
 \textbf{Punto 2: }
 \begin{itemize}[label={✎}]
-    \item 
+    \item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de que tienen longitud par):
+    \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$0,1$} (q1)
+        (q1) edge [bend left] node [below] {$0,1$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que terminan en $10$):
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q2) [state, initial] {$q_2$};
+        \node (q3) [state, right of=q2] {$q_3$};
+        \node (q4) [state, right of=q3, accepting] {$q_4$};
+        \path[thick]
+        (q2) edge [loop above] node [above] {$0$} ()
+        (q2) edge node [above] {$1$} (q3)
+        (q3) edge [loop above] node [above] {$1$} ()
+        (q3) edge [bend left] node [above] {$0$} (q4)
+        (q4) edge [bend left=60] node [below] {$0$} (q2)
+        (q4) edge [bend left] node [below] {$1$} (q3);   
+    \end{tikzpicture}
+\end{basedtikz}
+Entonces $L=L(M_1)\cup L(M_2)=L_1\cup L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 6 estados: $(q_0,q_2),(q_0,q_3),(q_0,q_4),(q_1,q_2),(q_1,q_3)$ y $(q_1,q_4)$; donde los estados de aceptación son $(q_0,q_2),(q_0,q_3),(q_0,q_4)$ y $(q_1,q_4)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 5cm, on grid, auto]
+        \node (q02) [state, initial, accepting] {$(q_0,q_2)$};
+        \node (q14) [state, above right of=q02, accepting] {$(q_1,q_4)$};
+        \node (q12) [state, above left of=q14] {$(q_1,q_2)$};
+        \node (q03) [state, right of=q14, accepting] {$(q_0,q_3)$};
+        \node (q13) [state, below right of=q03] {$(q_1,q_3)$};
+        \node (q04) [state, above right of=q03, accepting] {$(q_0,q_4)$};
+        \path [thick]
+        (q02) edge [bend left] node [left] {$0$} (q12)
+        (q12) edge [bend left] node [right] {$0$} (q02)
+        (q13) edge [bend left] node [left] {$0$} (q04)
+        (q04) edge [bend left] node [right] {$1$} (q13)
+        (q14) edge [bend left] node [above] {$1$} (q03)
+        (q03) edge [bend left] node [below] {$0$} (q14)
+        (q04) edge [bend right=15] node [above] {$0$} (q12)
+        (q12) edge [bend left=25] node [above] {$1$} (q03)
+        (q14) edge node [above] {$0$} (q02)
+        (q03) edge node [above] {$1$} (q13)
+        (q02) edge  node [below] {$1$} (q13)
+        (q13) edge [bend left] node [below] {$1$} (q03) ;
+        \end{tikzpicture}
+\end{basedtikz}
+\item
 \end{itemize}
 
 \textbf{Punto 3: }
