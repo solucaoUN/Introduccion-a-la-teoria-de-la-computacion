@@ -42,7 +42,7 @@
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usetikzlibrary{intersections, angles, quotes, calc, positioning}
-\usetikzlibrary{arrows.meta}
+\usetikzlibrary{arrows.meta,shapes.misc,shadows,calc}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.13}
 \tikzset{
@@ -254,3 +254,21 @@ initial text = $ $
 \end{scope}
 \end{tikzpicture}%
 }
+
+
+\usepackage{titlesec}
+
+\newcommand\titlebar{%
+\tikz[baseline,trim left=2.1cm,trim right=3cm] {
+    \fill [NavyBlue!10] (2.5cm,-1ex) rectangle (\textwidth+2.1cm,2.5ex);
+    \node [
+        fill=NavyBlue!40!white,
+        anchor= base east,
+        rounded rectangle,
+        minimum height=3.5ex] at (3cm,0) {
+        \textbf{\arabic{chapter}.\thesection.}
+    };
+}%
+}
+\titleformat{\section}{\Large}{\titlebar}{0.1cm}{}
+\renewcommand*{\thesection}{\arabic{section}}
