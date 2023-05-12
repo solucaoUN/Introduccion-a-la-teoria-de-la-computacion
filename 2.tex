@@ -1917,8 +1917,225 @@ Entonces $L=L(M_1)\cup L(M_2)=L_1\cup L_2$. El producto cartesiano $M_1\times M_
 
 \textbf{Punto 3: }
 \begin{itemize}[label={✎}]
-    \item 
+    \item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud par):
+    \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a,b,c$} (q1)
+        (q1) edge [bend left] node [below] {$a,b,c$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que terminan en $a$):
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_2$};
+        \node (q1) [state, right of=q0, accepting] {$q_3$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a$} (q1)
+        (q0) edge [loop above] node [above] {$b,c$} ()
+        (q1) edge [loop above] node [above] {$a$} ()
+        (q1) edge [bend left] node [below] {$b,c$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 4 estados: $(q_0,q_2),(q_0,q_3),(q_1,q_2)$ y $(q_1,q_3)$; donde el único estado de aceptación es $(q_0,q_3)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 5cm, on grid, auto]
+        \node (q02) [state, initial] {$(q_0,q_2)$};
+        \node (q12) [state, below of=q02] {$(q_1,q_2)$};
+        \node (q03) [state, right of=q12, accepting] {$(q_0,q_3)$};
+        \node (q13) [state, right of=q02] {$(q_1,q_3)$};
+        \path[thick]
+        (q02) edge [bend left] node [above] {$a$} (q13)
+        (q13) edge [bend left] node [below] {$b,c$} (q02)
+        (q02) edge [bend right] node [left] {$b,c$} (q12)
+        (q12) edge [bend right] node [right] {$b,c$} (q02)
+        (q13) edge [bend left] node [right] {$a$} (q03)
+        (q03) edge [bend left] node [left] {$a$} (q13)
+        (q12) edge [bend right] node [below] {$a$} (q03)
+        (q03) edge [bend right] node [above] {$b,c$} (q12);
+    \end{tikzpicture}
+\end{basedtikz}
+\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud par):
+    \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a,b,c$} (q1)
+        (q1) edge [bend left] node [below] {$a,b,c$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que tienen un numero impar de $ces$):
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_2$};
+        \node (q1) [state, right of=q0, accepting] {$q_3$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$c$} (q1)
+        (q0) edge [loop above] node [above] {$a,b$} ()
+        (q1) edge [loop above] node [above] {$a,b$} ()
+        (q1) edge [bend left] node [below] {$c$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Entonces $L=L(M_1)\cup L(M_2)=L_1\cup L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 4 estados: $(q_0,q_2),(q_0,q_3),(q_1,q_2)$ y $(q_1,q_3)$; donde los estados de aceptación son $(q_0,q_2),(q_0,q_3)$ y $(q_1,q_3)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
+\pagebreak
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 5cm, on grid, auto]
+        \node (q02) [state, initial, accepting] {$(q_0,q_2)$};
+        \node (q12) [state, below of=q02] {$(q_1,q_2)$};
+        \node (q03) [state, right of=q12, accepting] {$(q_0,q_3)$};
+        \node (q13) [state, right of=q02, accepting] {$(q_1,q_3)$};
+        \path[thick]
+        (q02) edge [bend left] node [above] {$c$} (q13)
+        (q13) edge [bend left] node [below] {$c$} (q02)
+        (q02) edge [bend right] node [left] {$a,b$} (q12)
+        (q12) edge [bend right] node [right] {$a,b$} (q02)
+        (q13) edge [bend left] node [right] {$a,b$} (q03)
+        (q03) edge [bend left] node [left] {$a,b$} (q13)
+        (q12) edge [bend right] node [below] {$c$} (q03)
+        (q03) edge [bend right] node [above] {$c$} (q12);
+    \end{tikzpicture}
+\end{basedtikz}
+\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
+    \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a,b,c$} (q1)
+        (q1) edge [bend left] node [below] {$a,b,c$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que tienen un numero par de $ces$):
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_2$};
+        \node (q1) [state, right of=q0] {$q_3$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$c$} (q1)
+        (q0) edge [loop above] node [above] {$a,b$} ()
+        (q1) edge [loop above] node [above] {$a,b$} ()
+        (q1) edge [bend left] node [below] {$c$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 4 estados: $(q_0,q_2),(q_0,q_3),(q_1,q_2)$ y $(q_1,q_3)$; donde el único estado de aceptación es $(q_1,q_2)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
+\pagebreak
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 5cm, on grid, auto]
+        \node (q02) [state, initial] {$(q_0,q_2)$};
+        \node (q12) [state, below of=q02, accepting] {$(q_1,q_2)$};
+        \node (q03) [state, right of=q12] {$(q_0,q_3)$};
+        \node (q13) [state, right of=q02] {$(q_1,q_3)$};
+        \path[thick]
+        (q02) edge [bend left] node [above] {$c$} (q13)
+        (q13) edge [bend left] node [below] {$c$} (q02)
+        (q02) edge [bend right] node [left] {$a,b$} (q12)
+        (q12) edge [bend right] node [right] {$a,b$} (q02)
+        (q13) edge [bend left] node [right] {$a,b$} (q03)
+        (q03) edge [bend left] node [left] {$a,b$} (q13)
+        (q12) edge [bend right] node [below] {$c$} (q03)
+        (q03) edge [bend right] node [above] {$c$} (q12);
+    \end{tikzpicture}
+\end{basedtikz}
+\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
+    \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a,b,c$} (q1)
+        (q1) edge [bend left] node [below] {$a,b,c$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que no terminan en $c$):
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_2$};
+        \node (q1) [state, right of=q0] {$q_3$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$c$} (q1)
+        (q0) edge [loop above] node [above] {$a,b$} ()
+        (q1) edge [loop above] node [above] {$c$} ()
+        (q1) edge [bend left] node [below] {$a,b$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 4 estados: $(q_0,q_2),(q_0,q_3),(q_1,q_2)$ y $(q_1,q_3)$; donde el único estado de aceptación es $(q_1,q_2)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
+\pagebreak
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 5cm, on grid, auto]
+        \node (q02) [state, initial] {$(q_0,q_2)$};
+        \node (q12) [state, below of=q02, accepting] {$(q_1,q_2)$};
+        \node (q03) [state, right of=q12] {$(q_0,q_3)$};
+        \node (q13) [state, right of=q02] {$(q_1,q_3)$};
+        \path[thick]
+        (q02) edge [bend left] node [above] {$c$} (q13)
+        (q13) edge [bend left] node [below] {$a,b$} (q02)
+        (q02) edge [bend right] node [left] {$a,b$} (q12)
+        (q12) edge [bend right] node [right] {$a,b$} (q02)
+        (q13) edge [bend left] node [right] {$c$} (q03)
+        (q03) edge [bend left] node [left] {$c$} (q13)
+        (q12) edge [bend right] node [below] {$c$} (q03)
+        (q03) edge [bend right] node [above] {$a,b$} (q12);
+    \end{tikzpicture}
+\end{basedtikz}
+\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
+    \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a,b,c$} (q1)
+        (q1) edge [bend left] node [below] {$a,b,c$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que tienen exactamente dos $aes$):
+    \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q2) [state, initial] {$q_2$};
+        \node (q3) [state, right of=q2] {$q_3$};
+        \node (q4) [state, right of=q3, accepting] {$q_4$};
+        \path[thick]
+        (q2) edge [loop above] node [above] {$b,c$} ()
+        (q3) edge [loop above] node [above] {$b,c$} ()
+        (q4) edge [loop above] node [above] {$b,c$} ()
+        (q2) edge node [above] {$a$} (q3)
+        (q3) edge node [above] {$a$} (q4);
+    \end{tikzpicture}
+\end{basedtikz}
+Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 6 estados: $(q_0,q_2),(q_0,q_3),(q_0,q_4),(q_1,q_2),(q_1,q_3)$ y $(q_1,q_4)$ (Note que como usamos la construcción de intersección podemos ignorar el estado limbo no representado en $M_2$); donde el único estado de aceptación es $(q_1,q_4)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
+\pagebreak
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 5cm, on grid, auto]
+        \node (q02) [state, initial] {$(q_0,q_2)$};
+        \node (q12) [state, below of=q02] {$(q_1,q_2)$};
+        \node (q03) [state, right of=q12] {$(q_0,q_3)$};
+        \node (q13) [state, right of=q02] {$(q_1,q_3)$};
+        \node (q14) [state, right of=q03, accepting] {$(q_1,q_4)$};
+        \node (q04) [state, right of=q13] {$(q_0,q_4)$};
+        \path[thick]
+        (q02) edge [bend right] node [left] {$b,c$} (q12)
+        (q12) edge [bend right] node [right] {$b,c$} (q02)
+        (q13) edge [bend right] node [left] {$b,c$} (q03)
+        (q03) edge [bend right] node [right] {$b,c$} (q13)
+        (q04) edge [bend right] node [left] {$b,c$} (q14)
+        (q14) edge [bend right] node [right] {$b,c$} (q04)
+        (q02) edge node [above] {$a$} (q13)
+        (q13) edge node [above] {$a$} (q04)
+        (q12) edge node [below] {$a$} (q03)
+        (q03) edge node [below] {$a$} (q14);
+        \end{tikzpicture}
+\end{basedtikz}
 \end{itemize}
+\textbf{Punto 4: }Por el teorema presentado en la sección sabemos que el conjunto que acepta $L_1-L_2$ es:
+$$F_1\times(Q_2-F_2)$$
+Mientras que el que acepta $L_2-L_1$ es:
+$$F_2\times(Q_1-F_1)$$
+Ahora como $L_1\triangleleft L_2=(L_1-L_2)\cup(L_2-L_1)$ Basta con unir las dos expresiones anteriores para obtener el conjunto adecuado de estados de aceptación; es decir:
+$$F=(F_1\times(Q_2-F_2))\cup(F_2\times(Q_1-F_1)).$$
 
-\textbf{Punto 4: } 
+$\hfill \blacklozenge$
+
+\section{Teorema de Kleene, parte I}
 
