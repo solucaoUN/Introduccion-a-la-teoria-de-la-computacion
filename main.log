@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.5.1)  11 MAY 2023 23:40
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.5.1)  9 JUL 2023 15:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2322,20 +2322,104 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 2129.
 Package mdframed Info: Not enough space on this page on input line 2129.
-) [50] (main.aux
+
+Underfull \hbox (badness 10000) in paragraph at lines 2142--2143
+
+ []
+
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2155.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2168.
+Package mdframed Info: Not enough space on this page on input line 2168.
+[50]
+Package mdframed Info: Not enough space on this page on input line 2168.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2181.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2194.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2217.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2245.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2283.
+ [51]
+Package mdframed Info: Not enough space on this page on input line 2283.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2301.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2323.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2358.
+ [52]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2383.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2414.
+ [53]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2457.
+
+Overfull \hbox (4.93452pt too wide) in paragraph at lines 2457--2457
+ [][] 
+ []
+
+Package mdframed Info: Not enough space on this page on input line 2457.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2475.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2488.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2509.
+[54]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2555.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2586.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2603.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 2645.
+ [55]
+Underfull \hbox (badness 10000) in paragraph at lines 2654--2655
+
+ []
+
+) [56] (main.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 3F44164E9E4643021E5F54F53B19ECC1;3905.
+(rerunfilecheck)             Checksum: 57BADCE9A69B235B527810BC81FD89B6;4108.
  ) 
 Here is how much of TeX's memory you used:
- 42681 strings out of 411472
- 1010202 string characters out of 5818265
- 1872012 words of memory out of 5000000
- 62168 multiletter control sequences out of 15000+600000
+ 42783 strings out of 411472
+ 1012258 string characters out of 5818265
+ 1891012 words of memory out of 5000000
+ 62270 multiletter control sequences out of 15000+600000
  530751 words of font info for 141 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 89i,13n,121p,821b,1272s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,13n,121p,821b,1297s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (51 pages).
+Output written on main.pdf (57 pages).

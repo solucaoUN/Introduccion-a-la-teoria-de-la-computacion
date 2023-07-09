@@ -15,3 +15,4 @@
 \contentsline {section}{\numberline {7}Complemento de un autómata determinista}{37}{section.2.7}%
 \contentsline {section}{\numberline {8}Producto cartesiano de autómatas deterministas}{39}{section.2.8}%
 \contentsline {section}{\numberline {9}Teorema de Kleene, parte I}{50}{section.2.9}%
+\contentsline {section}{\numberline {10}Teorema de Kleene, parte II}{56}{section.2.10}%
