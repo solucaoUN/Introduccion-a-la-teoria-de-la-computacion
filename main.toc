@@ -4,15 +4,15 @@
 \contentsline {section}{\numberline {2}Orden lexicográfico entre cadenas}{3}{section.1.2}%
 \contentsline {section}{\numberline {3}Concatenación de lenguajes}{3}{section.1.3}%
 \contentsline {section}{\numberline {4}La clausura de Kleene de un lenguaje}{4}{section.1.4}%
-\contentsline {section}{\numberline {5}Reflexión o inverso de un lenguaje}{4}{section.1.5}%
-\contentsline {chapter}{\numberline {2}Lenguajes Regulares y Autómatas Finitos}{6}{chapter.2}%
-\contentsline {section}{\numberline {1}Expresiones regulares}{6}{section.2.1}%
-\contentsline {section}{\numberline {2}Diseño de autómatas}{10}{section.2.2}%
-\contentsline {section}{\numberline {3}Autómatas finitos no-deterministas (AFN)}{23}{section.2.3}%
-\contentsline {section}{\numberline {4}Equivalencia computacional entre los AFD y los AFN}{26}{section.2.4}%
-\contentsline {section}{\numberline {5}Autómatas con transiciones \boldmath $\lambda $ (AFN-\boldmath $\lambda $)}{31}{section.2.5}%
-\contentsline {section}{\numberline {6}Equivalencia computacional entre los AFN-\boldmath $\lambda $ y los AFN}{34}{section.2.6}%
-\contentsline {section}{\numberline {7}Complemento de un autómata determinista}{37}{section.2.7}%
-\contentsline {section}{\numberline {8}Producto cartesiano de autómatas deterministas}{39}{section.2.8}%
-\contentsline {section}{\numberline {9}Teorema de Kleene, parte I}{50}{section.2.9}%
-\contentsline {section}{\numberline {10}Teorema de Kleene, parte II}{56}{section.2.10}%
+\contentsline {section}{\numberline {5}Reflexión o inverso de un lenguaje}{5}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Lenguajes Regulares y Autómatas Finitos}{7}{chapter.2}%
+\contentsline {section}{\numberline {1}Expresiones regulares}{7}{section.2.1}%
+\contentsline {section}{\numberline {2}Diseño de autómatas}{13}{section.2.2}%
+\contentsline {section}{\numberline {3}Autómatas finitos no-deterministas (AFN)}{27}{section.2.3}%
+\contentsline {section}{\numberline {4}Equivalencia computacional entre los AFD y los AFN}{31}{section.2.4}%
+\contentsline {section}{\numberline {5}Autómatas con transiciones \boldmath $\lambda $ (AFN-\boldmath $\lambda $)}{36}{section.2.5}%
+\contentsline {section}{\numberline {6}Equivalencia computacional entre los AFN-\boldmath $\lambda $ y los AFN}{39}{section.2.6}%
+\contentsline {section}{\numberline {7}Complemento de un autómata determinista}{43}{section.2.7}%
+\contentsline {section}{\numberline {8}Producto cartesiano de autómatas deterministas}{46}{section.2.8}%
+\contentsline {section}{\numberline {9}Teorema de Kleene, parte I}{58}{section.2.9}%
+\contentsline {section}{\numberline {10}Teorema de Kleene, parte II}{63}{section.2.10}%

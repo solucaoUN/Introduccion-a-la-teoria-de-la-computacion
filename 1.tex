@@ -5,7 +5,9 @@ Las soluciones que presentemos no necesariamente son correctas pero trabajaremos
 
 \section{Reflexión de una cadena}
 
-\textbf{Punto 1:} Primero consideramos la cadena vacía, es claro que \\
+\textbf{Punto 1: }Dar una definicion recursiva de $u^R.$\\
+
+ Primero consideramos la cadena vacía, es claro que \\
 
 \quad $\bullet$ $\lambda^R=\lambda$\\
 
@@ -13,7 +15,9 @@ Esto por definición de reflexión de cadenas, ahora consideremos la cadena $ua$
 
 \quad $\bullet (ua)^R=au^R$\\
 
-\textbf{Punto 2:} Para generalizar la propiedad consideramos la cadena:\\
+\textbf{Punto 2: }Generalizar la propiedad $(uv)^R=v^Ru^R$ a la concatenacion de $n$ cadenas, $n\geq2$.\\
+
+ Para generalizar la propiedad consideramos la cadena:\\
 
 $$(u_1u_2...u_n)$$
 
@@ -41,27 +45,34 @@ $\hfill \blacklozenge$
 
 \section{Orden lexicográfico entre cadenas}
 
-\textbf{Punto 1:} $u=d b d$\\
+Sea $\Sigma=\{a,b,c,d\}$, donde los simbolos tienen el orden preestablecido $a<b<c<d.$ Para cada cadena dada $u$ es $\Sigma^*$ hallar la cadena que sigue inmediatamente a $u$ en el orden lexicografico.
+
+\begin{enumerate}
+\item[(1)] $u=d b d$\\
 
 Como en el alfabeto solo hay a,b,c,d y $a<b<c<d$, entonces la cadena que buscamos es $v=dca$ ya que e no existe en el alfabeto y el siguiente a $b$ es $c$ y cambiamos la $d$ por a ya que necesitamos la cadena que sigue y $dca<dcb<dcc<dcd$.\\
 
 Similarmente analizamos los siguientes ejercicios:\\
 
-\textbf{Punto 2:} $u=acbd$ aplicando el análisis anterior encontramos $v=acca$\\
+\item[(2)] $u=acbd$ aplicando el análisis anterior encontramos $v=acca$\\
 
-\textbf{Punto 3:} $u=dabcdd$, nuevamente encontramos $v=dabdaa$\\
+\item[(3)] $u=dabcdd$, nuevamente encontramos $v=dabdaa$\\
 
-\textbf{Punto 4:} $dcaddd$, finalmente $v=dcbaaa$
-
+\item[(4)] $dcaddd$, finalmente $v=dcbaaa$
+\end{enumerate}
 $\hfill \blacklozenge$
 
 \section{Concatenación de lenguajes} 
 
-\textbf{Punto 1:} Considere $\displaystyle\Sigma=\{a,b\}$ los lenguajes $A=$\O \text{ }y $B={a}$, por definición de concatenación de lenguajes:
+\textbf{Punto 1: }Dar un ejemplo de un alfabeto $\Sigma$ y dos lenguajes diferentes $A,B$ sobre $\Sigma$ tales que $AB=BA.$\\ 
+
+Considere $\displaystyle\Sigma=\{a,b\}$ los lenguajes $A=$\O \text{ y } $B=\{a\}$, por definición de concatenación de lenguajes:
 
 $$AB=\text{\O}=BA$$
 
-\textbf{Punto 2:} Sea $\displaystyle\Sigma=\{a,b,c\}$, considere los lenguajes $A=\{a\}$, $B=\{b\}$ y $C=\{c\}$, entonces:
+\textbf{Punto 2: }Dar un ejemplo de un alfabeto $\Sigma$ y tres lenguajes $A,B,C$ sobre $\Sigma$ diferentes entre si, tales que $A\cdot(B\cap C)=A\cdot B\cap A\cdot C.$\\
+
+ Sea $\displaystyle\Sigma=\{a,b,c\}$, considere los lenguajes $A=\{a\}$, $B=\{b\}$ y $C=\{c\}$, entonces:
 
 \begin{align*}
     A\cdot(B\cap C)&=\text{\O}  &&\longleftarrow(A\cdot \text{\O = \O})\\
@@ -69,7 +80,9 @@ $$AB=\text{\O}=BA$$
 \end{align*}
 La intersección es vacía porque $ab$ como cadena es diferente de $bc$\\
 
-\textbf{Punto 3:}
+\textbf{Punto 3: }Sea $\Sigma$ un alfabeto dado. Se ha demostrado en esta seccion, mediante un contrajemplo, que la igualdad  $A\cdot(B\cap C)=A\cdot B\cap A\cdot C$ no es una identidad valida para todos los lenguajes $A,B,C\subseteq \Sigma^*.$ Demostrar, sin embargo, que la contenencia
+$$A\cdot(B\cap C)\subseteq A\cdot B\cap A\cdot C$$
+es siempre valida para todos los lenguajes $A,B,C\subseteq \Sigma^*.$
 
 \begin{proof}
 Sea $u\in A\cdot(B\cap C)$, entonces $u=a_ix_i$ para algún $a_i\in A$ y $x_i \in B\cap C$, luego como $x_i\in B\cap C$ $x_i\in B$ y $x_i \in C$, por tanto $u \in A\cdot B$ y $u\in A\cdot C$, así $u\in A\cdot B \cap A\cdot C$, concluimos que $A \cdot(B \cap C) \subseteq A \cdot B \cap A \cdot C$
@@ -80,11 +93,13 @@ Sea $u\in A\cdot(B\cap C)$, entonces $u=a_ix_i$ para algún $a_i\in A$ y $x_i \i
 $\hfill \blacklozenge$
 
 \section{La clausura de Kleene de un lenguaje}
+Sean $A,B$ lenguajes sobre $\Sigma$, es decir $A,B\subseteq\Sigma^*.$ Explicar por que las siguientes igualdades no son validas en general:\\
+\textbf{Punto 1: } $(A\cup B)^*=A^*\cup B^*$\\ 
+Esto ocurre ya que la clausura de Kleene son todas las posibles concatenaciones de elementos de un lenguaje, por tanto unir las de dos lenguajes contempla las clausuras de ambos por separado y luego las une, mientras que unir los lenguajes y luego hacer la clausura contempla todas las posibles concatenaciones de elementos que se encontraban en ambos lenguajes, de hecho se podría ver con un argumento similar que $(A\cup B)^*\supset A^* \cup B^*$.\\
 
-\textbf{Punto 1:} Esto ocurre ya que la clausura de Kleene son todas las posibles concatenaciones de elementos de un lenguaje, por tanto unir las de dos lenguajes contempla las clausuras de ambos por separado y luego las une, mientras que unir los lenguajes y luego hacer la clausura contempla todas las posibles concatenaciones de elementos que se encontraban en ambos lenguajes, de hecho se podría ver con un argumento similar que $(A\cup B)^*\supset A^* \cup B^*$.\\
 
-
-\textbf{Punto 2:} En este caso ocurre algo similar y es que faltan cadenas de $(A \cup B)^*$, por ejemplo considere $A=\{a\}$ y $B=\{b\}$, entonces por ejemplo es imposible obtener la cadena $(ba)^2$ a traves de $A^* \cup B^* \cup A^* B^* \cup B^* A^*$, estos mismos lenguajes sirven para darnos cuenta en el punto 1 que $(A \cup B)^*\supset A^*\cup B^*$, es este caso es lo mismo, $(A \cup B)^* \supset$ $A^* \cup B^* \cup A^* B^* \cup B^* A^*$.\\
+\textbf{Punto 2: } $(A\cup B)^*=A^*\cup B^*\cup A^*B^*\cup B^*A^*$ \\
+ En este caso ocurre algo similar y es que faltan cadenas de $(A \cup B)^*$, por ejemplo considere $A=\{a\}$ y $B=\{b\}$, entonces por ejemplo es imposible obtener la cadena $(ba)^2$ a traves de $A^* \cup B^* \cup A^* B^* \cup B^* A^*$, estos mismos lenguajes sirven para darnos cuenta en el punto 1 que $(A \cup B)^*\supset A^*\cup B^*$, es este caso es lo mismo, $(A \cup B)^* \supset$ $A^* \cup B^* \cup A^* B^* \cup B^* A^*$.\\
 
 Para ver la falsedad de estas afirmaciones recomendamos siempre usar lenguajes pequeños (con pocas cadenas) de tal manera que no nos gastemos mucho tiempo haciendo cuentas. 
 
@@ -95,7 +110,7 @@ $\hfill \blacklozenge$
 
 Los ejercicios de esta sección son más bien opcionales ya que Korgi no suele evaluar demostraciones en este curso, sin embargo para las personas que quizá se les dificulte demostrar estas afirmaciones y esté interesado en aprender se hace la solución de los mismos.\\
 
-\textbf{Punto 1:}
+\textbf{Punto 1: }Demostrar las propiedades 2,3,4 y 6 de la reflexion de cadenas. 
 
 \begin{itemize}
     \item[2)]
@@ -145,7 +160,9 @@ Los ejercicios de esta sección son más bien opcionales ya que Korgi no suele e
    \end{proof}
 \end{itemize}
 
-\textbf{Punto 2:} CLARAmente se pueden generalizar las propiedades 2 y 3 ya que la unión y la intersección se comportan bien 2 a 2, es decir si tenemos que calcular la reflexión de la unión de $n$ conjuntos, podemos hacerlo con los primeros dos y luego con los siguientes dos y así hasta acabar o que nos quede solo uno y pues en ese caso calculamos la reflexión y unimos todo o en el otro caso intersectamos.\\
+\textbf{Punto 2: }¿Se pueden generalizar las propiedades 2 y 3 anteriores para uniones e intersecciones de un número arbitrario de conjuntos, respectivamente? \\
+
+CLARAmente se pueden generalizar las propiedades 2 y 3 ya que la unión y la intersección se comportan bien 2 a 2, es decir si tenemos que calcular la reflexión de la unión de $n$ conjuntos, podemos hacerlo con los primeros dos y luego con los siguientes dos y así hasta acabar o que nos quede solo uno y pues en ese caso calculamos la reflexión y unimos todo o en el otro caso intersectamos.\\
 
 \begin{align*}
 \displaystyle\left(\bigcup_{i \geq 0} A_i\right)^R&=(A_1\cup A_2)^R\cup (A_3\cup A_4\cup A_5\cup ...)^R\\

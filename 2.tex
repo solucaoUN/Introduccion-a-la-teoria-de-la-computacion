@@ -3,28 +3,39 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
 
 \section{Expresiones regulares}
 
-\textbf{Punto 1:} \begin{itemize}
-    \item [✎] La solución más evidente es la siguiente: $b(a\cup b)^*a$, con $(a\cup b)^*$ consideramos todas las cadenas y lo que hacemos es forzar que las cadenas comiencen con $b$ y terminen en $a$ concatenando.
+\textbf{Punto 1: }Encontrar expresiones regulares para los siguientes lenguajes definidos sobre el alfabeto $\Sigma=\{a,b\}:$
+ \begin{itemize}
+    \item [✎] Lenguaje de todas las cadena que comienzan con el símbolo $b$ y terminan con el símbolo $a$.\\ 
 
-    \item[✎] Sabemos que para generar todas las cadenas de longitud par usamos $(aa\cup bb\cup ab\cup ba)^*=((a\cup b)(a\cup b))^*$, luego para generar las impares debemos considerar 4 casos y unirlos:
+    La solución más evidente es la siguiente: $b(a\cup b)^*a$, con $(a\cup b)^*$ consideramos todas las cadenas y lo que hacemos es forzar que las cadenas comiencen con $b$ y terminen en $a$ concatenando.
+
+    \item[✎]Lenguaje de todas las cadenas de longitud impar.\\
+
+     Sabemos que para generar todas las cadenas de longitud par usamos $(aa\cup bb\cup ab\cup ba)^*=((a\cup b)(a\cup b))^*$, luego para generar las impares debemos considerar 4 casos y unirlos:
 
     $$a((a\cup b)(a\cup b))^*\cup b((a\cup b)(a\cup b))^* \cup ((a\cup b)(a\cup b))^*a \cup ((a\cup b)(a\cup b))^*b$$
 
     Esto convierte las cadenas pares en impares siempre y considera los casos en que comience por $a$ o por $b$ o termine por $a$ o $b$ (se puede llegar a una solución mejor quizá).
 
-    \item[✎] Sabemos que $(b^*ab^*ab^*)^*$ genera todas las cadenas con un número par (mayor que 0) de $aes$, luego usando este hecho construimos:
+    \item[✎] Lenguaje de todas las cadenas que tienen un numero impar de $aes.$\\ 
+
+    Sabemos que $(b^*ab^*ab^*)^*$ genera todas las cadenas con un número par (mayor que 0) de $aes$, luego usando este hecho construimos:
 
     $$a(b^*ab^*ab^*)^*\cup (b^*ab^*ab^*)^*a$$
 
     y acabamos.
 
-    \item[✎] Sabemos generar las cadenas de $a$ y $b$ que contienen un número par de $a$ o $b$, la solución está propuesta en las notas de clase, luego cambiamos un poco la expresión de esta forma:
+    \item[✎]Lenguaje de todas las cadenas en las que el numero de $bes$ es un múltiplo $\geq0$ de 3.\\ 
+
+    Sabemos generar las cadenas de $a$ y $b$ que contienen un número par de $a$ o $b$, la solución está propuesta en las notas de clase, luego cambiamos un poco la expresión de esta forma:
 
     $$a^*(a^*ba^*ba^*ba^*)^*$$
 
     La expresión $a^*(ba^*ba^*b)^*a^*$ también es una solución.
 
-    \item[✎] Para este caso las cadenas pueden comenzar por $a$, $ab$, $b^2$, $a^2$, luego obtenemos la expresión:
+    \item[✎] Lenguaje de todas las cadenas que no comienzan con la subcadena $ba$ ni terminan en $b.$\\ 
+
+    Para este caso las cadenas pueden comenzar por $a$, $ab$, $b^2$, $a^2$, luego obtenemos la expresión:
 
     $$(a\cup ab \cup b^2 \cup a^2)(a \cup b)^*a $$
 
@@ -32,7 +43,9 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
 
      $$(a\cup ab \cup b^2 \cup a^2)(a \cup b)^*a \cup a \cup \lambda$$
 
-     \item[✎] Para la expresión regular en este caso notemos que toda cadena tiene bloques de la forma $ba$ donde estos van intercalados con un numero de $a$ arbitrarias así obtenemos la expresión:
+     \item[✎] Lenguaje de todas las cadenas que no contienen la subcadena $bba.$\\ 
+
+     Para la expresión regular en este caso notemos que toda cadena tiene bloques de la forma $ba$ donde estos van intercalados con un numero de $a$ arbitrarias así obtenemos la expresión:
 
      $$(a\cup ba)^*$$
 
@@ -42,10 +55,16 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
 
 \end{itemize}
 
-\textbf{Punto 2:} \begin{itemize}
-    \item[✎] Al igual que en el primer ítem del punto anterior, lo mas natural es forzar que la cadena empiece en con $2$ y termine en $1$, concatenando respectivamente obtenemos la expresión $2(0\cup1\cup2)^*1$.
+\textbf{Punto 2: } Encontrar expresiones regulares para los siguientes lenguajes definidos sobre el alfabeto $\Sigma=\{0,1,2\}:$
 
-    \item[✎] Similar a la construcción anterior podemos forzar a que las cadenas no empiecen con $2$ ni terminen con $1$ concatenando $(0\cup1)$ y $(0\cup2)$ respectivamente. De esta forma obtenemos la expresión:
+\begin{itemize}
+    \item[✎] Lenguaje de todas las cadenas que comienzan con 2 y terminan con 1.\\ 
+
+    Al igual que en el primer ítem del punto anterior, lo mas natural es forzar que la cadena empiece en con $2$ y termine en $1$, concatenando respectivamente obtenemos la expresión $2(0\cup1\cup2)^*1$.
+
+    \item[✎] Lenguaje de todas las cadenas que no comienzan con 2 ni terminan en 1.\\ 
+
+    Similar a la construcción anterior podemos forzar a que las cadenas no empiecen con $2$ ni terminen con $1$ concatenando $(0\cup1)$ y $(0\cup2)$ respectivamente. De esta forma obtenemos la expresión:
     
     $$(0\cup1)(0\cup1\cup2)^*(0\cup2)$$
 
@@ -53,17 +72,25 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
 
     $$(0\cup1)(0\cup1\cup2)^*(0\cup2)\cup\lambda\cup0$$
 
-    \item[✎] Nuevamente la forma mas natural de construir la expresión que represente al lenguaje es forzando que aparezcan solo $2$ ceros, tenga en cuenta que los ceros pueden estar en cualquier posición y por tanto la expresión es la siguiente $(1\cup2)^*0(1\cup2)^*0(1\cup2)^*$.
+    \item[✎] Lenguaje de todas las cadenas que tienen exactamente dos ceros.\\ 
 
-    \item[✎] Ya sabemos como generar los bloques de dos elementos de un lenguaje, para este caso $(0\cup1\cup2)(0\cup1\cup2)=(0\cup1\cup2)^2$, luego de esto basta concatenar estos bloques de todas la formas posibles, obteniendo así la expresión:
+    Nuevamente la forma mas natural de construir la expresión que represente al lenguaje es forzando que aparezcan solo $2$ ceros, tenga en cuenta que los ceros pueden estar en cualquier posición y por tanto la expresión es la siguiente $(1\cup2)^*0(1\cup2)^*0(1\cup2)^*$.
+
+    \item[✎] Lenguaje de todas las cadenas que tienen un numero par de símbolos.\\
+
+     Ya sabemos como generar los bloques de dos elementos de un lenguaje, para este caso $(0\cup1\cup2)(0\cup1\cup2)=(0\cup1\cup2)^2$, luego de esto basta concatenar estos bloques de todas la formas posibles, obteniendo así la expresión:
 
     $$\left((0\cup1\cup2)^2\right)^*$$
 
-    \item[✎] Usando la expresión del ítem anterior, si concatenamos al final $0$,$1$ o $2$ obtenemos las cadenas de longitud impar, es decir:
+    \item[✎] Lenguaje de todas las cadenas que tienen un numero impar de símbolos.\\
+
+     Usando la expresión del ítem anterior, si concatenamos al final $0$,$1$ o $2$ obtenemos las cadenas de longitud impar, es decir:
     
     $$\left((0\cup1\cup2)^2\right)^*(0\cup1\cup2)$$
 
-    \item[✎] Como no pueden aparecer dos unos consecutivos, las cadenas contienen bloques de la forma $(0\cup2)1(0\cup2)$, y junto a ellas cantidades arbitrarias de ceros y dos alternados:
+    \item[✎] Lenguaje de todas las cadenas que no contienen dos unos consecutivos.\\ 
+
+    Como no pueden aparecer dos unos consecutivos, las cadenas contienen bloques de la forma $(0\cup2)1(0\cup2)$, y junto a ellas cantidades arbitrarias de ceros y dos alternados:
 
     $$(0\cup2\cup(0\cup2)1(0\cup2))^*$$
 
@@ -76,10 +103,16 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
     $$(1\cup\lambda)(0\cup2\cup(0\cup2)1(0\cup2))^+(1\cup\lambda)\cup\lambda\cup1$$
 \end{itemize}
 
-\textbf{Punto 3:} \begin{itemize}
-    \item[✎] Para que una cadena tenga al menos un $0$ y un $1$ debe ser mínimo un bloque $01$ o un bloque $10$, luego simplemente fijamos esas dos posibilidades para que la solución sea  $(0\cup1)^*(01\cup10)(0\cup1)^*$.
+\textbf{Punto 3: } Encontrar expresiones regulares para los siguientes lenguajes definidos sobre el alfabeto $\Sigma=\{0,1\}:$
 
-    \item[✎]La condición nos indica que en las cadenas solo pueden haber uno o dos ceros consecutivos, es decir las forman bloque de la forma $01$ o $001$, luego podemos generar la expresión:
+\begin{itemize}
+    \item[✎] Lenguaje de todas las cadenas que tienen por lo menos un 0 y por lo menos un 1.\\ 
+
+    Para que una cadena tenga al menos un $0$ y un $1$ debe ser mínimo un bloque $01$ o un bloque $10$, luego simplemente fijamos esas dos posibilidades para que la solución sea  $(0\cup1)^*(01\cup10)(0\cup1)^*$.
+
+    \item[✎] Lenguaje de todas las cadenas que no contienen tres ceros consecutivos.\\ 
+
+    La condición nos indica que en las cadenas solo pueden haber uno o dos ceros consecutivos, es decir las forman bloque de la forma $01$ o $001$, luego podemos generar la expresión:
 
     $$(1\cup01\cup001)^*$$
 
@@ -87,11 +120,17 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
 
     $$(1\cup01\cup001)^*(\lambda\cup0\cup00)$$
 
-    \item[✎]Para esta solución simplemente consideremos las cadenas de longitud $4$ es decir las que son generadas por $(0\cup1)^4$, luego como estas son las mínimas cadenas que acepta el lenguaje solo queda hacer que aparezcan las demás posibilidades así $(0\cup1)^4(0\cup1)^*$.
+    \item[✎] Lenguaje de todas las cadenas cuya longitud es $\geq4.$\\ 
 
-    \item[✎]Note que al forzar que el quinto símbolo de izquierda a derecha sea un $1$ en todas las cadenas básicamente podemos rehusar la solución anterior forzando la condición de esta forma $(0\cup1)^41(0\cup1)^*$.
+    Para esta solución simplemente consideremos las cadenas de longitud $4$ es decir las que son generadas por $(0\cup1)^4$, luego como estas son las mínimas cadenas que acepta el lenguaje solo queda hacer que aparezcan las demás posibilidades así $(0\cup1)^4(0\cup1)^*$.
 
-    \item[✎]Si la cadena no puede terminar en $01$ forzosamente tiene que terminar en $00,10$ o $11$, forzando estas obtenemos:
+    \item[✎] Lenguaje de todas las cadenas cuya longitud es $\geq5$ y cuyo quinto símbolo, de izquierda a derecha, es un 1.\\ 
+
+    Note que al forzar que el quinto símbolo de izquierda a derecha sea un $1$ en todas las cadenas básicamente podemos rehusar la solución anterior forzando la condición de esta forma $(0\cup1)^41(0\cup1)^*$.
+
+    \item[✎] Lenguaje de todas las cadenas que no terminan en 01.\\ 
+
+    Si la cadena no puede terminar en $01$ forzosamente tiene que terminar en $00,10$ o $11$, forzando estas obtenemos:
 
     $$(0\cup1)^*(00\cup10\cup11)$$
 
@@ -101,25 +140,41 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
 
     De esta forma terminamos.
 
-    \item[✎]Como son cadenas de longitud par, pueden ser formadas por bloques de la forma $01$ o de la forma $10$ luego la solución luce de esta forma $(01)^+\cup(10)^+$. Note que usamos $+$ ya que la cadena $\lambda$ no es aceptada en este lenguaje.
+    \item[✎] Lenguaje de todas las cadenas de longitud par $\geq2$ formadas por ceros y unos alternados.\\ 
 
-    \item[✎]Como en el ejercicio anterior ya construimos las cadenas pares, solo nos queda construir todas las impares. Esto lo logramos por medio de concatenar un elemento mas a las expresiones que ya tenemos. La solución luce de la siguiente forma:
+    Como son cadenas de longitud par, pueden ser formadas por bloques de la forma $01$ o de la forma $10$ luego la solución luce de esta forma $(01)^+\cup(10)^+$. Note que usamos $+$ ya que la cadena $\lambda$ no es aceptada en este lenguaje.
+
+    \item[✎] Lenguaje de todas las cadenas de longitud $\geq2$ formadas por ceros y unos alternados.\\ 
+
+    Como en el ejercicio anterior ya construimos las cadenas pares, solo nos queda construir todas las impares. Esto lo logramos por medio de concatenar un elemento mas a las expresiones que ya tenemos. La solución luce de la siguiente forma:
 
     $$(1\cup\lambda)(01)^+\cup(0\cup\lambda)(10)^+$$
 
-    \item[✎]Note que si no pueden haber dos ceros seguidos ni dos unos seguidos, los ceros y los unos deben de ir alternados forzosamente, es decir que la solución es la misma que la del ejercicio previo, exceptuando un detalle:
+    \item[✎] Lenguaje de todas las cadenas que no contienen dos ceros consecutivos ni dos unos consecutivos.\\ 
+
+    Note que si no pueden haber dos ceros seguidos ni dos unos seguidos, los ceros y los unos deben de ir alternados forzosamente, es decir que la solución es la misma que la del ejercicio previo, exceptuando un detalle:
 
      $$(1\cup\lambda)(01)^*\cup(0\cup\lambda)(10)^*$$
 
      Observe que cambiamos el $+$ por una $*$, esto se debe a que las cadenas $\lambda,0$ y $1$ si son validas en este lenguaje.
 
-     \item[✎]Para generar cadenas cuya longitud es un múltiplo de 3, necesitamos todos los bloques de longitud $3$ y posteriormente los concatenamos de todas las formas posibles, es decir tenemos la expresión $\left((0\cup1)^3\right)^*$. Recuerde que $0$ es múltiplo de $3$ por eso usamos el $*$ para asegurar la cadena $\lambda$.
+     \item[✎] Lenguaje de todas las cadenas de longitud impar que tienen unos en todas y cada una de las posiciones impares; en las posiciones pares pueden aparecer ceros o unos.\\
 
-      \item[✎]Esta expresión sigue un análisis muy similar al de las cadenas donde no podían haber tres ceros consecutivos, de esta forma solo falta agregar los bloques $0001$ y $000$ respectivamente a la expresión que habíamos obtenido:
+     Como la cadena tiene que ser impar la de mínima aceptación es la cadena 1. Ahora note que como nos restringimos a que en la posición impar siempre hayan unos, la cadena solo va a tener bloques de la forma 01 o 11. Así la expresión seria $1(01\cup11)^*$.
+
+     \item[✎] Lenguaje de todas las cadenas cuya longitud es un múltiplo de tres.\\
+
+     Para generar cadenas cuya longitud es un múltiplo de 3, necesitamos todos los bloques de longitud $3$ y posteriormente los concatenamos de todas las formas posibles, es decir tenemos la expresión $\left((0\cup1)^3\right)^*$. Recuerde que $0$ es múltiplo de $3$ por eso usamos el $*$ para asegurar la cadena $\lambda$.
+
+      \item[✎] Lenguaje de todas las cadenas que no contienen cuatro ceros consecutivos.\\
+
+       Esta expresión sigue un análisis muy similar al de las cadenas donde no podían haber tres ceros consecutivos, de esta forma solo falta agregar los bloques $0001$ y $000$ respectivamente a la expresión que habíamos obtenido:
 
       $$(1\cup01\cup001\cup0001)^*(\lambda\cup0\cup00\cup000)$$
 
-      \item[✎]Observe que la cadena tiene que empezar por $1$ o $01$ y de forma similar tiene que acabar en $0$ o en $01$. Forzando estos símbolos obtenemos:
+      \item[✎] Lenguaje de todas las cadenas que no comienzan con 00 ni terminan en 11.\\
+
+       Observe que la cadena tiene que empezar por $1$ o $01$ y de forma similar tiene que acabar en $0$ o en $01$. Forzando estos símbolos obtenemos:
 
       $$(1\cup01)(0\cup1)^*(0\cup01)$$
 
@@ -127,7 +182,9 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
 
       $$(1\cup01)(0\cup1)^*(0\cup01)\cup\lambda\cup0\cup1\cup01$$
 
-      \item[✎]Para que no contengan la subcadena $101$ note que se debe forzar que en todas las expresiones aparezcan al menos dos ceros entre dos unos, las cadenas de este estilo se consiguen por medio de la expresión:
+      \item[✎] Lenguaje de todas las cadenas que no contienen la subcadena 101.\\
+
+       Para que no contengan la subcadena $101$ note que se debe forzar que en todas las expresiones aparezcan al menos dos ceros entre dos unos, las cadenas de este estilo se consiguen por medio de la expresión:
 
       $$(1\cup00^+)^*$$
 
@@ -139,6 +196,11 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
   
 \end{itemize}
 
+\textbf{Punto 4: }Sea $\Sigma=\{a,b\}$. Encontrar una expresión regular que represente el lenguaje de todas las cadenas que tienen un numero para $\geq0$ de $aes$ y un numero par $\geq0$ de $bes.$\\
+
+Para este ejercicio no logramos hallar la expresión por mera inspección, pero para no dejar un mal sabor de boca mostraremos la expresión obtenida usando uno de los procedimientos presentados en secciones futuras:
+$$[a^2\cup b^2\cup(ab\cup ba)(a^2\cup b^2)^*(ba\cup ab)]^*$$
+
 \hfill $\blacklozenge$
 
 \section{Diseño de autómatas}
@@ -146,9 +208,11 @@ En este capítulo comenzamos la segunda parte de las notas de clase, en estas se
 
 Al igual que en la sección anterior las soluciones de este capitulo no son únicas y puede que algunas sean redundantes, además otra aclaración de vital importancia es que todos los autómatas presentados no muestran sus estados limbo, es decir presentaremos AFD simplificados.\\
 
-\textbf{Punto 1:}
+\textbf{Punto 1: }Sea $\Sigma\{a,b\}.$ Diseñar AFD que acepten los siguientes lenguajes:
 \begin{itemize}[label={✎}]
-    \item Como la cadena mínima es $\lambda$ entonces el estado inicial tiene que ser de aceptación, luego como también se aceptan $aes$ arbitrarias estas pueden ser aceptadas por medio de un bucle. Apenas aparezca una $b$ el autómata cambiara de estado pero ese seria también de aceptación, incluyendo un bucle para las $bes$ arbitrarias:\\
+    \item $a^*b^*$\\
+
+     Como la cadena mínima es $\lambda$ entonces el estado inicial tiene que ser de aceptación, luego como también se aceptan $aes$ arbitrarias estas pueden ser aceptadas por medio de un bucle. Apenas aparezca una $b$ el autómata cambiara de estado pero ese seria también de aceptación, incluyendo un bucle para las $bes$ arbitrarias:\\
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
@@ -160,7 +224,11 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}
     \end{basedtikz}
 
-    \item Nuevamente el estado inicial es de aceptación ya que $\lambda$ pertenece a el lenguaje, luego basta con tomar dos caminos para el caso donde sean cadenas de $aes$ y el de cadenas de $bes$:
+    \item $a^*\cup b^*$\\
+
+     Nuevamente el estado inicial es de aceptación ya que $\lambda$ pertenece a el lenguaje, luego basta con tomar dos caminos para el caso donde sean cadenas de $aes$ y el de cadenas de $bes$:
+
+     \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
@@ -174,7 +242,9 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}    
     \end{basedtikz}
 
-    \item Note que todas las cadenas de este lenguaje son de la forma $ab\dots ab$, es decir siempre son bloques $ab$ y todas las cadenas empiezan en $a$ y terminan en $b$:
+    \item $(ab)^*$\\
+
+     Note que todas las cadenas de este lenguaje son de la forma $ab\dots ab$, es decir siempre son bloques $ab$ y todas las cadenas empiezan en $a$ y terminan en $b$:
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
@@ -185,7 +255,9 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}
     \end{basedtikz}
 
-    \item Bastante similar a la anterior excepto que la cadena mínima aceptada es $ab$ debido al $+$, así que forzamos esa cadena:
+    \item $(ab)^+$\\
+
+     Bastante similar a la anterior excepto que la cadena mínima aceptada es $ab$ debido al $+$, así que forzamos esa cadena:
     \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
@@ -198,8 +270,9 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}     
     \end{basedtikz}
 
-    \item Note que debido a la expresión se forman dos caminos, uno son las cadenas que empiezan por $a$ y luego tienen una cantidad de $bes$ arbitrarias. El otro son aquellas que comienzan por un numero de $bes$ arbitrarias pero están forzadas a terminar en $a$ para ser aceptadas:
-    \pagebreak
+    \item $ab^*\cup b^*a$\\
+
+     Note que debido a la expresión se forman dos caminos, uno son las cadenas que empiezan por $a$ y luego tienen una cantidad de $bes$ arbitrarias. El otro son aquellas que comienzan por un numero de $bes$ arbitrarias pero están forzadas a terminar en $a$ para ser aceptadas:
     \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
@@ -215,7 +288,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}
     \end{basedtikz}
 
-    \item Observe que las cadena mínima de este lenguaje tiene una sola $a$ así que el estado inicial no es de aceptación, luego note que en ambos casos de la $*$ el elemento es una $a$, por lo que forzamos dos $aes$ y posteriormente realizamos respectivamente el bucle de $aes$ y de $abes$:
+    \item $a(a\cup ab)^*$ Observe que las cadena mínima de este lenguaje tiene una sola $a$ así que el estado inicial no es de aceptación, luego note que en ambos casos de la $*$ el elemento es una $a$, por lo que forzamos dos $aes$ y posteriormente realizamos respectivamente el bucle de $aes$ y de $abes$:
 
     \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
@@ -230,7 +303,9 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}
     \end{basedtikz}
      
-    \item Observe que la cadena mínima es $aa$ entonces debemos forzar ese camino. Ahora note que en ese camino podemos generar el bucle para $a^+$. Note que hay dos posibilidades para las $bes$, o inicia la cadena con solo una $a$ y luego tiene una cantidad arbitraria de $bes$ o empieza con $aes$ arbitrarias y luego tiene $bes$ arbitrarias, pero note que siempre que aparece al menos una $b$ la cadena siempre acaba en $a$:
+    \item $a^+b^*a.$ Un AFD  que acepte este lenguaje requiere como mínimo 5 estados mas un estado limbo.\\
+
+    Observe que la cadena mínima es $aa$ entonces debemos forzar ese camino. Ahora note que en ese camino podemos generar el bucle para $a^+$. Note que hay dos posibilidades para las $bes$, o inicia la cadena con solo una $a$ y luego tiene una cantidad arbitraria de $bes$ o empieza con $aes$ arbitrarias y luego tiene $bes$ arbitrarias, pero note que siempre que aparece al menos una $b$ la cadena siempre acaba en $a$:
     \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
@@ -250,7 +325,9 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{tikzpicture}
     \end{basedtikz}
 
-    \item Primero notemos que las cadenas mínimas son $a$ y $b$, así que debemos forzar dos caminos que las acepten. Ahora observe que si sale una $a$ existen dos posibilidades, es seguida inmediatamente de una $b$ o salen $aes$ arbitrarias y luego si una $b$. Note que este análisis también es valido respectivamente con $b$:
+    \item $a^*b\cup b^*a.$ Un AFD  que acepte este lenguaje requiere como mínimo 6 estados mas un estado limbo.\\
+
+     Primero notemos que las cadenas mínimas son $a$ y $b$, así que debemos forzar dos caminos que las acepten. Ahora observe que si sale una $a$ existen dos posibilidades, es seguida inmediatamente de una $b$ o salen $aes$ arbitrarias y luego si una $b$. Note que este análisis también es valido respectivamente con $b$:
 
         \begin{basedtikz}
             \begin{tikzpicture} [node distance = 2.5cm, on grid, auto]
@@ -275,8 +352,9 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             \end{tikzpicture}
         \end{basedtikz}
 
-        \item Observe que nuestras dos cadenas mínimas de aceptación son $ab$ y $ba$ así que forzamos esos dos caminos. Posteriormente para hacer que aparezcan las $bes$ arbitrarias podemos agregar un bucle en el camino donde generamos $ba$. Si lo dejáramos hasta ahí nos faltarían las cadenas de la forma $b^*ab$ pero esto se arregla fácilmente conectando el camino de $ba$ al de $ab$ colocando una $b$ entre estados de aceptación:
-        \pagebreak
+        \item $b^*(ab\cup ba)$\\ 
+
+        Observe que nuestras dos cadenas mínimas de aceptación son $ab$ y $ba$ así que forzamos esos dos caminos. Posteriormente para hacer que aparezcan las $bes$ arbitrarias podemos agregar un bucle en el camino donde generamos $ba$. Si lo dejáramos hasta ahí nos faltarían las cadenas de la forma $b^*ab$ pero esto se arregla fácilmente conectando el camino de $ba$ al de $ab$ colocando una $b$ entre estados de aceptación:
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial] {$q_0$};
@@ -294,7 +372,9 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             \end{tikzpicture}
         \end{basedtikz}
 
-        \item Note que el lenguaje es muy parecido a excepción de que las cadenas forzosamente acaban en por lo menos una $a$, pero lo que podemos hacer es usar el autómata construido previamente y aquellos estados de aceptación forzamos que salga una $a$ hacia un nuevo estado de aceptación que generara la concatenación de $a^+$:
+        \item $b^*(ab\cup ba)a^+$\\
+
+         Note que el lenguaje es muy parecido a excepción de que las cadenas forzosamente acaban en por lo menos una $a$, pero lo que podemos hacer es usar el autómata construido previamente y aquellos estados de aceptación forzamos que salga una $a$ hacia un nuevo estado de aceptación que generara la concatenación de $a^+$:
 
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
@@ -317,9 +397,11 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
             \end{tikzpicture}
         \end{basedtikz} 
     \end{itemize}
-\textbf{Punto 2:}
+\textbf{Punto 2: }Sea $\Sigma\{a,b\}$
 \begin{itemize}[label={✎}]
-    \item Recordemos que si por ejemplo queremos construir un autómata que acepte el lenguaje de las cadenas que tienen una cantidad par de $aes$ hacemos la siguiente construcción:
+    \item Diseñar un AFD que acepte el lenguaje de todas las cadenas que contienen un numero par de $aes$ y un numero par de $bes$.\\
+
+     Recordemos que si por ejemplo queremos construir un autómata que acepte el lenguaje de las cadenas que tienen una cantidad par de $aes$ hacemos la siguiente construcción:
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial, accepting] {$q_0$};
@@ -365,10 +447,12 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
 
     Algo importante a destacar aquí es que el único estado de aceptación es $q_0$ ya que en los demás siempre hay cantidad impar de $aes$ o $bes$. Esto es relevante ya que es la esencia del siguiente ejercicio.
 
-    \item Observe que para este ejercicio tenemos ocho posibilidades en total, bueno para ser exactos simplemente tenemos que hacer $7$ ya que en el anterior ya cubrimos el caso par de $aes$ y par de $bes$. La forma en que determinaremos que estados se vuelven de aceptación es considerando cadenas básicas que cumplen las condiciones y en que estado terminan.\\
+    \item Para cada combinación de condiciones 'par' e 'impar' y de las conectivas 'o' e 'y', diseñar un AFD que acepte el lenguaje $L$ definido por
+    $$L=\text{lenguaje de las cadenas con un numero par/impar de }aes\text{ y/o un numero par/impar de }bes.$$
+
+     Observe que para este ejercicio tenemos ocho posibilidades en total, bueno para ser exactos simplemente tenemos que hacer $7$ ya que en el anterior ya cubrimos el caso par de $aes$ y par de $bes$. La forma en que determinaremos que estados se vuelven de aceptación es considerando cadenas básicas que cumplen las condiciones y en que estado terminan.\\
 
     \textbf{Caso 1: }Impar de $aes$ o impar de $bes$. Note que en el autómata original $q_1,q_2$ y $q_3$ no son de aceptación ya que en todos $aes$ o $bes$ son impares, luego en este caso estos tres se vuelven de aceptación mientras que $q_0$ ya no lo es.
-    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial] {$q_0$};
@@ -407,6 +491,7 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
     \end{basedtikz}
 
     \textbf{Caso 3: }Impar de $aes$ e impar de $bes$. Note que en la construcción anterior el estado $q_3$ no es de aceptación ya que es el único lugar donde $aes$ y $bes$ son impares, entonces para este caso ese va a ser nuestro único estado de aceptación.
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial] {$q_0$};
@@ -480,7 +565,6 @@ Observe que este autómata no acepta por ejemplo las cadenas $abab$ o $abba$. Aq
         \end{tikzpicture}
     \end{basedtikz}
     \textbf{Caso 7: }Par de $aes$ o Impar de $bes$.
-    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state,  initial, accepting] {$q_0$};
@@ -503,9 +587,11 @@ Observe que por ejemplo la condición del caso $7$ es la negación de la condici
 \end{itemize}
 
 
-\textbf{Punto 3: }
+\textbf{Punto 3: }Sea $\Sigma=\{0,1\}.$ Diseñar AFD que acepten los siguientes lenguajes:
 \begin{itemize}[label={✎}]
-    \item Primero debemos forzar el camino para aceptar $01$ que es la cadena mínima.
+    \item El lenguaje de todas las cadenas que terminan en 01.\\
+
+     Primero debemos forzar el camino para aceptar $01$ que es la cadena mínima.
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
@@ -544,7 +630,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q1) edge [bend left] node [above] {$1$} (q2);
             \end{tikzpicture}
         \end{basedtikz}
-        \item Primero forzamos la mínima cadena par de unos que es $11$, luego realizamos la construcción para obtener cantidad par de unos y añadimos bucles de $0$ en todos los estados ya que estos no tienen restricción alguna.
+        \item El lenguaje de todas las cadenas que tienen un numero par $\geq2$ de unos.\\
+
+         Primero forzamos la mínima cadena par de unos que es $11$, luego realizamos la construcción para obtener cantidad par de unos y añadimos bucles de $0$ en todos los estados ya que estos no tienen restricción alguna.
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
@@ -559,7 +647,10 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q2) edge [loop above] node [above] {$0$} ();
             \end{tikzpicture}
         \end{basedtikz}
-        \item Al igual que hacíamos con las expresiones regulares, hacemos primero que se acepten todas las cadenas de longitud $4$ que son las mínimas y posteriormente por medio de un bucle se generaran todas las demás.
+        \item El lenguaje de todas las cadenas con longitud $\geq4.$\\
+
+         Al igual que hacíamos con las expresiones regulares, hacemos primero que se acepten todas las cadenas de longitud $4$ que son las mínimas y posteriormente por medio de un bucle se generaran todas las demás.
+         \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
@@ -575,7 +666,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         (q4) edge [loop above] node [above] {$0,1$} ();
             \end{tikzpicture}
         \end{basedtikz}
-        \item Nuevamente forzaremos el hecho de que hayan al menos dos unos seguidos, en el primer estado agregaremos un bucle de $0$ ya que estos pueden ser arbitrarios y en el ultimo un bucle $0,1$ ya que ahi ya se cumple la condición entonces da igual que salga después
+        \item El lenguaje de todas las cadenas que contienen por lo menos dos unos consecutivos.\\
+
+         Nuevamente forzaremos el hecho de que hayan al menos dos unos seguidos, en el primer estado agregaremos un bucle de $0$ ya que estos pueden ser arbitrarios y en el ultimo un bucle $0,1$ ya que ahi ya se cumple la condición entonces da igual que salga después
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node(q0) [state, initial] {$q_0$};
@@ -591,7 +684,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         \end{basedtikz}
         Note que agregamos una flecha de $q_1$ a $q_0$ con etiqueta $0$ ya que esto permite aceptar cadenas como $101011001$ que sin este no serian aceptadas.
 
-        \item Observe que debemos construir el camino forzando a que halla por lo menos un $1$ entre dos ceros (no olvide que la cadena $\lambda$ es de aceptación en este lenguaje).
+        \item El lenguaje de todas las cadenas que tienen un numero par de ceros pero no tienen dos ceros consecutivos.\\
+
+         Observe que debemos construir el camino forzando a que halla por lo menos un $1$ entre dos ceros (no olvide que la cadena $\lambda$ es de aceptación en este lenguaje).
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial, accepting] {$q_0$};
@@ -608,7 +703,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
             \end{tikzpicture}
         \end{basedtikz}
         Note que estamos acostumbrados a que cuando hacemos la construcción de pares el bucle se hace con los que queremos forzar a ser pares, pero en este caso se vuelve al estado inicial por medio de un $1$ es debido a que la condición de que no pueden haber $2$ ceros consecutivos.
-        \item Note que podemos formar los respectivos bucles por separado ya que la cadena empieza por $01$ o por $101$ y luego estas se concatenan en cualquier  orden pero siempre son esos dos bloques.
+        \item $(01\cup101)^*$\\
+
+         Note que podemos formar los respectivos bucles por separado ya que la cadena empieza por $01$ o por $101$ y luego estas se concatenan en cualquier  orden pero siempre son esos dos bloques.
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                 \node (q0) [state, initial, accepting] {$q_0$};
@@ -623,8 +720,10 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
                 (q2) edge node [above] {$1$} (q0);
             \end{tikzpicture}
         \end{basedtikz}
-        \item Este AFD fue construido por medio de un algoritmo que sera presentado en un capitulo posterior. Siendo sincero me fue imposible construir este AFD por mera inspección de la expresión regular.
-        \pagebreak
+        \item $1^+(10\cup01^+)^*$\\ 
+
+        Este AFD fue construido por medio de un algoritmo que sera presentado en un capitulo posterior. Siendo sincero me fue imposible construir este AFD por mera inspección de la expresión regular.
+        
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
@@ -648,9 +747,11 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         \end{basedtikz}
 \end{itemize}
 
-\textbf{Punto 4:}
+\textbf{Punto 4: }Sea $\Sigma=\{a,b,c\}$. Diseñar AFD que acepten los siguientes lenguajes:
 \begin{itemize}[label={✎}]
-    \item Basta con forzar los bucles para cada elemento y el hecho de que todas las cadenas tienen la misma secuencia de elementos, $aes$ arbitrarias luego $bes$ arbitrarias y por ultimo $ces$ arbitrarias.
+    \item $a^*b^*c^*$\\
+
+     Basta con forzar los bucles para cada elemento y el hecho de que todas las cadenas tienen la misma secuencia de elementos, $aes$ arbitrarias luego $bes$ arbitrarias y por ultimo $ces$ arbitrarias.
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
@@ -665,7 +766,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
             (q0) edge [bend right] node [below] {$c$} (q2);
         \end{tikzpicture}
     \end{basedtikz}
-    \item Haremos una construcción por dos caminos distintos a partir de las cadenas mínimas. La primera es el camino que se forma con la cadena $a$.
+    \item $a^+b^*\cup ac^*\cup b^*ca^*$\\
+
+     Haremos una construcción por dos caminos distintos a partir de las cadenas mínimas. La primera es el camino que se forma con la cadena $a$.
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -686,6 +789,7 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
     \end{basedtikz}
     Esta construcción se puede ver un tanto enredada pero si nos fijamos detalladamente simplemente se están considerando tres casos, primero las cadenas de la forma $ac^*$, segundo las cadenas de la forma $ab^*$ y por ultimo las $aa^+b^*$ (note que es necesario dividir estos dos últimos caminos así debido a la definición de los AFD).
     Ahora solo nos falta construir el camino para aceptar cadenas de la forma $b^*ca^*$.
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -712,7 +816,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
         \end{tikzpicture}
     \end{basedtikz}
     Note como forzamos la cadena mínima $c$ y usamos un estado extra para generar el bucle de $bes$ ya que si no lo hacemos y colocamos ese bucle en $q_0$ alteraríamos toda la parte superior del autómata. De esta forma ya estamos considerando todas las cadenas que son dadas aceptadas en el lenguaje.
-    \item Observe que las cadenas mínimas son $ba$ y $ca$ luego basta con forzarlas y notar que ademas de las $aes$ arbitrarias iniciales siempre luego de una $b$ o $c$ va una $a$ y viceversa.
+    \item $a^*(ba\cup ca)^+$\\
+
+     Observe que las cadenas mínimas son $ba$ y $ca$ luego basta con forzarlas y notar que ademas de las $aes$ arbitrarias iniciales siempre luego de una $b$ o $c$ va una $a$ y viceversa.
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$}; 
@@ -727,7 +833,9 @@ Pero note que las cadenas $0101$ y $101101$ son cadenas validas pero no son acep
     \end{basedtikz}
 \end{itemize}
 
-\textbf{Punto 5:} Primero es bastante evidente por la definición que se nos da que la expresión regular que determina a $L$ es:
+\textbf{Punto 5: }Sea $L=\{a^{2i}b^{3j}:i,j\geq0\}$ definido sobre el alfabeto $\Sigma=\{a,b\}.$ Encontrar una expresión regular para $L$ y un AFD $M$ tal que $L(M)=L.$\\
+
+ Primero es bastante evidente por la definición que se nos da que la expresión regular que determina a $L$ es:
 $$(aa)^*(bbb)^*=\left(a^2\right)^*\left(b^3\right)^*$$
 Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero realizar la construcción para obtener una cantidad par de $aes$ y posteriormente agregamos un camino para aceptar cantidad de $bes$ que sean múltiplos de $3$ (esta construcción es muy parecida a la de pares solo que en vez de concatenar bloques $bb$ estamos concatenando bloques $bbb$).
     \begin{basedtikz}
@@ -754,11 +862,13 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
 
   A continuación construiremos AFN los cuales no tienen las mismas restricciones que los AFD y por tanto son bastante mas sencillos de construir, eso si algo de vital importancia es que al igual que en los AFD debemos tener cuidado de no construir caminos que acepten cadenas que no son contempladas por el lenguaje.\\
 
-  \textbf{Punto 1:}
+  \textbf{Punto 1: }Sea $\Sigma=\{a,b\}.$ Diseñar AFN que acepten los siguientes lenguajes:
 
   \begin{itemize}[label={✎}]
 
-        \item Tenemos que asegurar que toda cadena empiece por una $a$, luego simplemente generamos los dos bucles necesarios uno para $aes$ arbitrarias y el otro para bloques $ab$.
+        \item $a(a\cup ab)^*$\\
+
+         Tenemos que asegurar que toda cadena empiece por una $a$, luego simplemente generamos los dos bucles necesarios uno para $aes$ arbitrarias y el otro para bloques $ab$.
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial] {$q_0$}; 
@@ -772,8 +882,9 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             \end{tikzpicture}
         \end{basedtikz}
         Observe que este es un AFN ya que hay dos flechas con etiqueta $a$ saliendo desde $q_1$.
-        \item Para la construcción forzamos la cadena mínima $aa$ junto a el bucle de $aes$ inicial.
-        \pagebreak
+        \item $a^+b^*a$\\
+
+         Para la construcción forzamos la cadena mínima $aa$ junto a el bucle de $aes$ inicial.
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial] {$q_0$}; 
@@ -790,7 +901,9 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             \end{tikzpicture}
         \end{basedtikz}
         Note que las $bes$ intermedias las agregamos por medio de un estado extra generando un camino nuevo.
-        \item Basta con construir un camino para las cadenas mínimas $a$ y $b$, luego construimos dos caminos extra para aceptar $a^*b$ y $b^*a$ respectivamente.
+        \item $a^*b\cup b^*a$\\
+
+         Basta con construir un camino para las cadenas mínimas $a$ y $b$, luego construimos dos caminos extra para aceptar $a^*b$ y $b^*a$ respectivamente.
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial] {$q_0$}; 
@@ -807,8 +920,9 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
                (q2) edge [loop below] node [below] {$b$} ();
             \end{tikzpicture}
         \end{basedtikz}
-        \item Forzaremos las $bes$ arbitrarias en el primer estado y luego generamos los caminos correspondientes para la concatenación de $ab$ y $ba$.
-        \pagebreak
+        \item $b^*(ab\cup ba)^*$\\
+
+         Forzaremos las $bes$ arbitrarias en el primer estado y luego generamos los caminos correspondientes para la concatenación de $ab$ y $ba$.
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial, accepting] {$q_0$}; 
@@ -825,7 +939,9 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
                (q3) edge [bend right] node [above] {$b$} (q2);
             \end{tikzpicture}
         \end{basedtikz}
-        \item Observe que el lenguaje es exactamente igual al anterior a excepción de que ahora las cadenas pueden terminar en un numero arbitrario de $aes$, pero como estamos construyendo un AFN basta con notar que agregando un nuevo estado que sea de aceptación con un bucle de $aes$ es suficiente.
+        \item $b^*(ab\cup ba)^*a^*$\\
+
+         Observe que el lenguaje es exactamente igual al anterior a excepción de que ahora las cadenas pueden terminar en un numero arbitrario de $aes$, pero como estamos construyendo un AFN basta con notar que agregando un nuevo estado que sea de aceptación con un bucle de $aes$ es suficiente.
         \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
                \node (q0) [state, initial, accepting] {$q_0$}; 
@@ -847,10 +963,13 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         \end{basedtikz}
     \end{itemize}
 
-    \textbf{Punto 2:}  
+    \textbf{Punto 2: }Sea $\Sigma=\{0,1\}.$ Diseñar AFN que acepten los siguientes lenguajes:  
 
     \begin{itemize}[label={✎}]
-        \item Simplemente construimos los caminos para aceptar $01$ y $001$ por separado.
+        \item $(01\cup001)^*$\\
+
+         Simplemente construimos los caminos para aceptar $01$ y $001$ por separado.
+         \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
@@ -865,7 +984,9 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q3) edge node [above] {$1$} (q0);
             \end{tikzpicture}
         \end{basedtikz}
-        \item Nuevamente basta con construir los caminos correspondientes a $01^*0$ y $10^*$.
+        \item $(01^*0\cup10^*)^*$\\
+
+         Nuevamente basta con construir los caminos correspondientes a $01^*0$ y $10^*$.
         
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
@@ -885,7 +1006,10 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
 
         Observe que es necesario incluir ese bucle con etiqueta $1$ para aceptar cuando solo hay unos en la expresión $10^*$ (es decir en el caso donde $1$ se concatena con $\lambda$). 
 
-        \item Construimos los caminos de las cadenas $10^*1$ y $01$.
+        \item $1^*01\cup10^*1$\\
+
+         Construimos los caminos de las cadenas $10^*1$ y $01$.
+         \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial] {$q_0$};
@@ -913,11 +1037,26 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
 
     En la anterior sección se hizo bastante notorio como la construcción de AFN es mucho mas sencilla que la de un AFD. En esta sección se nos enseña que por medio de un proceso podemos convertir cualquier AFN en un AFD, algo que resulta extremadamente conveniente pero aveces el proceso es algo tedioso.\\ 
 
-    \textbf{Punto 1:}\\ 
+    \textbf{Punto 1: }Utilizando el procedimiento de conversión presentado en esta sección, encontrar AFD equivalentes a los siguientes AFN:\\ 
     A continuación en cada AFD que construyamos omitiremos los estados inútiles.\\
 
     \begin{itemize}[label={✎}]
-        \item Primero realicemos la extensión de la tabla.
+        \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \node (q3) [state, right of=q2, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$b$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q0)
+            (q0) edge node [left] {$b$} (q2)
+            (q2) edge node [below] {$a$} (q3)
+            (q3) edge node [left] {$b$} (q0);
+            \end{tikzpicture}
+            \end{center}   
+        Primero realicemos la extensión de la tabla.
        
        \begin{center}
                \begin{tabular}{|c|c|c|}
@@ -958,7 +1097,24 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             \end{tikzpicture}
         \end{basedtikz}
 
-        \item Realicemos la extensión de la tabla.
+        \item \hfill
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \node (q3) [state, right of=q2, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$b$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q0)
+            (q0) edge node [left] {$b$} (q2)
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q2) edge node [below] {$a$} (q3)
+            (q3) edge node [left] {$b$} (q0);
+            \end{tikzpicture}    
+         \end{center} 
+
+         Realicemos la extensión de la tabla.
 
         \begin{center}
             \begin{tabular}{|c|c|c|}
@@ -1005,7 +1161,21 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             \end{tikzpicture}
         \end{basedtikz}
 
-        \item Realicemos la extensión de la tabla.
+        \item \hfill 
+        \begin{center}
+          \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, right of=q1, accepting] {$q_2$};;
+            \path[thick]
+            (q0) edge [loop above] node [above] {$b$} ()
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q0) edge node [above] {$b$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q2)
+            (q2) edge [bend left] node [below] {$b$} (q1);
+            \end{tikzpicture}   
+        \end{center}
+        Realicemos la extensión de la tabla.
         \begin{center}
              \begin{tabular}{|c|c|c|}
         \hline
@@ -1040,8 +1210,22 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
             (q1) edge [bend left] node [below] {$a$} (q4);
             \end{tikzpicture}
         \end{basedtikz}
-
-        \item Creo que ya es evidente que es lo primero que haremos.
+        \pagebreak
+        \item \hfill
+        \begin{center}
+          \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, right of=q1, accepting] {$q_2$};;
+            \path[thick]
+            (q0) edge [loop above] node [above] {$a$} ()
+            (q0) edge node [above] {$a$} (q1)
+            (q1) edge [bend left] node [above] {$b$} (q2)
+            (q2) edge [bend left] node [below] {$a$} (q1) 
+            (q2) edge [bend left=60] node [below] {$a$} (q0);
+            \end{tikzpicture}  
+        \end{center}
+        Creo que ya es evidente que es lo primero que haremos.
       \begin{center}
           \begin{tabular}{|c|c|c|}
         \hline
@@ -1059,7 +1243,6 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         \end{tabular}   
       \end{center}
         Los estados de aceptación son aquellos que contienen $q_0$ y $q_2$, ademas definimos $q_3:=\{q_0,q_1\}$.
-        \pagebreak
         \begin{basedtikz}
             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
             \node (q0) [state, initial, accepting] {$q_0$};
@@ -1074,7 +1257,7 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         \end{basedtikz}
     \end{itemize}
 
-    \textbf{Punto 2:}\\
+    \textbf{Punto 2: }Sean $\Sigma=\{0,1\}$ y $L_3$ el lenguaje de todas las cadenas de longitud $\geq3$ en las que el tercer símbolo, de derecha a izquierda es un 1. Diseñar un AFN con cuatro estados que acepte a $L_3$ y aplicar luego el procedimiento de conversión para encontrar un AFD equivalente.\\
 
 Note primero como ayuda que la expresión regular que describe $L_3$ es:
 $$(0\cup1)^*1(0\cup1)^2$$
@@ -1127,7 +1310,6 @@ Ahora realicemos la extensión de la tabla.
         \end{tabular}
       \end{center}
 Ahora observe que en el AFD los estados de aceptación serán aquellos que contengan a $q_3$, ademas definimos $q_4:=\{q_0,q_1\},q_5:=\{q_0,q_2\},q_6:=\{q_0,q_1,q_2\},q_7:=\{q_0,q_3\},q_8:=\{q_0,q_1,q_3\},q_9:=\{q_0,q_2,q_3\}$ y $q_{10}:=\{q_0,q_1,q_2,q_3\}$.
-\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
     \node (q0) [state, initial] {$q_0$};
@@ -1158,7 +1340,9 @@ Ahora observe que en el AFD los estados de aceptación serán aquellos que conte
     \end{tikzpicture}
 \end{basedtikz}
 
-\textbf{Punto 3:}
+\textbf{Punto 3: }Sea $M=\{\Sigma,Q,q_0,F,\delta\}$ un AFD. Demostrar por recursión sobre cadenas que la extensión $\delta$ satisface
+$$\delta(q_0,uv)=\delta(\delta(q,u),v),$$
+para todo estado $q\in Q$, y todas las cadenas $u,v\in\Sigma^*.$
 \begin{proof}
 Dados $q\in Q$ y $u,v\in\Sigma^*$ realizaremos recursión sobre la cadena $v$.\\
 Si $v=\lambda$ es evidente por la definición de la extensión de $\delta$ que:
@@ -1174,7 +1358,9 @@ Ahora veamos que ocurre con $va$ donde $a\in\Sigma$
 De esta manera concluimos que la propiedad se cumple. 
 
 \end{proof}
-\textbf{Punto 4:}
+\textbf{Punto 4: }Sea $M=\{\Sigma,Q,q_0,F,\Delta\}$ un AFN. Demostrar por recursión sobre cadenas que la extensión $\Delta$ satisface
+$$\Delta(q_0,uv)=\Delta(\Delta(q,u),v),$$
+para todo estado $q\in Q$, y todas las cadenas $u,v\in\Sigma^*.$ 
 \begin{proof}
 Dados $q\in Q$ y $u,v\in\Sigma^*$ procederemos igual que en el punto anterior.\\
 Si $v=\lambda$ por la definición de la extensión de $\Delta$ se tiene que:
@@ -1197,10 +1383,12 @@ $\hfill \blacklozenge$
 
 Si bien previamente habíamos observado como los AFN eran bastante fáciles de construir, en esta sección nos daremos cuenta de que existe incluso construcciones aun mas sencillas, que son los AFN-$\lambda$. En esta sección veremos como construirlos y luego observaremos su relevancia.\\
 
-\textbf{Punto 1:}
+\textbf{Punto 1: }Sea $\Sigma=\{a,b\}.$ Diseñar AFN-$\lambda$ que acepten los siguientes lenguajes:
 
 \begin{itemize}[label={✎}]
-    \item Para este autómata realizaremos una construcción en serie, concatenando los autómatas respectivos de cada parte del lenguaje, note que $a$ es la mínima cadena de aceptación.
+    \item $(ab\cup b)^*ab^*a^*.$\\
+     
+     Para este autómata realizaremos una construcción en serie, concatenando los autómatas respectivos de cada parte del lenguaje, note que $a$ es la mínima cadena de aceptación.
     \begin{basedtikz}
        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
        \node (q0) [state, initial] {$q_0$};
@@ -1220,8 +1408,9 @@ Si bien previamente habíamos observado como los AFN eran bastante fáciles de c
        \end{tikzpicture} 
     \end{basedtikz}
 
-    \item Basta con realizar una construcción en paralelo para cada expresión de la unión. Es decir construimos un AFD para $ab^*,ba^*$ y $b(ab\cup ba)^*$ respectivamente y luego realizamos la construcción en paralelo.
-    \pagebreak
+    \item $ab^*\cup ba^*\cup b(ab\cup ba)^*.$\\
+     
+     Basta con realizar una construcción en paralelo para cada expresión de la unión. Es decir construimos un AFD para $ab^*,ba^*$ y $b(ab\cup ba)^*$ respectivamente y luego realizamos la construcción en paralelo.
     \begin{basedtikz}
        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
        \node (q0) [state, initial] {$q_0$};
@@ -1249,8 +1438,10 @@ Si bien previamente habíamos observado como los AFN eran bastante fáciles de c
        \end{tikzpicture} 
     \end{basedtikz}
 
-    \item Nuevamente realizaremos una construcción en serie, note que la cadena $\lambda$ es la mínima que se acepta.
+    \item $(a\cup aba)^*b^*(ab\cup ba)^*a^*.$ \\
 
+    Nuevamente realizaremos una construcción en serie, note que la cadena $\lambda$ es la mínima que se acepta.
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
          \node (q0) [state, initial] {$q_0$};
@@ -1279,11 +1470,12 @@ Si bien previamente habíamos observado como los AFN eran bastante fáciles de c
     \end{basedtikz}
 \end{itemize}
 
-\textbf{Punto 2:}
+\textbf{Punto 2: }Sea $\Sigma=\{0,1\}.$ Diseñar AFN-$\lambda$ que acepten los siguientes lenguajes:
 
 \begin{itemize}[label={✎}]
-    \item El único autómata que puede resultar un poco complicado de construir es el de la expresión inicial $(1\cup01\cup001)^*$ pero basta con 3 estados, luego simplemente es realizar una construcción en serie.
-    \pagebreak
+    \item $(1\cup01\cup001)^*0^*1^*0^+.$\\
+
+    El único autómata que puede resultar un poco complicado de construir es el de la expresión inicial $(1\cup01\cup001)^*$ pero basta con 3 estados, luego simplemente es realizar una construcción en serie.
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
          \node (q0) [state, initial] {$q_0$};
@@ -1307,8 +1499,10 @@ Si bien previamente habíamos observado como los AFN eran bastante fáciles de c
         \end{tikzpicture}
     \end{basedtikz}
 
-    \item Nuevamente una construcción en serie basta.
+    \item $0^+1(010)^*(01\cup10)^*1^+.$\\
 
+    Nuevamente una construcción en serie basta.
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
          \node (q0) [state, initial] {$q_0$};
@@ -1337,8 +1531,9 @@ Si bien previamente habíamos observado como los AFN eran bastante fáciles de c
         \end{tikzpicture}
     \end{basedtikz}
 
-    \item Observe que en este caso usaremos tanto la construcción en paralelo como la construcción en serie ya que uno de los caminos es relativamente complicado de construir pero con esta construcción es mucho mas sencillo.
-    \pagebreak
+    \item $(101)^*\cup1^*(1\cup10)^*0^+(01\cup10)^*.$\\
+
+    Observe que en este caso usaremos tanto la construcción en paralelo como la construcción en serie ya que uno de los caminos es relativamente complicado de construir pero con esta construcción es mucho mas sencillo.
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
          \node (q0) [state, initial] {$q_0$};
@@ -1380,7 +1575,21 @@ $\hfill \blacklozenge$
 
 Previamente habíamos observado como si construíamos un AFN para aceptar un lenguaje regular, podíamos por medio de un algoritmo convertirlo en un AFD. En esta sección observaremos como podemos convertir un AFN-$\lambda$ en un AFN.\\
 
-\textbf{Punto 1: }Primero hallemos la $\lambda$-clausura de cada estado:
+\textbf{Punto 1: }\hfill
+\begin{center}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a$} ()
+        (q0) edge node [above] {$\lambda$} (q1)
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q1) edge node [above] {$\lambda$} (q2)
+        (q2) edge [loop above] node [above] {$a$} ();
+    \end{tikzpicture}
+\end{center}
+Primero hallemos la $\lambda$-clausura de cada estado:
 \begin{align*}
     \lambda[q_0]&=\{q_0,q_1,q_2\}\\
     \lambda[q_1]&=\{q_1,q_2\}\\
@@ -1413,8 +1622,27 @@ Antes de hacer la inspección para hallar el AFN, es importante tener en cuenta 
         (q0) edge [bend right=45] node [below] {$a,b$} (q2);
     \end{tikzpicture}
 \end{basedtikz}
+\pagebreak
+\textbf{Punto 2: }\hfill
+\begin{center}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, above right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \node (q3) [state, below right of=q0] {$q_3$};
+        \node (q4) [state, right of=q3, accepting] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$a$} (q1)
+        (q1) edge [loop above] node [above] {$a$} ()
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q1) edge node [above] {$\lambda$} (q2)
+        (q0) edge node [below] {$\lambda$} (q3)
+        (q3) edge [bend left] node [above] {$b$} (q4)
+        (q4) edge [bend left] node [below] {$a$} (q3);
+    \end{tikzpicture}
+\end{center}
 
-\textbf{Punto 2: }Primero hallemos la $\lambda$-clausura de cada estado:
+Primero hallemos la $\lambda$-clausura de cada estado:
 \begin{align*}
     \lambda[q_0]&=\{q_0,q_3\}\\
     \lambda[q_1]&=\{q_1,q_2\}\\
@@ -1441,9 +1669,28 @@ $q_2$ y $q_4$ son de aceptación en el original, por tanto observando las $\lamb
         (q0) edge [bend left] node [above] {$b$} (q4);
     \end{tikzpicture}
 \end{basedtikz}
-Si bien la presentación del autómata podría ser mas pulida recomendamos dejar los estados en las posiciones originales para hacer mas evidente y sencillo el proceso de inspección.\\
+Si bien la presentación del autómata podría ser mas pulida recomendamos dejar los estados en las posiciones originales para hacer mas evidente y sencillo el proceso de inspección.
+\pagebreak
 
-\textbf{Punto 3: }Primero hallemos la $\lambda$-clausura de cada estado:
+\textbf{Punto 3: }\hfill
+\begin{center}
+   \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state, right of=q0, accepting] {$q_2$};
+        \node (q1) [state, above of=q2, accepting] {$q_1$};
+        \node (q3) [state, above right of=q2] {$q_3$};
+        \node (q4) [state, below right of=q2] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$\lambda$} (q1)
+        (q0) edge node [above] {$\lambda$} (q2)
+        (q1) edge [loop above] node [above] {$a$} ()
+        (q2) edge [bend left=20] node [left] {$a$} (q3)
+        (q3) edge [bend left=20] node [right] {$b$} (q2)
+        (q2) edge [bend right=20] node [left] {$b$} (q4)
+        (q4) edge [bend right=20] node [right] {$a$} (q2);
+    \end{tikzpicture} 
+\end{center}
+Primero hallemos la $\lambda$-clausura de cada estado:
 \begin{align*}
     \lambda[q_0]&=\{q_0,q_1,q_2\}\\
     \lambda[q_1]&=\{q_1\}\\
@@ -1454,7 +1701,7 @@ Si bien la presentación del autómata podría ser mas pulida recomendamos dejar
 Los estados $q_1$ y $q_2$ son de aceptación en el original, en el nuevo autómata también son de aceptación y ademas lo sera el estado $q_0$. Realizando la inspección obtenemos el siguiente AFN:  
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
-        \node (q0) [state, initial] {$q_0$};
+        \node (q0) [state, initial, accepting] {$q_0$};
         \node (q2) [state, right of=q0, accepting] {$q_2$};
         \node (q1) [state, above of=q2, accepting] {$q_1$};
         \node (q3) [state, above right of=q2] {$q_3$};
@@ -1470,8 +1717,28 @@ Los estados $q_1$ y $q_2$ son de aceptación en el original, en el nuevo autóma
         (q0) edge [bend right] node [below] {$b$} (q4);
     \end{tikzpicture}
 \end{basedtikz} 
+\pagebreak
+\textbf{Punto 4: }\hfill
+\begin{center}
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \node (q3) [state, right of=q2, accepting] {$q_3$};
+        \node (q4) [state, above of=q0] {$q_4$};
+        \path[thick]
+        (q0) edge [bend left] node [left] {$a$} (q4)
+        (q4) edge [bend left] node [right] {$b$} (q0)
+        (q0) edge node [above] {$\lambda$} (q1)
+        (q1) edge node [above] {$a$} (q2)
+        (q2) edge node [above] {$\lambda$} (q3)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q3) edge [loop above] node [above] {$a$} ()
+        (q4) edge node [above] {$\lambda$} (q1);
+    \end{tikzpicture}
+\end{center}
 
-\textbf{Punto 4: }Primero hallemos la $\lambda$-clausura de cada estado:
+Primero hallemos la $\lambda$-clausura de cada estado:
 \begin{align*}
     \lambda[q_0]&=\{q_0,q_1\}\\
     \lambda[q_1]&=\{q_1\}\\
@@ -1480,7 +1747,6 @@ Los estados $q_1$ y $q_2$ son de aceptación en el original, en el nuevo autóma
     \lambda[q_4]&=\{q_1,q_4\}
 \end{align*}
 El único estado de aceptación original es $q_3$ y la única $\lambda$-clausura a la que pertenece es $\lambda[q_2]$ entonces en el nuevo autómata los estados de aceptación son $q_2$ y $q_3$. Realizando el proceso de inspección obtenemos el siguiente AFN:
-\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -1512,7 +1778,9 @@ $\hfill \blacklozenge$
 
 Previamente habíamos mencionado que a partir de un AFD con una condición podíamos construir un AFD para la negación de esa condición cambiando los estados de aceptación. En esta sección eso sera lo que haremos.\\ 
 
-\textbf{Punto 1:} Construyamos primero un AFD tal que acepte todas las cadenas que contienen la subcadena $bc$. Para esto forzamos $bc$ como aceptación y consideramos los bucles necesarios.
+\textbf{Punto 1: }El lenguaje de todas las cadenas que no contienen la subcadena $bc.$ Alfabeto: $\{a,b,c\}$. \\
+
+Construyamos primero un AFD tal que acepte todas las cadenas que contienen la subcadena $bc$. Para esto forzamos $bc$ como aceptación y consideramos los bucles necesarios.
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -1528,7 +1796,6 @@ Previamente habíamos mencionado que a partir de un AFD con una condición podí
     \end{tikzpicture}
 \end{basedtikz}
 Ahora simplemente cambiamos los estados de aceptación, es decir $q_0$ y $q_1$ se vuelven de aceptación mientras que $q_2$ deja de serlo. De esta manera obtenemos el AFD que acepta el lenguaje deseado.
-\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial, accepting] {$q_0$};
@@ -1544,7 +1811,9 @@ Ahora simplemente cambiamos los estados de aceptación, es decir $q_0$ y $q_1$ s
     \end{tikzpicture}
 \end{basedtikz}
 
-\textbf{Punto 2: }Primero construyamos el AFD que acepte todas las cadenas con tres unos consecutivos.
+\textbf{Punto 2: }El lenguaje de todas las cadenas que no tienen tres unos consecutivos. Alfabeto: $\{0,1\}$. \\
+
+Primero construyamos el AFD que acepte todas las cadenas con tres unos consecutivos.
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -1562,6 +1831,7 @@ Ahora simplemente cambiamos los estados de aceptación, es decir $q_0$ y $q_1$ s
     \end{tikzpicture}
 \end{basedtikz}
 Luego el AFD que acepta el lenguaje deseado es:
+\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial, accepting] {$q_0$};
@@ -1579,7 +1849,9 @@ Luego el AFD que acepta el lenguaje deseado es:
     \end{tikzpicture}
 \end{basedtikz}
 
-\textbf{Punto 3: }Primero construyamos el AFD que acepta todas las cadenas que terminan en 01.
+\textbf{Punto 3: }El lenguaje de todas las cadenas que no terminan en 01. Alfabeto: $\{0,1\}$. \\
+
+Primero construyamos el AFD que acepta todas las cadenas que terminan en 01.
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -1610,7 +1882,10 @@ Luego el AFD que acepta el lenguaje deseado es:
     \end{tikzpicture}
 \end{basedtikz}
 
-\textbf{Punto 4: }Primero construyamos el AFD que acepta todas las cadenas que terminan en 22.
+\textbf{Punto 4: }El lenguaje de todas las cadenas que no terminan en 22. Alfabeto: $\{0,1,2\}$. \\
+
+Primero construyamos el AFD que acepta todas las cadenas que terminan en 22.
+\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -1649,7 +1924,9 @@ $\hfill \blacklozenge$
 
 En esta sección observaremos otra manera de construir AFD para lenguajes que tengan dos condiciones los cuales puede que sean complicados por simple inspección, pero que con el algoritmo, se facilita muchísimo.\\
 
-\textbf{Punto 1: }Primero considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
+\textbf{Punto 1: }Utilizar el Teorema 2.11.1 (iii) para construir un AFD que acepte el lenguaje $L$ de todas las cadenas sobre el alfabeto $\Sigma=\{a,b\}$ que tienen longitud impar y que no contienen dos $b$es consecutivas, expresando $L$ como diferencia de dos lenguajes.\\
+
+Primero considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -1697,6 +1974,7 @@ Entonces $L=L(M_1)-L(M_2)=L_1-L_2$. El producto cartesiano $M_1\times M_2$ tiene
         \end{tikzpicture}
 \end{basedtikz}
 Note que los estados $(q_0,q_4)$ y $(q_1,q_4)$ son estados limbo, así el autómata simplificado es el siguiente:
+\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 5cm, on grid, auto]
         \node (q02) [state, initial] {$(q_0,q_2)$};
@@ -1714,9 +1992,11 @@ Note que los estados $(q_0,q_4)$ y $(q_1,q_4)$ son estados limbo, así el autóm
 \end{basedtikz}
 Observe que la solución presentada es igual a la del ejemplo correspondiente a este lenguaje, salvo la posición de los estados.\\
 
-\textbf{Punto 2: }
+\textbf{Punto 2: }Utilizar el Teorema 2.11.1 para construir AFD que acepten los siguientes lenguajes sobre el alfabeto $\{0,1\}$:
 \begin{itemize}[label={✎}]
-    \item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de que tienen longitud par):
+    \item El lenguaje $L$ de todas las cadenas que tienen longitud par o que terminan en 10.\\
+
+    Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de que tienen longitud par):
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial, accepting] {$q_0$};
@@ -1765,7 +2045,9 @@ Entonces $L=L(M_1)\cup L(M_2)=L_1\cup L_2$. El producto cartesiano $M_1\times M_
         (q13) edge [bend left] node [below] {$1$} (q03) ;
         \end{tikzpicture}
 \end{basedtikz}
-\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de que tienen longitud impar):
+\item El lenguaje $L$ de todas las cadenas que tienen longitud impar y que terminan en 01.\\ 
+
+Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de que tienen longitud impar):
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -1776,6 +2058,7 @@ Entonces $L=L(M_1)\cup L(M_2)=L_1\cup L_2$. El producto cartesiano $M_1\times M_
     \end{tikzpicture}
 \end{basedtikz}
 Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que terminan en $01$):
+\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q2) [state, initial] {$q_2$};
@@ -1814,7 +2097,9 @@ Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_
         (q13) edge [bend left] node [below] {$0$} (q03) ;
         \end{tikzpicture}
 \end{basedtikz}
-\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de que tienen longitud impar):
+\item El lenguaje $L$ de todas las cadenas que tienen longitud impar y que no terminan en 11.\\
+
+Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de que tienen longitud impar):
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -1863,7 +2148,10 @@ Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_
         (q14) edge [bend left] node [right] {$1$} (q04);
         \end{tikzpicture}
 \end{basedtikz}
-\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de que tienen un numero par de ceros):
+\item El lenguaje $L$ de todas las cadenas que tienen un numero par de ceros o que no tienen dos ceros consecutivos.\\
+
+Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de que tienen un numero par de ceros):
+\pagebreak
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial, accepting] {$q_0$};
@@ -1915,9 +2203,11 @@ Entonces $L=L(M_1)\cup L(M_2)=L_1\cup L_2$. El producto cartesiano $M_1\times M_
 \end{basedtikz}
 \end{itemize}
 
-\textbf{Punto 3: }
+\textbf{Punto 3: }Utilizar el Teorema 2.11.1 para construir AFD que acepten los siguientes lenguajes sobre el alfabeto $\{a,b,c\}$
 \begin{itemize}[label={✎}]
-    \item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud par):
+    \item El lenguaje $L$ de todas las cadenas que tienen longitud par y terminan en $a.$\\
+
+    Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud par):
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial, accepting] {$q_0$};
@@ -1957,7 +2247,9 @@ Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_
         (q03) edge [bend right] node [above] {$b,c$} (q12);
     \end{tikzpicture}
 \end{basedtikz}
-\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud par):
+\item El lenguaje $L$ de todas las cadenas que tienen longitud par o que tienen un numero impar de $c$'s.\\
+
+Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud par):
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial, accepting] {$q_0$};
@@ -1980,7 +2272,6 @@ Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que tienen un numero 
     \end{tikzpicture}
 \end{basedtikz}
 Entonces $L=L(M_1)\cup L(M_2)=L_1\cup L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 4 estados: $(q_0,q_2),(q_0,q_3),(q_1,q_2)$ y $(q_1,q_3)$; donde los estados de aceptación son $(q_0,q_2),(q_0,q_3)$ y $(q_1,q_3)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
-\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 5cm, on grid, auto]
         \node (q02) [state, initial, accepting] {$(q_0,q_2)$};
@@ -1998,7 +2289,9 @@ Entonces $L=L(M_1)\cup L(M_2)=L_1\cup L_2$. El producto cartesiano $M_1\times M_
         (q03) edge [bend right] node [above] {$c$} (q12);
     \end{tikzpicture}
 \end{basedtikz}
-\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
+\item El lenguaje $L$ de todas las cadenas que tienen longitud impar y que tienen un numero par de $c$es.\\
+
+Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -2021,7 +2314,6 @@ Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que tienen un numero 
     \end{tikzpicture}
 \end{basedtikz}
 Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 4 estados: $(q_0,q_2),(q_0,q_3),(q_1,q_2)$ y $(q_1,q_3)$; donde el único estado de aceptación es $(q_1,q_2)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
-\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 5cm, on grid, auto]
         \node (q02) [state, initial] {$(q_0,q_2)$};
@@ -2039,7 +2331,9 @@ Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_
         (q03) edge [bend right] node [above] {$c$} (q12);
     \end{tikzpicture}
 \end{basedtikz}
-\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
+\item El lenguaje $L$ de todas las cadenas que tienen longitud impar y que no terminan en $c.$\\
+
+Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -2061,8 +2355,9 @@ Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que no terminan en $c
         (q1) edge [bend left] node [below] {$a,b$} (q0);
     \end{tikzpicture}
 \end{basedtikz}
+
 Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 4 estados: $(q_0,q_2),(q_0,q_3),(q_1,q_2)$ y $(q_1,q_3)$; donde el único estado de aceptación es $(q_1,q_2)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
-\pagebreak
+
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 5cm, on grid, auto]
         \node (q02) [state, initial] {$(q_0,q_2)$};
@@ -2080,7 +2375,9 @@ Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_
         (q03) edge [bend right] node [above] {$a,b$} (q12);
     \end{tikzpicture}
 \end{basedtikz}
-\item Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
+\item El lenguaje $L$ de todas las cadenas de longitud impar que tengan exactamente dos $a$es.\\ 
+
+Considere el AFD $M_1$ que acepta $L_1$ (las cadenas de longitud impar):
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
         \node (q0) [state, initial] {$q_0$};
@@ -2105,7 +2402,6 @@ Ahora considere el AFD $M_2$ que acepta $L_2$ (las cadenas que tienen exactament
     \end{tikzpicture}
 \end{basedtikz}
 Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_2$ tiene en total 6 estados: $(q_0,q_2),(q_0,q_3),(q_0,q_4),(q_1,q_2),(q_1,q_3)$ y $(q_1,q_4)$ (Note que como usamos la construcción de intersección podemos ignorar el estado limbo no representado en $M_2$); donde el único estado de aceptación es $(q_1,q_4)$. Luego siguiendo la función de transición definida se tiene que el AFD $M$ tal que $L(M)=L$ es:
-\pagebreak
 \begin{basedtikz}
     \begin{tikzpicture}[node distance = 5cm, on grid, auto]
         \node (q02) [state, initial] {$(q_0,q_2)$};
@@ -2128,7 +2424,11 @@ Entonces $L=L(M_1)\cap L(M_2)=L_1\cap L_2$. El producto cartesiano $M_1\times M_
         \end{tikzpicture}
 \end{basedtikz}
 \end{itemize}
-\textbf{Punto 4: }Por el teorema presentado en la sección sabemos que el conjunto que acepta $L_1-L_2$ es:
+\textbf{Punto 4: }En el contexto del Teorema 2.11.1, dados dos AFD, $M_1=\left(\Sigma, Q_1, q_1, F_1, \delta_1\right)$ y $M_2=$ $\left(\Sigma, Q_2, q_2, F_2, \delta_2\right)$ tales que $L\left(M_1\right)=L_1$ y $L\left(M_2\right)=L_2$, escoger adecuadamente el conjunto de estados de aceptación $F$ para que el producto cartesiano $M_1 \times M_2=$ $\left(\Sigma, Q_1 \times Q_2,\left(q_1, q_2\right), F, \delta\right)$ acepte la diferencia simétrica $L_1 \triangleleft L_2$. Recuérdese que la diferencia simétrica se define como
+$$
+L_1 \triangleleft L_2=\left(L_1 \cup L_2\right)-\left(L_1 \cap L_2\right)=\left(L_1-L_2\right) \cup\left(L_2-L_1\right) .
+$$
+Por el teorema presentado en la sección sabemos que el conjunto que acepta $L_1-L_2$ es:
 $$F_1\times(Q_2-F_2)$$
 Mientras que el que acepta $L_2-L_1$ es:
 $$F_2\times(Q_1-F_1)$$
@@ -2141,7 +2441,8 @@ $\hfill \blacklozenge$
 
 \textit{Siempre se puede construir un AFN-$\lambda$ si conocemos la expresión regular.} Es la lección de esta sección; siguiendo unos simples pasos y siendo bastante organizados podemos construir un AFN-$\lambda$ dada una expresión regular y por tanto siempre podremos llegar a un AFD por los métodos de conversión ya presentados previamente.\\
 
-\textbf{Punto 1: }
+Utilizar el procedimiento del Teorema 2.12.1 para construir AFN-$\lambda$ que acepten los siguientes lenguajes sobre el alfabeto $\{a,b,c\}.$\\
+\textbf{Punto 1: }$(a^*c)^*\cup(b^*a)^*(ca^*)^*b^+.$
 \begin{enumerate}
     \item[i)] Autómata que acepta $a^*c$:
     \begin{basedtikz}
@@ -2282,9 +2583,10 @@ $\hfill \blacklozenge$
          \end{tikzpicture}
      \end{basedtikz}
 \end{enumerate}
-\textbf{Punto 2:}
+\textbf{Punto 2: }$(a^*cb)^*(a\cup b)(a\cup bc)^*.$
 \begin{enumerate}
     \item[i)] Autómata que acepta $(a^*cb)^*$
+    \pagebreak
     \begin{basedtikz}
         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
             \node (q0) [state, initial, accepting, minimum size=15pt] {};
@@ -2357,7 +2659,7 @@ $\hfill \blacklozenge$
         \end{tikzpicture}
     \end{basedtikz}
 \end{enumerate}
-\textbf{Punto 3:}
+\textbf{Punto 3: }$(a\cup ba\cup ca)^*(\lambda\cup a)b^+c^+$.
 \begin{enumerate}
     \item[i)] Autómata que acepta $(a\cup ba\cup ca)^*$
     \begin{basedtikz}
@@ -2413,7 +2715,6 @@ $\hfill \blacklozenge$
         \end{tikzpicture}
     \end{basedtikz}
     \item[iii)] Autómata que acepta $(a\cup ba\cup ca)^*(\lambda\cup a)b^+c^+$
-    \pagebreak
     \begin{basedtikz}
     \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
             \node (q0) [state, initial, minimum size=15pt] {};
@@ -2456,7 +2757,7 @@ $\hfill \blacklozenge$
         \end{tikzpicture}
     \end{basedtikz}
 \end{enumerate}
-\textbf{Punto 4: }
+\textbf{Punto 4: }$(a^*bc)^*\cup(cb^*a)^+\cup(ca\cup cb\cup c^2)^*a^*b^+.$
 \begin{enumerate}
     \item[i)] Autómata que acepta $(a^*bc)^*$
     \begin{basedtikz}
@@ -2554,9 +2855,10 @@ $\hfill \blacklozenge$
          \end{tikzpicture}
      \end{basedtikz}
 \end{enumerate}
-\textbf{Punto 5: }
+\textbf{Punto 5: }$a^*b^*(ca^+\cup b\cup\lambda)(b\cup bc)^*\cup(b\cup\lambda)(b^*ac)^*.$
 \begin{enumerate}
     \item[i)] Autómata que acepta $a^*b^*(ca^+\cup b\cup\lambda)(b\cup bc)^*$
+    \pagebreak
     \begin{basedtikz}
          \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
             \node (q1) [state, initial, minimum size=15pt] {};
@@ -2653,7 +2955,560 @@ $\hfill \blacklozenge$
 
 \textit{Dado un Autómata Finito, siempre podemos encontrar una expresión regular que sea aceptada por el mismo.} Anteriormente nos dimos cuenta que habían problemas al momento de encontrar expresiones regulares para algunos lenguajes mientras que construir un autómata para el mismo era bastante sencillo, en esta sección se explora un algoritmo que nos permite hallar siempre la expresión regular de un lenguaje dado el autómata que acepta ese lenguaje.\\
 
-\textbf{Punto 1: }
+\textbf{Punto 1: }Utilizar el procedimiento presentado en la presente sección para encontrar expresiones regulares para los lenguajes aceptados por los siguientes autómatas.
 \begin{itemize}[label={✎}]
-    \item 
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, right of=q1] {$q_2$};
+            \node (q3) [state, below of=q1] {$q_3$};
+            \path[thick]
+            (q0) edge node [above] {$a$} (q1)
+            (q1) edge node [above] {$b$} (q2)
+            (q1) edge [loop above] node [above] {$b$} ()
+            (q3) edge [loop above] node [above] {$b$} ()
+            (q2) edge [bend left] node [below] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$b$} (q0);
+            \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{enumerate}
+        \item[i)] Eliminar estado $q_2$:
+        \begin{basedtikz}
+          \begin{tikzpicture}[node distance = 3cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0, accepting] {$q_1$};
+             \node (q3) [state, below of=q1] {$q_3$};
+             \path[thick]
+             (q0) edge node [above] {$a$} (q1)
+             (q1) edge [loop above] node [above] {$b$} () 
+             (q3) edge [loop above] node [above] {$b$} ()
+             (q3) edge [bend left] node [left] {$b$} (q0)
+             (q1) edge [bend left] node [right] {$ba$} (q3);  
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[ii)] Eliminar estado $q_3$:
+         \begin{basedtikz}
+          \begin{tikzpicture}[node distance = 3cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0, accepting] {$q_1$};
+             \path[thick]
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [loop above] node [above] {$b$} ()
+             (q1) edge [bend left] node [below] {$bab^*b$} (q0);  
+             \end{tikzpicture}   
+         \end{basedtikz}
+    \end{enumerate}
+    Teniendo en cuenta que $b^*b=b^+$, por simple inspección obtenemos que:
+    $$L(M)=a(b^*\cup bab^+a)^*$$
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 3cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q2) [state, below right of=q0, accepting] {$q_2$};
+            \node (q1) [state, above right of=q2, accepting] {$q_1$};
+            \path[thick]
+            (q0) edge [bend left=20] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b$} ()
+            (q2) edge node [below] {$a$} (q1)
+            (q1) edge [bend left=20] node [below] {$a$} (q0)
+            (q2) edge [bend left=20] node [below] {$b$} (q0)
+            (q0) edge [bend left=20] node [right] {$b$} (q2);
+            \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo,de paso lo acomodaremos de forma que sea mas sencillo trabajar:
+    \begin{enumerate}
+        \item[i)] Agregamos un nuevo estado de aceptación $q$:
+        \begin{basedtikz}
+          \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0] {$q_1$};
+             \node (q2) [state, below of=q0] {$q_2$};
+             \node (q) [state, right of=q2, accepting] {$q$};
+             \path[thick]
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [bend left] node [below] {$a$} (q0)
+             (q0) edge [bend left] node [right] {$b$} (q2)
+             (q2) edge [bend left] node [left] {$b$} (q0) 
+             (q1) edge [loop above] node [above] {$b$} ()
+             (q2) edge node [below] {$a$} (q1)
+             (q1) edge node [right] {$\lambda$} (q)
+             (q2) edge node [above] {$\lambda$} (q); 
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[ii)] Eliminar estado $q_2$:
+         \begin{basedtikz}
+          \begin{tikzpicture}[node distance = 3cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0] {$q_1$};
+             \node (q) [state, below of=q1, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b^2$} ()
+             (q0) edge node [below] {$b$} (q)
+             (q0) edge [bend left] node [above] {$a\cup ba$} (q1)
+             (q1) edge [bend left] node [below] {$a$} (q0) 
+             (q1) edge [loop above] node [above] {$b$} ()
+             (q1) edge node [right] {$\lambda$} (q); 
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[iii)] Eliminar estado $q_1$:
+         \pagebreak
+         \begin{basedtikz}
+         \begin{tikzpicture}[node distance = 4.5cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q) [state, right of=q0, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b^2\cup[(a\cup ba)b^*a]$} ()
+             (q0) edge  node [above] {$b\cup(a\cup ba)b^*$} (q); 
+             \end{tikzpicture}   
+         \end{basedtikz} 
+    \end{enumerate}
+    Ahora por simple inspección llegamos a que:
+    $$L(M)=\left(b^2\cup[(a\cup ba)b^*a]\right)^*(b\cup(a\cup ba)b^*)$$
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, right of=q1, accepting] {$q_2$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$b$} (q1)
+            (q1) edge [bend left] node [above] {$b$} (q2)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q2) edge [bend left] node [below] {$a$} (q1)
+            (q2) edge [bend left=60] node [below] {$b$} (q0)
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q2) edge [loop above] node [above] {$b$} ();
+            \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{enumerate}
+        \item[i)] Eliminar estado $q_1$ 
+        \begin{basedtikz}
+         \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial, accepting] {$q_0$};
+             \node (q2) [state, right of=q0, accepting] {$q_2$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$ba^*a$} ()
+             (q0) edge [bend left] node [above] {$b\cup ba^*b$} (q2)
+             (q2) edge [bend left] node [below] {$aa^*a$} (q0)
+             (q2) edge [loop above] node [above] {$b\cup aa^*b$} ();
+             \end{tikzpicture}   
+         \end{basedtikz}
+         \item[ii)] Agregamos un nuevo estado de aceptación $q$:
+         \pagebreak
+         \begin{basedtikz}
+         \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q2) [state, right of=q0] {$q_2$};
+             \node (q) [state, below of=q2, accepting] {$q$}; 
+             \path[thick]
+             (q0) edge [loop above] node [above] {$ba^*a$} ()
+             (q0) edge [bend left] node [above] {$b\cup ba^*b$} (q2)
+             (q2) edge [bend left] node [below] {$aa^*a$} (q0)
+             (q2) edge [loop above] node [above] {$b\cup aa^*b$} ()
+             (q0) edge [bend right] node [below] {$\lambda$} (q)
+             (q2) edge node [right] {$\lambda$} (q);
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[iii)] Eliminar estado $q_2$:
+         \begin{basedtikz}
+         \begin{tikzpicture}[node distance = 6cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q) [state, right of=q0, accepting] {$q$}; 
+             \path[thick]
+             (q0) edge [loop above] node [above] {$ba^*a\cup[(b\cup ba^*b)(b\cup aa^*b)^*aa^*a]$} ()
+             (q0) edge node [above] {$\lambda\cup (b\cup ba^*b)(b\cup aa^*b)^*$} (q);
+             \end{tikzpicture}   
+         \end{basedtikz}
+    \end{enumerate}
+    Teniendo en cuenta que $a^*a=aa^*=a^+$, por simple inspección obtenemos que:
+    $$L(M)=\left(ba^*a\cup[(b\cup ba^*b)(b\cup aa^*b)^*aa^*a]\right)^*(\lambda\cup (b\cup ba^*b)(b\cup aa^*b)^*)$$
+
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, right of=q1] {$q_2$};
+            \node (q3) [state, below of=q1, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge node [above] {$b$} (q2)
+            (q0) edge [loop above] node [above] {$b$} ()
+            (q2) edge [loop above] node [above] {$a$} ()
+            (q2) edge node [below] {$b$} (q3)
+            (q3) edge node [below] {$a$} (q0)
+            (q1) edge [bend left] node [below] {$a$} (q0);
+            \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{enumerate}
+        \item[i)] Eliminar estado $q_2$:
+        \pagebreak
+        \begin{basedtikz}
+          \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0, accepting] {$q_1$};
+             \node (q3) [state, below of=q1, accepting] {$q_3$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b$} ()
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [bend left] node [below] {$a$} (q0)
+             (q3) edge node [below] {$a$} (q0)
+             (q1) edge node [right] {$ba^*b$} (q3);
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[ii)] Agregamos un nuevo estado de aceptación $q$:
+         \begin{basedtikz}
+          \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0] {$q_1$};
+             \node (q3) [state, below of=q1] {$q_3$};
+             \node (q) [state, right of=q1, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b$} ()
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [bend left] node [below] {$a$} (q0)
+             (q3) edge node [below] {$a$} (q0)
+             (q1) edge node [right] {$ba^*b$} (q3)
+             (q1) edge node [above] {$\lambda$} (q)
+             (q3) edge node [below] {$\lambda$} (q);
+             \end{tikzpicture}   
+         \end{basedtikz}
+         \item[iii)] Eliminar estado $q_3$:
+         \begin{basedtikz}
+          \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0] {$q_1$};
+             \node (q) [state, right of=q1, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b$} ()
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [bend left] node [below] {$a\cup ba^*ba$} (q0)
+             (q1) edge node [above] {$\lambda\cup ba^*b$} (q);
+             \end{tikzpicture}  
+         \end{basedtikz}
+         \item[iv)] Eliminar estado $q_1$: 
+         \pagebreak
+         \begin{basedtikz}
+         \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q) [state, right of=q0, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b\cup[a(a\cup ba^*ba)]$} ()
+             (q0) edge node [above] {$a(\lambda\cup ba^*b)$} (q);
+             \end{tikzpicture}  
+         \end{basedtikz}      
+    \end{enumerate}
+    Por simple inspección obtenemos que:
+    $$L(M)=\left(b\cup[a(a\cup ba^*ba)]\right)^*\left(a(\lambda\cup ba^*b)\right)$$ 
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1,accepting] {$q_2$};
+        \node (q3) [state, right of=q2] {$q_3$};
+        \node (q4) [state, right of=q3, accepting] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$a$} (q1)
+        (q1) edge node [above] {$a$} (q2)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q2) edge node [above] {$b$} (q3)
+        (q3) edge [loop above] node [above] {$a$} ()
+        (q3) edge [bend left] node [above] {$b$} (q4)
+        (q4) edge [bend left] node [below] {$a$} (q3)
+        (q4) edge [bend left=60] node [below] {$a$} (q2);   
+        \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{enumerate}
+        \item[i)] Eliminar estado $q_1$:
+        \begin{basedtikz}
+        \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state,  right of=q0,accepting] {$q_2$};
+        \node (q3) [state, right of=q2] {$q_3$};
+        \node (q4) [state, right of=q3, accepting] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$aa$} (q2)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q2) edge node [above] {$b$} (q3)
+        (q3) edge [loop above] node [above] {$a$} ()
+        (q3) edge [bend left] node [above] {$b$} (q4)
+        (q4) edge [bend left] node [below] {$a$} (q3)
+        (q4) edge [bend left=60] node [below] {$a$} (q2);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[ii)] Eliminar estado $q_3$:
+    \begin{basedtikz}
+        \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state,  right of=q0,accepting] {$q_2$};
+        \node (q4) [state, right of=q2, accepting] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$aa$} (q2)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q2) edge [bend left] node [above] {$ba^*b$} (q4)
+        (q4) edge [loop above] node [above] {$aa^*b$} ()
+        (q4) edge [bend left] node [below] {$a$} (q2);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[iii)] Agregamos un nuevo estado de aceptación $q$:
+    \begin{basedtikz}
+        \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state,  right of=q0] {$q_2$};
+        \node (q4) [state, right of=q2] {$q_4$};
+        \node (q) [state, below of=q2, accepting] {$q$};
+        \path[thick]
+        (q0) edge node [above] {$aa$} (q2)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q2) edge [bend left] node [above] {$ba^*b$} (q4)
+        (q4) edge [loop above] node [above] {$aa^*b$} ()
+        (q4) edge [bend left] node [below] {$a$} (q2)
+        (q2) edge node [left] {$\lambda$} (q)
+        (q4) edge node [right] {$\lambda$} (q);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[iv)] Eliminar estado $q_4$:
+    \begin{basedtikz}
+        \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state,  right of=q0] {$q_2$};
+        \node (q) [state, below of=q2, accepting] {$q$};
+        \path[thick]
+        (q0) edge node [above] {$aa$} (q2)
+        (q2) edge [loop above] node [above] {$b\cup[ba^*b(aa^*b)^*a]$} ()
+        (q2) edge node [left] {$\lambda\cup[ba^*b(aa^*b)^*]$} (q);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[v)] Eliminar estado $q_2$:
+    \begin{basedtikz}
+        \begin{tikzpicture}[node distance = 5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q) [state, right of=q0, accepting] {$q$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$aa\left(b\cup[ba^*b(aa^*b)^*a]\right)^*(\lambda\cup[ba^*b(aa^*b)^*])$} (q);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \end{enumerate}
+    Realizando las respectivas simplificaciones y por simple inspección obtenemos que:
+    $$L(M)=a^2\left(b\cup[ba^*b(a^+b)^*a]\right)^*(\lambda\cup[ba^*b(a^+b)^*])$$
+    \pagebreak
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \node (q3) [state, below of=q0, accepting] {$q_3$};
+        \node (q4) [state, right of=q3] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$a$} (q1)
+        (q1) edge node [above] {$b$} (q2)
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q2) edge [bend right=75] node [above] {$a$} (q0)
+        (q2) edge node [below] {$b$} (q4)
+        (q3) edge node [left] {$b$} (q0)
+        (q3) edge node [above] {$a$} (q1)
+        (q4) edge node [left] {$b$} (q1)
+        (q4) edge [loop right] node [right] {$a$} ()
+        (q4) edge node [below] {$a$} (q3);   
+        \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{enumerate}
+        \item[i)] Eliminar estado $q_2$:
+        \begin{basedtikz}
+            \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q3) [state, below of=q0, accepting] {$q_3$};
+            \node (q4) [state, right of=q3] {$q_4$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b$} ()
+            (q1) edge [bend left] node [below] {$ba$} (q0)
+            (q1) edge [bend right] node [left] {$b^2$} (q4) 
+            (q3) edge node [left] {$b$} (q0)
+            (q3) edge node [above] {$a$} (q1)
+            (q4) edge [loop right] node [right] {$a$} ()
+            (q4) edge node [below] {$a$} (q3)
+            (q4) edge [bend right] node [right] {$b$} (q1);     
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item[ii)] Eliminar estado $q_4$:
+        \pagebreak
+        \begin{basedtikz}
+            \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q3) [state, below of=q0, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b\cup b^2a^*b$} ()
+            (q1) edge [bend left] node [below] {$ba$} (q0) 
+            (q1) edge [bend left] node [right] {$b^2a^*a$} (q3)
+            (q3) edge node [left] {$b$} (q0)
+            (q3) edge node [above] {$a$} (q1);     
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item[iii)] Agregamos un nuevo estado de aceptación $q$:
+        \begin{basedtikz}
+            \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q3) [state, below of=q0] {$q_3$};
+            \node (q) [state, right of=q3, accepting] {$q$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b\cup b^2a^*b$} ()
+            (q1) edge [bend left] node [below] {$ba$} (q0) 
+            (q1) edge [bend left] node [right] {$b^2a^*a$} (q3)
+            (q3) edge node [left] {$b$} (q0)
+            (q3) edge node [above] {$a$} (q1)
+            (q1) edge node [right] {$\lambda$} (q)
+            (q3) edge node [below] {$\lambda$} (q);     
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item[iv)] Eliminar estado $q_3$:
+        \pagebreak
+        \begin{basedtikz}
+            \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q) [state, below of=q1, accepting] {$q$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b\cup b^2a^*b\cup b^2a^*a^2$} ()
+            (q1) edge [bend left] node [below] {$ba\cup b^2a^*ab$} (q0) 
+            (q1) edge node [right] {$\lambda\cup b^2a^*a$} (q);     
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item[v)] Eliminar estado $q_1$:
+        \begin{basedtikz}
+            \begin{tikzpicture}[node distance = 6cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q) [state, right of=q0, accepting] {$q$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a[b\cup b^2a^*b\cup b^2a^*a^2]^*(\lambda\cup b^2a^*a)$} (q)
+            (q0) edge [loop below] node [below] {$a[b\cup b^2a^*b\cup b^2a^*a^2]^*[ba\cup b^2a^*ab]$} ();     
+            \end{tikzpicture}
+        \end{basedtikz}
+    \end{enumerate}
+    Luego por simple inspección obtenemos que:
+    $$L(M)=\left(a[b\cup b^2a^*b\cup b^2a^*a^2]^*[ba\cup b^2a^*ab]\right)^*a[b\cup b^2a^*b\cup b^2a^*a^2]^*(\lambda\cup b^2a^*a)$$
 \end{itemize}
+\textbf{Punto 2: } Sea $\Sigma=\{a,b,c\}$ y $L$ el lenguaje de todas las cadenas que no contienen la subcadena $bc.$ Diseñar un autómata $M$ que acepte el lenguaje $L$, y luego utilizar el procedimiento presentado en la presente sección para encontrar una expresión regular para $L.$\\
+
+Primero hagamos el grafo de todas las cadenas que contienen la subcadena $bc$:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a,c$} () 
+        (q0) edge [bend left] node [above] {$b$} (q1)
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q1) edge [bend left] node [below] {$a$} (q0)
+        (q1) edge node [above] {$c$} (q2)
+        (q2) edge [loop above] node [above] {$a,b,c$} ();
+    \end{tikzpicture}
+\end{basedtikz}
+Note que este es un AFD por lo tanto basta considerar el complemento del mismo para obtener el grafo de todas las cadenas que no contienen la subcadena $bc:$
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a\cup c$} () 
+        (q0) edge [bend left] node [above] {$b$} (q1)
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q1) edge [bend left] node [below] {$a$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Note que nos saltamos algunos pasos de simplificación ya que al tomar el complemento, el estado $q_2$ se vuelve un estado limbo y puede ser eliminado. Ademas ya expresamos el grafo $M$ en su forma GEC por lo que podemos proceder con el algoritmo:
+\begin{enumerate}
+    \item[i)] Agregar nuevo estado de aceptación $q$: 
+    \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q) [state, below of=q1, accepting] {$q$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a\cup c$} () 
+        (q0) edge [bend left] node [above] {$b$} (q1)
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q1) edge [bend left] node [below] {$a$} (q0)
+        (q0) edge node [left] {$\lambda$} (q)
+        (q1) edge node [right] {$\lambda$} (q);
+    \end{tikzpicture}
+\end{basedtikz}
+    \item[ii)] Eliminar estado $q_1$:
+    \begin{basedtikz}
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q) [state, right of=q0, accepting] {$q$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a\cup c\cup bb^*a$} () 
+        (q0) edge node [above] {$\lambda\cup bb^*$} (q);
+    \end{tikzpicture}
+\end{basedtikz}
+\end{enumerate}
+Ahora por simple inspección podemos observar que:
+$$L=L(M)=(a\cup c\cup bb^*a)^*(\lambda\cup bb^*)$$
+Este seria el lenguaje de todas las cadenas que no contienen la subcadena $bc$. Note que si realizamos las simplificaciones $bb^*=b^+$ y $\lambda\cup bb^*=\lambda\cup b^+=b^*$ obtenemos que: 
+$$L=(a\cup c\cup b^+a)^*b^*$$
+Note que la expresión encontrada es idéntica a una de las expresiones brindadas por las notas en el ultimo ejemplo de la sección 2.2.\\ 
+
+\textbf{Punto 3: } Sea $\Sigma=\{a,b\}$ y $L=\{u\in\Sigma^*:[\#_a(u)-\#_b(u)]\equiv 1(\mod3) \}.$ La notación $\#_a(u)$ representa el numero de $aes$ en la cadena $u$ mientras que $\#_b(u)$ es el numero de $bes.$ Diseñar un AFD $M$ con tres estados que acepte el lenguaje $L,$ y luego utilizar el procedimiento presentado en la presente sección para encontrar una expresión regular para $L.$\\ 
+
+Como estamos restringidos a tres estados basta por medio de cadenas básicas intuir como son las transiciones para $M$:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, , accepting] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a$} (q1) 
+        (q1) edge [bend left] node [above] {$a$} (q2)
+        (q2) edge [bend left=60] node [below] {$a$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Note que si la cadena tiene solo $aes$ basta con ver que el numero sea congruente con 1 modulo 3, y por eso tenemos ese bucle donde cada estado representa la congruencia y es por eso que $q_1$ es nuestro estado de aceptación. Ahora solo falta ver que pasa con las transiciones para las $bes$ pero esto es sencillo de ver si consideramos cadenas que solo tienen $bes$ a que numero serian congruentes:
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, , accepting] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a$} (q1) 
+        (q1) edge [bend left] node [above] {$a$} (q2)
+        (q2) edge [bend left=60] node [below] {$a$} (q0)
+        (q2) edge [bend left] node [below] {$b$} (q1)
+        (q1) edge [bend left] node [below] {$b$} (q0)
+        (q0) edge [bend left=60] node [above] {$b$} (q2);
+    \end{tikzpicture}
+\end{basedtikz}
+Este seria nuestro grafo de $M$ que acepta $L$;  como ya esta en su forma GEC podemos eliminar el estado $q_2$ según el algoritmo presentado:
+\pagebreak
+\begin{basedtikz}
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, , accepting] {$q_1$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$ba$} ()
+        (q0) edge [bend left] node [above] {$a\cup b^2$} (q1) 
+        (q1) edge [loop above] node [above] {$ab$} ()
+        (q1) edge [bend left] node [below] {$b\cup a^2$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+De aquí ya por simple inspección podemos observar que la expresión regular para $L$ es:
+$$L=L(M)=(ba)^*(a\cup b^2)(ab\cup(b\cup a^2)(ba)^*(a\cup b^2))^*$$
+$\hfill \blacklozenge$
+
