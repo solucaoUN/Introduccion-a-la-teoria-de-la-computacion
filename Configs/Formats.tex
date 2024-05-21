@@ -1,0 +1,148 @@
+%!TEX root = ../main.tex
+
+\usepackage{epigraph}
+\usepackage{fancyhdr}
+%titlepage
+\renewcommand\epigraphflush{flushright}
+\renewcommand\epigraphsize{\normalsize}
+\setlength\epigraphwidth{0.7\textwidth}
+
+\definecolor{titlepagecolor}{cmyk}{1,1,1,1}
+
+\DeclareFixedFont{\titlefont}{T1}{ppl}{bx}{n}{0.75in}
+
+\makeatletter                       
+\def\printauthor{%                  
+    {\large \@author}}              
+\makeatother
+\author{%
+    Iván Felipe Salamanca \\
+    \texttt{isalamancam@unal.edu.co}\vspace{20pt} \\
+    Edgar Santiago Ochoa \\
+    \texttt{eochoaq@unal.edu.co}\vspace{20pt} \\
+    Mateo Andrés Manosalva\\
+    \texttt{mmanosalva@unal.edu.co}
+    }
+
+\newcommand\titlepagedecoration{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -50pt]
+
+\coordinate (aux1) at ([yshift=-15pt]current page.north east);
+\coordinate (aux2) at ([yshift=-410pt]current page.north east);
+\coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
+\coordinate (aux4) at ([yshift=-150pt]current page.north east);
+
+\begin{scope}[titlepagecolor!40,line width=12pt,rounded corners=12pt]
+\draw
+  (aux1) -- coordinate (a)
+  ++(225:5) --
+  ++(-45:5.1) coordinate (b);
+\draw[shorten <= -10pt]
+  (aux3) --
+  (a) --
+  (aux1);
+\draw[opacity=0.6,titlepagecolor,shorten <= -10pt]
+  (b) --
+  ++(225:2.2) --
+  ++(-45:2.2);
+\end{scope}
+\draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+  (aux4) --
+  ++(225:0.8) --
+  ++(-45:0.8);
+\begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
+\draw[shorten <= -10pt]
+  (aux2) --
+  ++(225:3) coordinate[pos=0.45] (c) --
+  ++(-45:3.1);
+\draw
+  (aux2) --
+  (c) --
+  ++(135:2.5) --
+  ++(45:2.5) --
+  ++(-45:2.5) coordinate[pos=0.3] (d);   
+\draw 
+  (d) -- +(45:1);
+\end{scope}
+\end{tikzpicture}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                          TABLA DE CONTENIDO                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{framed}
+\usepackage{titletoc}
+
+\patchcmd{\tableofcontents}{\contentsname}{\bfseries\contentsname}{}{}
+
+\renewenvironment{leftbar}
+  {\def\FrameCommand{\hspace{6em}%
+    {\color{black}\vrule width 2pt depth 6pt}\hspace{1em}}%
+    \MakeFramed{\parshape 1 0cm \dimexpr\textwidth-6em\relax\FrameRestore}\vskip2pt%
+  }
+ {\endMakeFramed}
+
+\titlecontents{chapter}
+  [0.3em]{\Large\bfseries\vspace*{2\baselineskip}}
+  {\hspace{-1.2cm}\parbox{6.5em}{%
+    \hfill\Huge\bfseries\color{black}\thecontentslabel}%
+   \vspace*{-1.9\baselineskip}\leftbar\bfseries}
+  {}{\endleftbar}
+\titlecontents{section}
+  [11.4em]
+  {\contentslabel{3em}}{}{} 
+  {\phantom{    }\dotfill \nobreak\itshape\color{black}\contentspage}
+\titlecontents{subsection}
+  [13em]
+  {\contentslabel{3em}}{}{}  
+  {\phantom{    }\dotfill \nobreak\itshape\color{black}\contentspage}
+
+
+\newcommand{\mychapter}[2]{
+
+    \setcounter{chapter}{#1}
+    \setcounter{section}{0}
+    \chapter*{#2}
+    \addcontentsline{toc}{chapter}{#2}
+}
+
+\usepackage{titlesec}
+
+\titleformat{\chapter}
+{\vspace{-1.2cm}\normalfont\fontsize{30}{20}\bfseries}{}{0pt}{}
+
+\titleformat{\section}
+{\normalfont\Large\bfseries}{~\thesection}{1em}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                 CONFIGURACIÓN DEL ENCABEZADO                        %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}  % Borra todos los encabezados y pies de página actuales
+
+% Encabezado en páginas pares (izquierda)
+\fancyhead[LE]{\thepage \hspace{0.2cm}  $\bullet$ \hspace{0.2cm} \nouppercase{\rightmark}}
+% Encabezado en páginas impares (derecha)
+\fancyhead[RO]{\nouppercase{\rightmark} \hspace{0.2cm} $\bullet$ \hspace{0.2cm} \thepage}
+
+\renewcommand{\headrulewidth}{0pt}  % Línea horizontal en el encabezado
+
+% Modificación para mostrar solo el nombre de la sección sin el número
+\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{#1}}}
+
+
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+
+\setlength{\parindent}{0pt}
+\newcommand*{\blankpage}{
+{\newpage \vspace*{5cm}\thispagestyle{empty}\centering \bfseries  \textit{Esta página se dejó intencionalmente en blanco} \par}
+\vspace{\fill}}
+
+\setlength{\parindent}{0pt}
+\newcommand*{\blankpages}{
+{\newpage \vspace*{5cm}\thispagestyle{empty}\centering \bfseries  \textit{} \par}
+\vspace{\fill}}

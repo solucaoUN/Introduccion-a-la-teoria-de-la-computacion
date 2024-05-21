@@ -1,0 +1,83 @@
+%!TEX root = ../main.tex
+
+%Tcolorboxes
+\makeatother
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfsetup{skipabove=2em,skipbelow=2em}
+
+\theoremstyle{definition}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{Black!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=1pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=Black, backgroundcolor=Black!3,
+    }
+]{thmbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{Black!3}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=1pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=Black, backgroundcolor=Black!3,
+        align=center,
+    }
+]{thmtikz}
+
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{Black!70!black}, bodyfont=\normalfont,
+    numbered=no,
+    mdframed={
+        linewidth=1pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=Black, backgroundcolor=Black!2,
+    },
+    qed=\qedsymbol
+]{thmproofbox}
+
+\declaretheorem[style=thmbox, name=Definición]{definition}
+\declaretheorem[style=thmbox, numbered=no, name=Ejemplo]{eg}
+\declaretheorem[style=thmbox, name=Proposición]{prop}
+\declaretheorem[style=thmbox, name=Teorema]{theorem}
+\declaretheorem[style=thmbox, name=Lema]{lemma}
+\declaretheorem[style=thmbox, numbered=no, name=Corolario]{corollary}
+\declaretheorem[style=thmbox, numbered=no, name=Solución]{solution}
+
+\declaretheorem[style=thmproofbox, name=\text{Demostración}]{replacementproof}
+\renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
+
+\declaretheorem[style=thmbox, numbered=no, name=Nota]{note}
+\declaretheorem[style=thmbox, numbered=no, ]{temp}
+\declaretheorem[style=thmtikz, numbered=no, name=.]{basedtikz}
+
+
+
+\newcommand{\bb}[1]{\mathbb{#1}}
+
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{most}
+
+\tcbset {
+  base/.style={
+    arc=7mm, 
+    bottomtitle=0.5mm,
+    boxrule=0mm,
+    colbacktitle=black!90!white, 
+    coltitle=white, 
+    fonttitle=\bfseries, 
+    left=2.5mm,
+    leftrule=1mm,
+    right=3.5mm,
+    title={#1},
+    toptitle=0.75mm, 
+  }
+}
+
+
+\newtcolorbox{subbox}[1]{
+  colframe=black!93!white,
+  base={#1}
+}

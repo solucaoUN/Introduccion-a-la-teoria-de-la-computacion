@@ -1,44 +1,44 @@
-\documentclass[12pt,a4paper]{report} 
-
-\input{configs}
-
-%%%%%%%
-
+\documentclass[12pt,a4paper]{book} 
+\input{Configs/Configs}
 
 
 \begin{document}
+\renewcommand{\contentsname}{\vspace{1cm} Contenido \vspace{-2cm} }
+
 
 \begin{titlepage}
-\vspace*{5cm}
+\vspace*{2cm}
 
 \noindent
-\titlefont Ejercicios de Introducción\\\\ 
-a la Teoría de la\\\\
-\vspace*{0.7cm}Computación \par
-\vspace*{8cm}
+\vspace*{0.5cm}
+\titlefont{Ejercicios de \\\\Introducción a la\\\\\\
+Teoría de la Compu-\\\\tación}
+
+\vspace{1.5cm}
+\null\vfill
+\vspace*{1cm}
 \noindent
 \hfill
-\begin{minipage}{0.45\linewidth}
+\begin{minipage}{0.7\linewidth}
     \begin{flushright}
         \printauthor
     \end{flushright}
 \end{minipage}
 %
 \begin{minipage}{0.02\linewidth}
-    \rule{1pt}{120pt}
+    \rule{1pt}{140pt}
 \end{minipage}
 \titlepagedecoration
 \end{titlepage}
 
+
 \tableofcontents
 \cleardoublepage
 
-\chapter{Alfabetos, cadenas y lenguajes}
-\input{1}
+
+\chapter{Alfabetos, lenguajes y cadenas}
+\input{Chapters/1}
 \chapter{Lenguajes Regulares y Autómatas Finitos}
-\input{2}
-
-
-
+\input{Chapters/2}
 
 \end{document}
