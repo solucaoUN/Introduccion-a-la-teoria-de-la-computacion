@@ -210,7 +210,7 @@ $$[a^2\cup b^2\cup(ab\cup ba)(a^2\cup b^2)^*(ba\cup ab)]^*$$
 
 Al igual que en la sección anterior las soluciones de este capitulo no son únicas y puede que algunas sean redundantes, además otra aclaración de vital importancia es que todos los autómatas presentados no muestran sus estados limbo, es decir presentaremos AFD simplificados.\\
 
-\textbf{Punto 1: }Sea $\Sigma\{a,b\}.$ Diseñar AFD que acepten los siguientes lenguajes:
+\textbf{Punto 1: }Sea $\Sigma=\{a,b\}.$ Diseñar AFD que acepten los siguientes lenguajes:
 \begin{itemize}[label={$\bullet$}]
     \item $a^*b^*$\\
 
@@ -410,7 +410,7 @@ Al igual que en la sección anterior las soluciones de este capitulo no son úni
         \end{basedtikz} 
     \end{itemize}
 
-    \textbf{Punto 2: }Sea $\Sigma\{a,b\}$
+    \textbf{Punto 2: }Sea $\Sigma=\{a,b\}$
 \begin{itemize}[label={$\bullet$}]
     \item Diseñar un AFD que acepte el lenguaje de todas las cadenas que contienen un numero par de $aes$ y un numero par de $bes$.\\
 
@@ -1115,8 +1115,8 @@ Ahora para la construcción del AFD $M$ tal que $L(M)=L$, basta con primero real
         $q_2$& $\{q_3\}$& $\varnothing$ \\ 
         \hline
         $q_3$&$\varnothing$&$\{q_0\}$\\ 
-        \hline
-    
+        \hline\hline
+        
         $\{q_1,q_2\}$&$\{q_0,q_3\}$&$\varnothing$\\ 
         \hline
         $\{q_0,q_3\}$&$\varnothing$&$\{q_0,q_1,q_2\}$\\
@@ -3710,3 +3710,264 @@ Así podemos concluir que para toda cadena $u\in\Sigma^*$ tenemos que $\widehat{
 $\hfill \blacklozenge$
 \section{Algoritmo de minimización de AFDs}
 
+En esta sección el propósito sera hallar el autómata con el mínimo numero de estados que acepte un lenguaje en particular. Note que este procedimiento siempre lo haremos partiendo de un AFD que acepte el lenguaje para ver si podemos minimizar el numero de estados o si precisamente ese es el mínimo.\\
+
+\textbf{Punto 1: }Minimizar los siguientes $AFD,$ es decir, encontrar autómatas deterministas con el mínimo numero de estados posible, equivalentes a los autómatas dados.
+\begin{itemize}
+    \item[$\bullet$] Alfabeto $\Sigma=\{a,b\}.$
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q3) [state, right of=q1] {$q_3$};
+            \node (q2) [state, above right of=q3] {$q_2$};
+            \node (q6) [state, below right of=q3] {$q_6$};
+            \node (q5) [state, above right of=q6, accepting] {$q_5$};
+            \path[thick]
+            (q0) edge [loop above] node [above] {$b$} ()
+            (q0) edge node [above] {$a$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q2)
+            (q1) edge [bend right] node [below] {$b$} (q6)
+            (q3) edge node [above] {$a,b$} (q1)
+            (q2) edge node [above] {$b$} (q3)
+            (q2) edge node [above] {$a$} (q5)
+            (q6) edge node [below] {$b$} (q3)
+            (q6) edge node [below] {$a$} (q5)
+            (q5) edge [bend left=45] node [below] {$a$} (q6)
+            (q5) edge [bend right=45] node [above] {$b$} (q2);
+            \end{tikzpicture}
+            \end{center} 
+    Para la iteración $i=1,$ marcamos con $\times$ las casillas de estados $\{p,q\}$  donde $p$ es de aceptación y $q$ no, o viceversa:
+    \begin{center}
+        \begin{tabular}{ cccccc}
+        $q_0$& & & & & \\ \cline{1-1}
+        \multicolumn{1}{|c|}{$\times$} &$q_1$ & & & & \\ \cline{1-2}
+        \multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &$q_2$ & & & \\ \cline{1-3}
+        \multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{} &$q_3$ & & \\ \cline{1-4}
+        \multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &$q_5$ & \\ \cline{1-5}
+        \multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &$q_6$ \\ \cline{1-5}
+    \end{tabular}
+    \end{center}
+    Ahora para $i=2$, examinamos las parejas de casillas no marcadas y sus transiciones:
+    \begin{center}
+        \begin{tabular}{c||c|c}
+        $\{p,q\}$ & $\{\delta(p,a),\delta(q,a)\}$ & $\{\delta(p,b),\delta(q,b)\}$ \\ \hline
+        $\{q_0,q_2\}$ & $\{q_1,q_5\}$ & $\{q_0,q_3\}$ \\ \hline
+        $\{q_0,q_3\}$ & $\{q_1,q_1\}$ & $\{q_0,q_1\}\times$ \\ \hline
+        $\{q_0,q_6\}$ & $\{q_1,q_5\}$ & $\{q_0,q_3\}$ \\ \hline
+        $\{q_1,q_5\}$ & $\{q_2,q_6\}$ & $\{q_6,q_2\}$ \\ \hline
+        $\{q_2,q_3\}$ & $\{q_5,q_1\}\times$ & $\{q_3,q_1\}\times$ \\ \hline
+        $\{q_2,q_6\}$ & $\{q_5,q_5\}$  & $\{q_3,q_3\}$ \\ \hline
+        $\{q_3,q_6\}$ & $\{q_1,q_5\}$ & $\{q_1,q_3\}\times$ \\ \hline   
+        \end{tabular}
+    \end{center}
+    Note que marcamos con $\times$ aquellos pares que tenían este símbolo en $i=1.$ Siguiendo con el algoritmo, los pares que tengan alguna $\times$ en su fila deberán ser marcados también:
+    \begin{center}
+        \begin{tabular}{ cccccc}
+        $q_0$& & & & & \\ \cline{1-1}
+        \multicolumn{1}{|c|}{$\times$} &$q_1$ & & & & \\ \cline{1-2}
+        \multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &$q_2$ & & & \\ \cline{1-3}
+        \multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &$q_3$ & & \\ \cline{1-4}
+        \multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &$q_5$ & \\ \cline{1-5}
+        \multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &$q_6$ \\ \cline{1-5}
+    \end{tabular}
+    \end{center}
+    Para $i=3$ volvemos a repetir el procedimiento con las casillas que aun no han sido marcadas:
+    \begin{center}
+        \begin{tabular}{c||c|c}
+        $\{p,q\}$ & $\{\delta(p,a),\delta(q,a)\}$ & $\{\delta(p,b),\delta(q,b)\}$ \\ \hline
+        $\{q_0,q_2\}$ & $\{q_1,q_5\}$ & $\{q_0,q_3\}\times$ \\ \hline
+        $\{q_0,q_6\}$ & $\{q_1,q_5\}$ & $\{q_0,q_3\}\times$ \\ \hline
+        $\{q_1,q_5\}$ & $\{q_2,q_6\}$ & $\{q_6,q_2\}$ \\ \hline
+        $\{q_2,q_6\}$ & $\{q_5,q_5\}$  & $\{q_3,q_3\}$ \\ \hline  
+        \end{tabular}
+    \end{center}
+    y por el algoritmo nos queda la siguiente tabla:
+    \begin{center}
+        \begin{tabular}{ cccccc}
+        $q_0$& & & & & \\ \cline{1-1}
+        \multicolumn{1}{|c|}{$\times$} &$q_1$ & & & & \\ \cline{1-2}
+        \multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &$q_2$ & & & \\ \cline{1-3}
+        \multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &$q_3$ & & \\ \cline{1-4}
+        \multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &$q_5$ & \\ \cline{1-5}
+        \multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{} &\multicolumn{1}{|c|}{$\times$} &\multicolumn{1}{|c|}{$\times$} &$q_6$ \\ \cline{1-5}
+    \end{tabular}
+    \end{center}
+    Ahora para $i=4$ observe que no se pueden marcar mas casillas, de esta manera obtenemos que $q_1\approx q_5$ y $q_2\approx q_6.$ Luego el autómata cociente tiene los estados $\{q_0\},\{q_3\},\{q_1,q_5\}$ y $\{q_2,q_6\}.$ De esta manera el grafo del autómata minimizado es el siguiente:
+    \pagebreak
+    \begin{basedtikz}
+\centering
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$\{q_0\}$};
+        \node (q15) [state, right of=q0, accepting] {$\{q_1,q_5\}$};
+        \node (q26) [state, right of=q15] {$\{q_2,q_6\}$};
+        \node (q3) [state, right of=q26] {$\{q_3\}$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$b$} ()
+        (q15) edge [bend left] node [above] {$a,b$} (q26)
+        (q26) edge [bend left] node [below] {$a$} (q15)
+        (q26) edge node [above] {$b$} (q3)
+        (q3) edge [bend left=60] node [below] {$a,b$} (q15)
+        (q0) edge node [above] {$a$} (q15);
+        \end{tikzpicture}
+\end{basedtikz}
+    \item[$\bullet$]Alfabeto $\Sigma=\{a,b\}.$
+    \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, above right of=q0, accepting] {$q_1$};
+            \node (q3) [state, right of=q1] {$q_3$};
+            \node (q2) [state, below right of=q0, accepting] {$q_2$};
+            \node (q4) [state, right of=q2] {$q_4$};
+            \node (q5) [state, above right of=q4, accepting] {$q_5$};
+            \node (q6) [state, right of=q5] {$q_6$};
+            
+            \path[thick]
+            (q0) edge node [above] {$a$} (q1)
+            (q0) edge node [below] {$b$} (q2)
+            (q1) edge node [above] {$a$} (q3)
+            (q1) edge node [right] {$b$} (q4)
+            (q2) edge node [below] {$a$} (q4)
+            (q2) edge node [left] {$b$} (q3)
+            (q3) edge node [above] {$b$} (q5)
+            (q4) edge node [below] {$b$} (q5)
+            (q3) edge node [above] {$a$} (q6)
+            (q4) edge node [below] {$a$} (q6)
+            (q5) edge node [above] {$a,b$} (q6)
+            (q6) edge [loop above] node [above] {$a,b$} ();
+            \end{tikzpicture}
+            \end{center} 
+        Para la iteración $i=1$ tenemos que:
+        \begin{center}
+            \begin{tabular}{ccccccc}
+            $q_0$ \\ \cline{1-1}
+            \multicolumn{1}{|c|}{$\times$} & $q_1$ \\ \cline{1-2}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_2$ \\ \cline{1-3}
+            \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_3$ \\ \cline{1-4}
+            \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_4$ \\ \cline{1-5}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_5$ \\
+            \cline{1-6}
+            \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & $q_6$ \\
+            \cline{1-6}   
+            \end{tabular}
+        \end{center}
+        Ahora en $i=2$ examinamos las parejas de estados que no fueron tachadas:
+        \begin{center}
+            \begin{tabular}{c||c|c}
+            $\{p,q\}$ & $\{\delta(p,a),\delta(q,a\}$ & $\{\delta(p,b),\delta(q,b\}$\\
+            \hline
+            $\{q_0,q_3\}$ & $\{q_1,q_6\}\times$ & $\{q_2,q_5\}$ \\
+            \hline
+            $\{q_0,q_4\}$ & $\{q_1,q_6\}\times$ & $\{q_2,q_5\}$ \\
+            \hline
+            $\{q_0,q_6\}$ & $\{q_1,q_6\}\times$ & $\{q_2,q_6\}\times$ \\
+            \hline
+            $\{q_1,q_2\}$ & $\{q_3,q_4\}$ & $\{q_4,q_3\}$ \\
+            \hline
+            $\{q_1,q_5\}$ & $\{q_3,q_6\}$ & $\{q_4,q_6\}$ \\
+            \hline
+            $\{q_2,q_5\}$ & $\{q_4,q_6\}$ & $\{q_3,q_6\}$ \\
+            \hline
+            $\{q_3,q_4\}$ & $\{q_6,q_6\}$ & $\{q_5,q_5\}$\\
+            \hline
+            $\{q_3,q_6\}$ & $\{q_6,q_6\}$ & $\{q_5,q_6\}\times$\\
+            \hline
+            $\{q_4,q_6\}$ & $\{q_6,q_6\}$ & $\{q_5,q_6\}\times$\\
+            \hline
+            \end{tabular}
+        \end{center}
+        Siguiendo el algoritmo tachamos las casillas marcadas en la tabla:
+        \begin{center}
+            \begin{tabular}{ccccccc}
+            $q_0$ \\ \cline{1-1}
+            \multicolumn{1}{|c|}{$\times$} & $q_1$ \\
+             \cline{1-2}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_2$ \\ \cline{1-3}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_3$ \\
+             \cline{1-4}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_4$ \\ \cline{1-5}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_5$ \\
+            \cline{1-6}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_6$ \\
+            \cline{1-6}   
+            \end{tabular}
+        \end{center}
+    Ahora para $i=3$ estudiamos las casillas no tachadas en el anterior paso:
+    \begin{center}
+            \begin{tabular}{c||c|c}
+            $\{p,q\}$ & $\{\delta(p,a),\delta(q,a\}$ & $\{\delta(p,b),\delta(q,b\}$\\
+            \hline
+            $\{q_1,q_2\}$ & $\{q_3,q_4\}$ & $\{q_4,q_3\}$ \\
+            \hline
+            $\{q_1,q_5\}$ & $\{q_3,q_6\}\times$ & $\{q_4,q_6\}\times$ \\
+            \hline
+            $\{q_2,q_5\}$ & $\{q_4,q_6\}\times$ & $\{q_3,q_6\}\times$ \\
+            \hline
+            $\{q_3,q_4\}$ & $\{q_6,q_6\}$ & $\{q_5,q_5\}$\\
+            \hline
+            \end{tabular}
+        \end{center}
+    De esta forma tenemos que tachar las siguientes casillas:
+    \begin{center}
+            \begin{tabular}{ccccccc}
+            $q_0$ \\ \cline{1-1}
+            \multicolumn{1}{|c|}{$\times$} & $q_1$ \\
+             \cline{1-2}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_2$ \\ \cline{1-3}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_3$ \\
+             \cline{1-4}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_4$ \\ \cline{1-5}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_5$ \\
+            \cline{1-6}
+            \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_6$ \\
+            \cline{1-6}   
+            \end{tabular}
+        \end{center}
+        Note que para $i=4$ ya no podemos tachar casillas nuevas, así $q_1\approx q_2$ y $q_3\approx q_4.$ Luego el autómata cociente tiene los estados $\{q_0\},\{q_1,q_2\},\{q_3,q_4\},\{q_5\}$ y $\{q_6\}.$ De esta manera obtenemos que el grafo autómata minimizado es:
+        \begin{basedtikz}
+        \centering
+        \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$\{q_0\}$};
+        \node (q12) [state, right of=q0, accepting] {$\{q_1,q_2\}$};
+        \node (q34) [state, right of=q12] {$\{q_3,q_4\}$};
+        \node (q5) [state, right of=q34, accepting] {$\{q_5\}$};
+        \path[thick]
+        (q0) edge node [above] {$a,b$} (q12)
+        (q12) edge node [above] {$a,b$} (q34)
+        (q34) edge node [above] {$b$} (q5);
+        \end{tikzpicture}
+        \end{basedtikz}
+        Note que simplificamos el grafo ya que $\{q_6\}$ actuá como limbo al igual que en el autómata original, pero recordemos que para el proceso de minimización es importante tener \textbf{TODOS} los estados en consideración y por eso al principio es ilustrado en el grafo para mayor claridad.
+        \item[$\bullet$] Alfabeto $\Sigma=\{a,b\}.$
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting ] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, right of=q1] {$q_2$};
+            \node (q3) [state, right of=q2] {$q_3$};
+            \node (q4) [state, below of=q0] {$q_4$};
+            \node (q5) [state, right of=q4, accepting] {$q_5$};
+            \node (q6) [state, below of=q2] {$q_6$};
+            \node (q7) [state, below of=q3] {$q_7$};
+            
+            \path[thick]
+            (q0) edge node [above] {$b$} (q1)
+            (q0) edge node [left] {$a$} (q4)
+            (q1) edge node [above] {$a$} (q2)
+            (q1) edge node [right] {$b$} (q5)
+            (q2) edge node [left] {$a$} (q6)
+            (q2) edge node [above] {$b$} (q3)
+            (q3) edge [bend right] node [left] {$a$} (q7)
+            (q3) edge [loop above] node [above] {$b$} ()
+            (q4) edge [loop below] node [below] {$a$} ()
+            (q4) edge [bend left] node [above] {$b$} (q5)
+            (q5) edge [bend left] node [below] {$a$} (q4)
+            (q5) edge [loop below] node [below] {$b$} ()
+            (q6) edge [bend left] node [above] {$a$} (q7)
+            (q6) edge node [above] {$b$} (q3)
+            (q7) edge [bend left] node [below] {$a$} (q6)
+            (q7) edge [bend right] node [right] {$b$} (q3);
+            \end{tikzpicture}
+            \end{center} 
+
+\end{itemize}
