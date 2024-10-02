@@ -1,12 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.5.21)  28 MAY 2024 21:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.5.21)  2 OCT 2024 02:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**C:/Users/santi/Desktop/Solucionarios/Introduccion-a-la-teoria-de-la-computaci
-on/main.tex
-
-(C:/Users/santi/Desktop/Solucionarios/Introduccion-a-la-teoria-de-la-computacio
-n/main.tex
+**./main.tex
+(main.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
 (C:\Users\santi\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
@@ -3468,11 +3465,49 @@ Underfull \vbox (badness 1484) has occurred while \output is active []
 
 LaTeX Info: Redefining \. on input line 3971.
 LaTeX Info: Redefining \% on input line 3971.
- [85])
+ [85]
+LaTeX Info: Redefining \. on input line 4018.
+LaTeX Info: Redefining \% on input line 4018.
+
+[86]
+Package mdframed Info: mdframed works in twoside mode on input line 4048.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 4048.
+LaTeX Info: Redefining \. on input line 4091.
+LaTeX Info: Redefining \% on input line 4091.
+ [87]
+Package mdframed Info: mdframed works in twoside mode on input line 4118.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 4118.
+
+
+Package mdframed Warning: You got a bad break
+(mdframed)                because the last box will be empty
+(mdframed)                you have to change it manually
+(mdframed)                by changing the text, the space
+(mdframed)                or something else on input line 4127.
+
+Package mdframed Info: You first box width is to small
+ mdframed fixed it
+(mdframed)              on input line 4127.
+LaTeX Info: Redefining \. on input line 4127.
+LaTeX Info: Redefining \% on input line 4127.
+[88]
+Underfull \hbox (badness 10000) in paragraph at lines 4134--4135
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4136--4137
+
+ []
+
+)
 LaTeX Info: Redefining \. on input line 44.
 LaTeX Info: Redefining \% on input line 44.
-
-[86] (main.aux
+ [89] (main.aux
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
 )
@@ -3484,13 +3519,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: A2182E6A09DFC4F3AB8044E19B006E8A;4526.
  ) 
 Here is how much of TeX's memory you used:
- 39617 strings out of 474370
- 805611 string characters out of 5740535
+ 39638 strings out of 474370
+ 805824 string characters out of 5740535
  1985754 words of memory out of 5000000
- 60980 multiletter control sequences out of 15000+600000
+ 60998 multiletter control sequences out of 15000+600000
  621297 words of font info for 128 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,15n,96p,691b,1336s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,15n,96p,613b,1336s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/santi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmex10.pfb><C:/Users/santi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmmi12.pfb><C:/Users/santi/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -3510,9 +3545,9 @@ ocal/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/santi/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmb.pfb><C:/Users/santi/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmr.pfb><C:/Users/santi/AppD
 ata/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmri.pfb>
-Output written on main.pdf (86 pages, 613757 bytes).
+Output written on main.pdf (89 pages, 627034 bytes).
 PDF statistics:
- 828 PDF objects out of 1000 (max. 8388607)
- 268 named destinations out of 1000 (max. 500000)
+ 843 PDF objects out of 1000 (max. 8388607)
+ 273 named destinations out of 1000 (max. 500000)
  309 words of extra memory for PDF output out of 10000 (max. 10000000)
 

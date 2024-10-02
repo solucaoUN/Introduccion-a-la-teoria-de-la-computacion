@@ -3969,5 +3969,170 @@ En esta sección el propósito sera hallar el autómata con el mínimo numero de
             (q7) edge [bend right] node [right] {$b$} (q3);
             \end{tikzpicture}
             \end{center} 
+            Para la iteración $i=1$ tenemos
+            \begin{center}
+                \begin{tabular}{cccccccc}
+                   $q_0$ \\ \cline{1-1}
+                   \multicolumn{1}{|c|}{} & $q_1$ \\ \cline{1-2}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_2$ \\ \cline{1-3}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_3$\\ \cline{1-4}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & $q_4$ \\ \cline{1-5}
+                   \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_5$ \\ \cline{1-6}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & $q_6$ \\ \cline{1-7}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_7$ \\ \cline{1-7}
+                \end{tabular}
+            \end{center}
+            Ahora en $i=2$ examinamos las parejas de estados no tachadas:
+            \begin{center}
+                \begin{tabular}{c||c|c}
+                  $\{p,q\}$ & $\{\delta(p,a),\delta(q,a)\}$ & $\{\delta(p,b),\delta(q,b)\}$\\ \hline
+                  $\{q_0,q_1\}$ & $\{q_4,q_2\}$ & $\{q_1,q_5\}$ \\ \hline
+                  $\{q_0,q_5\}$ & $\{q_4,q_4\}$ & $\{q_1,q_5\}$ \\ \hline
+                  $\{q_1,q_5\}$ & $\{q_2,q_4\}$ & $\{q_5,q_5\}$ \\ \hline
+                  $\{q_2,q_3\}$ & $\{q_6,q_7\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_2,q_4\}$ & $\{q_6,q_4\}$ & $\{q_3,q_5\}\times$ \\ \hline
+                  $\{q_2,q_6\}$ & $\{q_6,q_7\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_2,q_7\}$ & $\{q_6,q_6\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_3,q_4\}$ & $\{q_7,q_4\}$ & $\{q_3,q_5\}\times$ \\ \hline
+                  $\{q_3,q_6\}$ & $\{q_7,q_3\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_3,q_7\}$ & $\{q_7,q_6\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_4,q_6\}$ & $\{q_4,q_7\}$ & $\{q_5,q_3\}\times$ \\ \hline
+                  $\{q_4,q_7\}$ & $\{q_4,q_6\}$ & $\{q_5,q_3\}\times$ \\ \hline
+                  $\{q_6,q_7\}$ & $\{q_7,q_6\}$ & $\{q_3,q_3\}$ \\ \hline
+                \end{tabular}
+            \end{center}
+            Siguiendo el algoritmo
+            \begin{center}
+                \begin{tabular}{cccccccc}
+                   $q_0$ \\ \cline{1-1}
+                   \multicolumn{1}{|c|}{} & $q_1$ \\ \cline{1-2}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_2$ \\ \cline{1-3}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_3$\\ \cline{1-4}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_4$ \\ \cline{1-5}
+                   \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_5$ \\ \cline{1-6}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_6$ \\ \cline{1-7}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_7$ \\ \cline{1-7}
+                \end{tabular}
+            \end{center}
+            Ahora para $i=3$, tenemos:
+            \begin{center}
+                \begin{tabular}{c||c|c}
+                  $\{p,q\}$ & $\{\delta(p,a),\delta(q,a)\}$ & $\{\delta(p,b),\delta(q,b)\}$\\ \hline
+                  $\{q_0,q_1\}$ & $\{q_4,q_2\}\times$ & $\{q_1,q_5\}$ \\ \hline
+                  $\{q_0,q_5\}$ & $\{q_4,q_4\}\times$ & $\{q_1,q_5\}$ \\ \hline
+                  $\{q_1,q_5\}$ & $\{q_2,q_4\}\times$ & $\{q_5,q_5\}$ \\ \hline
+                  $\{q_2,q_3\}$ & $\{q_6,q_7\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_2,q_6\}$ & $\{q_6,q_7\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_2,q_7\}$ & $\{q_6,q_6\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_3,q_6\}$ & $\{q_7,q_3\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_3,q_7\}$ & $\{q_7,q_6\}$ & $\{q_3,q_3\}$ \\ \hline
+                  $\{q_6,q_7\}$ & $\{q_7,q_6\}$ & $\{q_3,q_3\}$ \\ \hline
+                \end{tabular}
+            \end{center}
+            y siguiendo el algoritmo
+            \begin{center}
+                \begin{tabular}{cccccccc}
+                   $q_0$ \\ \cline{1-1}
+                   \multicolumn{1}{|c|}{$\times$} & $q_1$ \\ \cline{1-2}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_2$ \\ \cline{1-3}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_3$\\ \cline{1-4}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_4$ \\ \cline{1-5}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_5$ \\ \cline{1-6}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & $q_6$ \\ \cline{1-7}
+                   \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_7$ \\ \cline{1-7}
+                \end{tabular}
+            \end{center}
+            Note que para $i=4$ ya no podemos tachar mas casillas, así $q_2\approx q_3 \approx q_6 \approx q_7.$ Luego el autómata cociente tiene los estados $\{q_0\},\{q_1\},\{q_4\}, \{q_5\}$ y $\{q_2,q_3,q_6,q_7\}.$ De esta manera el grafo del autómata minimizado es
+            
+         \begin{basedtikz}
+             \centering
+             \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting ] {$\{q_0\}$};
+            \node (q1) [state, right of=q0, accepting] {$\{q_1\}$};
+            \node (q4) [state, below of=q0] {$\{q_4\}$};
+            \node (q5) [state, right of=q4, accepting] {$\{q_5\}$};
+            \path[thick]
+            (q0) edge node [above] {$b$} (q1)
+            (q0) edge node [left] {$a$} (q4)
+            (q1) edge node [right] {$b$} (q5)
+            (q4) edge [loop below] node [below] {$a$} ()
+            (q4) edge [bend left] node [above] {$b$} (q5)
+            (q5) edge [bend left] node [below] {$a$} (q4)
+            (q5) edge [loop below] node [below] {$b$} ();
+            \end{tikzpicture}
+         \end{basedtikz}
 
+         Note que esta minimización tiene bastante sentido, ya que por simple inspección podemos notar que toda la parte derecha conectada a $q_2$ actuá como un limbo, así que puede ser borrado, por esto mismo, en la presentación del grafo minimizado omitimos el estado $\{q_2,q_3,q_6,q_7\}.$
+
+         \item[$\bullet$] Alfabeto $\Sigma=\{0,1\}.$
+
+         \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting ] {$q_0$};
+            \node (q1) [state, above right of=q0] {$q_1$};
+            \node (q3) [state, below right of=q0] {$q_3$};
+            \node (q4) [state, above right of=q3, accepting] {$q_4$};
+            \node (q2) [state, above right of=q4] {$q_2$};
+            \node (q5) [state, below right of=q4] {$q_5$};
+            \path[thick]
+            (q0) edge node [above] {$1$} (q1)
+            (q0) edge node [below] {$0$} (q3)
+            (q1) edge [loop above] node [above] {$1$} ()
+            (q1) edge node [above] {$0$} (q4)
+            (q2) edge node [above] {$1$} (q1)
+            (q2) edge [bend left] node [below] {$0$} (q4)
+            (q3) edge [loop below] node [below] {$1$} ()
+            (q3) edge node [above] {$0$} (q4)
+            (q4) edge [bend left] node [above] {$1$} (q2)
+            (q4) edge [bend right] node [below] {$0$} (q5)
+            (q5) edge node [below] {$1$} (q3)
+            (q5) edge [bend right] node [above] {$0$} (q4);
+            \end{tikzpicture}
+            \end{center} 
+            Para la iteración $i=1$, tenemos
+            \begin{center}
+                 \begin{tabular}{cccccc}
+                    $q_0$ \\ \cline{1-1}
+                    \multicolumn{1}{|c|}{$\times$} & $q_1$ \\ \cline{1-2}
+                    \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & $q_2$ \\ \cline{1-3}
+                    \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & $q_3$ \\ \cline{1-4}
+                    \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{$\times$}& \multicolumn{1}{|c|}{$\times$}& $q_4$ \\ \cline{1-5}
+                    \multicolumn{1}{|c|}{$\times$} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{$\times$} & $q_5$ \\ \cline{1-5}
+                 \end{tabular}
+             \end{center}
+             Para $i=2$ examinamos las parejas no tachadas
+             \begin{center}
+                \begin{tabular}{c||c|c}
+                  $\{p,q\}$ & $\{\delta(p,0),\delta(q,0)\}$ & $\{\delta(p,1),\delta(q,1)\}$\\ \hline
+                  $\{q_0,q_4\}$ & $\{q_3,q_5\}$ & $\{q_1,q_2\}$ \\ \hline
+                  $\{q_1,q_2\}$ & $\{q_4,q_4\}$ & $\{q_1,q_1\}$ \\ \hline
+                  $\{q_1,q_3\}$ & $\{q_4,q_4\}$ & $\{q_1,q_3\}$ \\ \hline
+                  $\{q_1,q_5\}$ & $\{q_4,q_4\}$ & $\{q_1,q_3\}$ \\ \hline
+                  $\{q_2,q_3\}$ & $\{q_4,q_4\}$ & $\{q_1,q_3\}$ \\ \hline
+                  $\{q_2,q_5\}$ & $\{q_4,q_4\}$ & $\{q_1,q_3\}$ \\ \hline
+                  $\{q_3,q_5\}$ & $\{q_4,q_4\}$ & $\{q_3,q_3\}$ \\ \hline
+                \end{tabular}
+            \end{center}
+            Note que curiosamente no podemos tachar ninguna casilla nueva, por lo que $q_0 \approx q_4$ y $q_1\approx q_2\approx q_3\approx q_5,$ luego el grafo del autómata minimizado esta dado por
+            \begin{basedtikz}
+             \centering
+             \begin{tikzpicture}[node distance = 5cm, on grid, auto]
+            \node (q0) [state, initial, accepting ] {$\{q_0,q_4\}$};
+            \node (q1) [state, right of=q0] {$\{q_1,q_2,q_3,q_5\}$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$0,1$} (q1)
+            (q1) edge [bend left] node [below] {$0$} (q0)
+            (q1) edge [loop above] node [above] {$1$} ();
+            \end{tikzpicture}
+         \end{basedtikz}
+
+        \item[$\bullet$] Alfabeto $\Sigma=\{a,b,c\}.$
+
+        \item[$\bullet$] El siguiente autómata fue obtenido utilizando el producto cartesiano para aceptar el lenguaje $L$ de todas las cadenas sobre el alfabeto $\Sigma=\{a,b\}$ que tienen longitud impar o que no contienen dos $b$es consecutivas.
 \end{itemize}
+
+\textbf{Punto 2: } Sea $\Sigma=\{a,b\}.$ Demostrar que el lenguaje $L=a^+b^*a$ no puede ser aceptado por ningún AFD con menos de seis estados (incluyendo el estado limbo).\\
+
+\textbf{Punto 3: } Sea $\Sigma=\{a,b\}.$ Demostrar que el lenguaje $L=a^*b\cup b^*a$ no puede ser aceptado por ningún AFD con menos de siete estados (incluyendo el estado limbo).\\
+
+\textcolor{blue}{Ya casi termino este capitulo 2 de mierda, vaina tan eterna :p}
