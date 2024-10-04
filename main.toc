@@ -18,4 +18,6 @@
 \contentsline {section}{\numberline {2.10}Teorema de Kleene, parte II}{68}{section.2.10}%
 \contentsline {section}{\numberline {2.11}Teorema de Myhill-Nerode}{80}{section.2.11}%
 \contentsline {section}{\numberline {2.12}Algoritmo de minimización de AFDs}{82}{section.2.12}%
+\contentsline {chapter}{\numberline {3}Lenguajes no regulares}{95}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Criterio de no Regularidad}{95}{section.3.1}%
 \contentsfinish 
