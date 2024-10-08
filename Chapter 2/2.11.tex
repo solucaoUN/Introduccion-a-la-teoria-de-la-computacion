@@ -1,0 +1,46 @@
+%!TEX root = ../main.tex
+
+Esta sección es completamente opcional ya que Korgi no la trata a profundidad, pero puede que algún profesor si lo haga así que haremos las demostraciones correspondientes.\\
+
+\textbf{Punto 1: }Sea $\Sigma$ un alfabeto dado, $L\subseteq\Sigma^*$ y $I_L$ la relación de indistinguibilidad definida sobre $\Sigma^*.$ Para cada $u\in\Sigma^*,\,[u]$ denota la clase de equivalencia de $u,$ determinada por $I_L.$ Demostrar que para todo $u,v\in\Sigma^*$ se cumple
+\begin{itemize}
+    \item[$\bullet$] Si $u\in L$ y $v\in[u]$ entonces $v\in L.$
+    \begin{proof}
+        Como $v\in[u],$ por la definición de $I_L$ tenemos que para todo $x\in\Sigma^*,$ $ux\in L$ si y solo si $vx\in L.$ Particularmente si $x=\lambda$ y como $u\in L$, podemos concluir que $v\in L.$ 
+    \end{proof}
+    \item[$\bullet$] Si $uI_Lv$ entonces $uaI_Lva,$ para todo $a\in Sigma.$
+    \begin{proof}
+        Sea $a\in\Sigma,$ recordemos que $\Sigma\subset\Sigma^*,$ así $a\in\Sigma^*.$ Luego por hipótesis como $uI_Lv$ tenemos que para todo $x\in\Sigma^*,$ $ux\in L$ si y solo si $vx\in L.$ Note que en particular $x=ay$ donde $y\in\Sigma^*$, pero este $y$ es arbitrario, así que podemos decir que para todo $y\in\Sigma^*,$ $uay\in L$ si y solo si $vay\in L.$ que es lo mismo que decir $uaI_Luv.$
+    \end{proof}
+\end{itemize}
+
+\textbf{Punto 2: }Demostrar la afirmación (2.15.4) de la demostración del Teorema de Myhill-Nerode, esto es, demostrar por recursión sobre $u$, que
+$$\widehat{\delta_L}([\lambda],u)=[u]\text{, para toda cadena }u\in\Sigma^*.$$
+\begin{proof}
+    Para el caso $u=\lambda$ tenemos por definición
+    $$\widehat{\delta_L}([\lambda],\lambda)=[\lambda]$$
+    Note de manera similar que para el caso $u=a$ con $a\in\Sigma$ tenemos que
+    $$\widehat{\delta_L}([\lambda],a)=[a]$$
+    Ahora supongamos que $\widehat{\delta_L}([\lambda],u)=[u]$ y veamos que pasa con $ua$
+    \begin{align*}
+       \widehat{\delta_L}([\lambda],ua)&=\widehat{\delta_L}(\widehat{\delta_L}([\lambda],u),a)&&\text{(Propiedad función de transición)}\\
+       &=\widehat{\delta_L}([u],a)&&\text{(Hipótesis recursiva)} \\
+       &=[ua]&&\text{(Definición de la función de transición).}
+    \end{align*}
+Así podemos concluir que para toda cadena $u\in\Sigma^*$ tenemos que $\widehat{\delta_L}([\lambda],u)=[u].$
+\end{proof}
+\textbf{Punto 3: }Demostrar que la función $f:Q\to Q_L$ definida en la demostración del Teorema 2.15.4 satisface las propiedades (1) y (2) de la Definición 2.15.5.
+\begin{itemize}
+    \item[$\bullet$]$f(q_0)=q_i.$
+\begin{proof}
+    Por definición de $f$ tenemos que:
+    $$f(q_0)=[u]$$ 
+    donde $\widehat{\delta}(q_0,u)=q_0$ para alguna cadena $u\in\Sigma^*,$ pero note que $\widehat{\delta}(q_0,\lambda)=q_0$ para cualquier autómata arbitrario $M$, así $f(q_0)=[\lambda]$ y como $[\lambda]=q_i$, hemos mostrado que $f(q_0)=q_i$. 
+\end{proof}
+    \item[$\bullet$]$q\in F$ si y solo si $f(q)\in F_L.$
+    \begin{proof}
+        ($\Rightarrow$) Si $q\in F$, luego $f(q)=[u]$ donde $\widehat{\delta}(q_0,u)=q$, pero como $q\in F$ quiere decir que el $u\in L$ y por definición de $F_L$ concluimos que $f(q)=[u]\in F_L.$\\
+        ($\Leftarrow$) Si $f(q)\in F_L$ quiere decir que $f(q)=[u]$ donde $u\in L$, pero como por definición de $f$, $\widehat{\delta}(q_0,u)=q$ quiere decir que $q$ es un estado de aceptación, y por tanto $q\in F.$
+    \end{proof}
+\end{itemize}
+$\hfill \blacklozenge$

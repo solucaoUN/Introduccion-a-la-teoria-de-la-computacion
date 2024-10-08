@@ -1,0 +1,25 @@
+%!TEX root = ../main.tex
+
+Teniendo en cuenta el nombre de esta sección, todas la pruebas serán realizadas usando el criterio, un ejercicio interesante seria que realizaran las pruebas por contradicción.\\
+
+\textbf{Punto 1: } Ya sea utilizando un argumento por contradicción o por el criterio de no regularidad, demostrar que los siguientes lenguajes no son regulares:
+
+\begin{itemize}
+    \item[$\bullet$] $L=\{a^nb^{2n}:n\geq 0\},$ sobre $\Sigma=\{a,b\}.$
+    \begin{proof}
+        Veamos que las cadenas $a,a^2,a^3,\dots$ son infinitas cadenas $L-$distinguibles dos a dos. Sean $i,j\geq 1,$ con $i\neq j.$ Queremos mostrar que $a^i$ y $a^j$ son $L-$distinguibles. Si escogemos la cadena $x=b^{2i}.$ Tenemos por la definición de $L$ que $a^ix=a^ib^{2i}\in L$ pero $a^jx=a^jb^{2i}\notin L,$ ya que por la hipótesis $2j\neq2i.$ Así existen infinitas cadenas $L-$distinguibles dos a dos, y por el criterio de no regularidad, concluimos que $L$ no es regular.
+    \end{proof}
+    \item[$\bullet$] $L=\{a^{2n}b^n:n\geq 0\},$ sobre $\Sigma=\{a,b\}.$
+    \begin{proof}
+        Veamos que las cadenas $a^2,a^4,a^6,\dots$ son infinitas cadenas $L-$distinguibles dos a dos. Sean $i,j\geq 1,$ con $i\neq j.$ Queremos mostrar que $a^{2i}$ y $a^{2j}$ son $L-$distinguibles. Si escogemos la cadena $x=b^i.$ Tenemos por la definición de $L$  que $a^{2i}x=a^{2i}b^i\in L$ pero $a^{2j}x=a^{2j}b^i\notin L,$ ya que por la hipótesis $2i\neq 2j.$ Así existen infinitas cadenas $L-$distinguibles dos a dos, y por el criterio de no regularidad, concluimos que $L$ no es regular.
+    \end{proof}
+    \item[$\bullet$] $L=\{a^nb^m:n,m\geq 0, n\neq m\},$ sobre $\Sigma=\{a,b\}.$
+    \begin{proof}
+        Veamos que las cadenas $a,a^2,a^3,\dots$ son infinitas cadenas $L-$distinguibles dos a dos. Sean $i,j\geq 1,$ con $i\neq j.$ Queremos mostrar que $a^i$ y $a^j$ son $L-$distinguibles. Si escogemos la cadena $x=b^j.$ Tenemos por la definición de $L$ que $a^ix=a^ib^j\in L,$ por la hipótesis, pero $a^jx=a^jb^j\notin L.$  Así existen infinitas cadenas $L-$distinguibles dos a dos, y por el criterio de no regularidad, concluimos que $L$ no es regular.
+    \end{proof}
+    \item[$\bullet$] $L=\{a^mb^n:m\geq n\geq 0\},$ sobre $\Sigma=\{a,b\}.$
+    \begin{proof}
+        Veamos que las cadenas $a,a^2,a^3,\dots$ son infinitas cadenas $L-$distinguibles dos a dos. Sean $i,j\geq 1,$ con $i\neq j.$ Sin perdida de generalidad tomemos $i>j.$ Queremos mostrar que $a^i$ y $a^j$ son $L-$distinguibles. Si escogemos la cadena $x=b^{j+1}.$ Tenemos por la definición de $L$ que $a^ix=a^ib^{j+1}\in L,$ ya que por la hipótesis $i\geq j+1$, pero $a^jx=a^jb^{j+1}\notin L.$  Así existen infinitas cadenas $L-$distinguibles dos a dos, y por el criterio de no regularidad, concluimos que $L$ no es regular.
+    \end{proof}
+
+\end{itemize}

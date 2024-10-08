@@ -1,0 +1,533 @@
+%!TEX root = ../main.tex
+
+\textit{Siempre se puede construir un AFN-$\lambda$ si conocemos la expresión regular.} Es la lección de esta sección; siguiendo unos simples pasos y siendo bastante organizados podemos construir un AFN-$\lambda$ dada una expresión regular y por tanto siempre podremos llegar a un AFD por los métodos de conversión ya presentados previamente.\\
+
+Utilizar el procedimiento del Teorema 2.12.1 para construir AFN-$\lambda$ que acepten los siguientes lenguajes sobre el alfabeto $\{a,b,c\}.$\\
+\textbf{Punto 1: }$(a^*c)^*\cup(b^*a)^*(ca^*)^*b^+.$
+\begin{itemize}
+    \item[i)] Autómata que acepta $a^*c$:
+    \begin{basedtikz}
+    \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [loop above] node [above] {$a$}
+            (q0) edge [bend left] node [above] {$c$}  (q1); 
+         \end{tikzpicture}
+     \end{basedtikz} 
+     \item[ii)] Autómata que acepta $(a^*c)^*$
+     \begin{basedtikz}
+     \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q2) [state, initial, accepting, minimum size=15pt] {};
+            \node (q0) [state, right of=q2, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q2) edge [bend left] node [above] {$\lambda$} (q0)
+            (q0) edge [loop above] node [above] {$a$}
+            (q0) edge [bend left] node [above] {$c$}  (q1)
+            (q1) edge [bend left] node [below] {$\lambda$} (q0); 
+         \end{tikzpicture}
+     \end{basedtikz}
+     \item[iii)] Autómata que acepta $(b^*a)^*$
+     \begin{basedtikz}
+     \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q2) [state, initial, accepting, minimum size=15pt] {};
+            \node (q0) [state, right of=q2, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q2) edge [bend left] node [above] {$\lambda$} (q0)
+            (q0) edge [loop above] node [above] {$b$}
+            (q0) edge [bend left] node [above] {$a$}  (q1)
+            (q1) edge [bend left] node [below] {$\lambda$} (q0); 
+         \end{tikzpicture}
+     \end{basedtikz}
+     \item[iv)] Autómata que acepta $(ca^*)^*$
+     \begin{basedtikz}
+     \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q2) [state, initial, accepting, minimum size=15pt] {};
+            \node (q0) [state, right of=q2, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q2) edge [bend left] node [above] {$\lambda$} (q0)
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q0) edge [bend left] node [above] {$c$}  (q1)
+            (q1) edge [bend left] node [below] {$\lambda$} (q0); 
+         \end{tikzpicture}
+     \end{basedtikz}
+
+     \item[v)] Autómata que acepta $(b^*a)^*(ca^*)^*$
+     \begin{basedtikz}
+     \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q2) [state, initial, minimum size=15pt] {};
+            \node (q0) [state, right of=q2, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q3) [state, right of=q1, accepting, minimum size=15pt] {};
+            \node (q4) [state, right of=q3, minimum size=15pt] {};
+            \node (q5) [state, right of=q4, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q2) edge [bend left] node [above] {$\lambda$} (q0)
+            (q0) edge [loop above] node [above] {$b$}
+            (q0) edge [bend left] node [above] {$a$}  (q1)
+            (q1) edge [bend left] node [below] {$\lambda$} (q0)
+            (q2) edge [bend right=40] node [below] {$\lambda$} (q3)
+            (q1) edge [bend left] node [above] {$\lambda$} (q3)
+            (q3) edge [bend left] node [above] {$\lambda$} (q4)
+            (q5) edge [loop above] node [above] {$a$} ()
+            (q4) edge [bend left] node [above] {$c$}  (q5)
+            (q5) edge [bend left] node [below] {$\lambda$} (q4); 
+         \end{tikzpicture}
+     \end{basedtikz}
+     \item[vi)] Autómata que acepta $(b^*a)^*(ca^*)^*b^+$
+     \begin{basedtikz}
+     \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q2) [state, initial, minimum size=15pt] {};
+            \node (q0) [state, right of=q2, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q3) [state, right of=q1, minimum size=15pt] {};
+            \node (q4) [state, right of=q3, minimum size=15pt] {};
+            \node (q5) [state, right of=q4, minimum size=15pt] {};
+            \node (q6) [state, right of=q5, minimum size=15pt] {};
+            \node (q7) [state, right of=q6, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q2) edge [bend left] node [above] {$\lambda$} (q0)
+            (q0) edge [loop above] node [above] {$b$} ()
+            (q0) edge [bend left] node [above] {$a$}  (q1)
+            (q1) edge [bend left] node [below] {$\lambda$} (q0)
+            (q2) edge [bend right=40] node [below] {$\lambda$} (q3)
+            (q1) edge [bend left] node [above] {$\lambda$} (q3)
+            (q3) edge [bend left] node [above] {$\lambda$} (q4)
+            (q5) edge [loop above] node [above] {$a$} ()
+            (q4) edge [bend left] node [above] {$c$}  (q5)
+            (q5) edge [bend left] node [below] {$\lambda$} (q4)
+            (q3) edge [bend right=40] node [below] {$\lambda$} (q6) 
+            (q5) edge [bend left] node [above] {$\lambda$} (q6)
+            (q6) edge [bend left] node [above] {$b$} (q7)
+            (q7) edge [loop above] node [above] {$b$} ();
+         \end{tikzpicture}
+     \end{basedtikz}
+     \item[vii)] Autómata que acepta $(a^*c)^*\cup(b^*a)^*(ca^*)^*b^+$
+     \begin{basedtikz}
+     \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q8) [state, initial, minimum size=15pt] {};
+            \node (q9) [state, above right of=q8, accepting, minimum size=15pt] {};
+            \node (q10) [state, right of=q9, minimum size=15pt] {};
+            \node (q11) [state, right of=q10, accepting, minimum size=15pt] {};
+            \node (q2) [state, below right of=q8, minimum size=15pt] {};
+            \node (q0) [state, right of=q2, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q3) [state, right of=q1, minimum size=15pt] {};
+            \node (q4) [state, right of=q3, minimum size=15pt] {};
+            \node (q5) [state, right of=q4, minimum size=15pt] {};
+            \node (q6) [state, right of=q5, minimum size=15pt] {};
+            \node (q7) [state, right of=q6, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q2) edge [bend left] node [above] {$\lambda$} (q0)
+            (q0) edge [loop above] node [above] {$b$} ()
+            (q0) edge [bend left] node [above] {$a$}  (q1)
+            (q1) edge [bend left] node [below] {$\lambda$} (q0)
+            (q2) edge [bend right=40] node [below] {$\lambda$} (q3)
+            (q1) edge [bend left] node [above] {$\lambda$} (q3)
+            (q3) edge [bend left] node [above] {$\lambda$} (q4)
+            (q5) edge [loop above] node [above] {$a$} ()
+            (q4) edge [bend left] node [above] {$c$}  (q5)
+            (q5) edge [bend left] node [below] {$\lambda$} (q4)
+            (q3) edge [bend right=40] node [below] {$\lambda$} (q6) 
+            (q5) edge [bend left] node [above] {$\lambda$} (q6)
+            (q6) edge [bend left] node [above] {$b$} (q7)
+            (q7) edge [loop above] node [above] {$b$} ()
+            (q8) edge [bend right] node [below] {$\lambda$} (q2)
+            (q8) edge [bend left] node [above] {$\lambda$} (q9)
+            (q9) edge [bend left] node [above] {$\lambda$} (q10)
+            (q10) edge [loop above] node [above] {$a$}
+            (q10) edge [bend left] node [above] {$c$}  (q11)
+            (q11) edge [bend left] node [below] {$\lambda$} (q10);
+         \end{tikzpicture}
+     \end{basedtikz}
+\end{itemize}
+\textbf{Punto 2: }$(a^*cb)^*(a\cup b)(a\cup bc)^*.$
+\begin{itemize}
+    \item[i)] Autómata que acepta $(a^*cb)^*$
+     
+    \begin{basedtikz}
+    \centering
+        \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, right of=q2, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q1) edge [bend left] node [above] {$c$} (q2)
+            (q2) edge [bend left] node [above] {$b$} (q3)
+            (q3) edge [bend left=40] node [below] {$\lambda$} (q1);
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[ii)] Autómata que acepta $(a^*cb)^*(a\cup b)$
+    \begin{basedtikz}
+    \centering
+        \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, right of=q2, minimum size=15pt] {};
+            \node (q4) [state, right of=q3, minimum size=15pt] {};
+            \node (q5) [state, above right of=q4, accepting, minimum size=15pt] {};
+            \node (q6) [state, below right of=q4, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q1) edge [bend left] node [above] {$c$} (q2)
+            (q2) edge [bend left] node [above] {$b$} (q3)
+            (q3) edge [bend left=40] node [below] {$\lambda$} (q1)
+            (q0) edge [bend right=50] node [below] {$\lambda$} (q4)
+            (q3) edge [bend left] node [above] {$\lambda$} (q4)
+            (q4) edge [bend left] node [above] {$a$} (q5)
+            (q4) edge [bend right] node [below] {$b$} (q6);
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[iii)] Autómata que acepta $(a^*cb)^*(a\cup b)(a\cup bc)^*$
+    \begin{basedtikz}
+    \centering
+        \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, right of=q2, minimum size=15pt] {};
+            \node (q4) [state, right of=q3, minimum size=15pt] {};
+            \node (q5) [state, above right of=q4, minimum size=15pt] {};
+            \node (q6) [state, below right of=q4, minimum size=15pt] {};
+            \node (q7) [state, below right of=q5, accepting, minimum size=15pt] {};
+            \node (q8) [state, right of=q7, minimum size=15pt] {};
+            \node (q9) [state, above right of=q8, accepting, minimum size=15pt] {};
+            \node (q10) [state, below right of=q8, minimum size=15pt] {};
+            \node (q11) [state, right of=q10, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q1) edge [bend left] node [above] {$c$} (q2)
+            (q2) edge [bend left] node [above] {$b$} (q3)
+            (q3) edge [bend left=40] node [below] {$\lambda$} (q1)
+            (q0) edge [bend right=50] node [below] {$\lambda$} (q4)
+            (q3) edge [bend left] node [above] {$\lambda$} (q4)
+            (q4) edge [bend left] node [above] {$a$} (q5)
+            (q4) edge [bend right] node [below] {$b$} (q6)
+            (q5) edge [bend left] node [above] {$\lambda$} (q7)
+            (q6) edge [bend right] node [below] {$\lambda$} (q7)
+            (q7) edge [bend left] node [above] {$\lambda$} (q8)
+            (q8) edge [bend left] node [above] {$a$} (q9)
+            (q9) edge [bend left] node [below] {$\lambda$} (q8)
+            (q8) edge [bend right] node [above] {$b$} (q10)
+            (q10) edge [bend left] node [above] {$c$} (q11)
+            (q11) edge [bend left=80] node [below] {$\lambda$} (q8);
+        \end{tikzpicture}
+    \end{basedtikz}
+\end{itemize}
+\textbf{Punto 3: }$(a\cup ba\cup ca)^*(\lambda\cup a)b^+c^+$.
+\begin{itemize}
+    \item[i)] Autómata que acepta $(a\cup ba\cup ca)^*$
+    \begin{basedtikz}
+    \centering
+        \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, accepting, minimum size=15pt] {};
+            \node (q3) [state, above of=q2, minimum size=15pt] {};
+            \node (q4) [state, below of=q2, minimum size=15pt] {};
+            \node (q5) [state, right of=q3, accepting, minimum size=15pt] {};
+            \node (q6) [state, right of=q4, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q2)
+            (q2) edge [bend left] node [below] {$\lambda$} (q1)
+            (q1) edge [bend left] node [above] {$b$} (q3)
+            (q3) edge [bend right] node [below] {$a$} (q5)
+            (q5) edge [bend right=90] node [above] {$\lambda$} (q1)
+            (q1) edge [bend right] node [below] {$c$} (q4)
+            (q4) edge [bend left] node [above] {$a$} (q6)
+            (q6) edge [bend left=90] node [below] {$\lambda$} (q1);
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[ii)] Autómata que acepta $(a\cup ba\cup ca)^*(\lambda\cup a)$
+    \begin{basedtikz}
+    \centering
+    \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, above of=q2, minimum size=15pt] {};
+            \node (q4) [state, below of=q2, minimum size=15pt] {};
+            \node (q5) [state, right of=q3, minimum size=15pt] {};
+            \node (q6) [state, right of=q4, minimum size=15pt] {};
+            \node (q7) [state, right of=q6, minimum size=15pt] {};
+            \node (q8) [state, right of=q7, accepting, minimum size=15pt] {};
+            \node (q9) [state, above of=q8, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q2)
+            (q2) edge [bend left] node [below] {$\lambda$} (q1)
+            (q1) edge [bend left] node [above] {$b$} (q3)
+            (q3) edge [bend right] node [below] {$a$} (q5)
+            (q5) edge [bend right=90] node [above] {$\lambda$} (q1)
+            (q1) edge [bend right] node [below] {$c$} (q4)
+            (q4) edge [bend left] node [above] {$a$} (q6)
+            (q6) edge [bend left=90] node [below] {$\lambda$} (q1)
+            (q0) edge [bend right=110] node [below] {$\lambda$} (q7)
+            (q2) edge [bend left] node [above] {$\lambda$} (q7)
+            (q6) edge [bend right] node [below] {$\lambda$} (q7)
+            (q5) edge [bend left] node [above] {$\lambda$} (q7)
+            (q7) edge [bend left] node [above] {$a$} (q9)
+            (q7) edge [bend right] node [below] {$\lambda$} (q8);
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[iii)] Autómata que acepta $(a\cup ba\cup ca)^*(\lambda\cup a)b^+c^+$
+    \begin{basedtikz}
+    \centering
+    \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, above of=q2, minimum size=15pt] {};
+            \node (q4) [state, below of=q2, minimum size=15pt] {};
+            \node (q5) [state, right of=q3, minimum size=15pt] {};
+            \node (q6) [state, right of=q4, minimum size=15pt] {};
+            \node (q7) [state, right of=q6, minimum size=15pt] {};
+            \node (q8) [state, right of=q7, minimum size=15pt] {};
+            \node (q9) [state, above of=q8, minimum size=15pt] {};
+            \node (q10) [state, right of=q9, minimum size=15pt] {};
+            \node (q11) [state, right of=q10, minimum size=15pt] {};
+            \node (q12) [state, right of=q11, minimum size=15pt] {};
+            \node (q13) [state, right of=q12, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q2)
+            (q2) edge [bend left] node [below] {$\lambda$} (q1)
+            (q1) edge [bend left] node [above] {$b$} (q3)
+            (q3) edge [bend right] node [below] {$a$} (q5)
+            (q5) edge [bend right=90] node [above] {$\lambda$} (q1)
+            (q1) edge [bend right] node [below] {$c$} (q4)
+            (q4) edge [bend left] node [above] {$a$} (q6)
+            (q6) edge [bend left=90] node [below] {$\lambda$} (q1)
+            (q0) edge [bend right=110] node [below] {$\lambda$} (q7)
+            (q2) edge [bend left] node [above] {$\lambda$} (q7)
+            (q6) edge [bend right] node [below] {$\lambda$} (q7)
+            (q5) edge [bend left] node [above] {$\lambda$} (q7)
+            (q7) edge [bend left] node [above] {$a$} (q9)
+            (q7) edge [bend right] node [below] {$\lambda$} (q8)
+            (q8) edge [bend right] node [below] {$\lambda$} (q10)
+            (q9) edge [bend left] node [above] {$\lambda$} (q10)
+            (q10) edge [bend left] node [above] {$b$} (q11)
+            (q11) edge [loop above] node [above] {$b$} ()
+            (q11) edge [bend left] node [above] {$\lambda$} (q12)
+            (q12) edge [bend left] node [above] {$c$} (q13)
+            (q13) edge [loop above] node [above] {$c$} ();
+        \end{tikzpicture}
+    \end{basedtikz}
+\end{itemize}
+\textbf{Punto 4: }$(a^*bc)^*\cup(cb^*a)^+\cup(ca\cup cb\cup c^2)^*a^*b^+.$
+\begin{itemize}
+    \item[i)] Autómata que acepta $(a^*bc)^*$
+    \begin{basedtikz}
+    \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, right of=q2, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q1) edge [loop above] node [above] {$a$}
+            (q1) edge [bend left] node [above] {$b$}  (q2)
+            (q2) edge [bend left] node [above] {$c$}  (q3)
+            (q3) edge [bend left] node [below] {$\lambda$} (q1); 
+         \end{tikzpicture}
+     \end{basedtikz}
+     \item[ii)] Autómata que acepta $(cb^*a)^+$
+      \begin{basedtikz}
+      \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$c$} (q1)
+            (q1) edge [loop above] node [above] {$b$}
+            (q1) edge [bend left] node [above] {$a$}  (q2)
+            (q2) edge [bend left] node [below] {$\lambda$} (q0); 
+         \end{tikzpicture}
+     \end{basedtikz}
+     \item[iii)] Autómata que acepta $(ca\cup cb\cup c^2)^*a^*b^+$
+     \begin{basedtikz}
+     \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, right of=q2, minimum size=15pt] {};
+            \node (q4) [state, right of=q3, minimum size=15pt] {};
+            \node (q5) [state, right of=q4, minimum size=15pt, accepting] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q1) edge [bend left] node [above] {$c$} (q2)
+            (q2) edge [bend left] node [above] {$a,b,c$} (q3)
+            (q3) edge [bend left] node [above] {$\lambda$} (q4)
+            (q4) edge [bend left] node [above] {$b$} (q5)
+            (q4) edge [loop above] node [above] {$a$} ()
+            (q5) edge [loop above] node [above] {$b$} ()
+            (q3) edge [bend left] node [below] {$\lambda$} (q1)
+            (q0) edge [bend right=45] node [below] {$\lambda$} (q4);
+         \end{tikzpicture}
+     \end{basedtikz}
+     \item[iv)] Autómata que acepta $(a^*bc)^*\cup(cb^*a)^+\cup(ca\cup cb\cup c^2)^*a^*b^+$
+     \begin{basedtikz}
+     \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (qa) [state, initial, minimum size=15pt] {};
+
+            \node (q6) [state, right of=qa, minimum size=15pt] {};
+            \node (q7) [state, right of=q6, minimum size=15pt] {};
+            \node (q8) [state, right of=q7, accepting, minimum size=15pt] {};
+            
+
+            \node (q0) [state, below of=q6, minimum size=15pt] {};
+            \node (q1) [state, right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, right of=q2, minimum size=15pt] {};
+            \node (q4) [state, right of=q3, minimum size=15pt] {};
+            \node (q5) [state, right of=q4, minimum size=15pt, accepting] {};
+
+            \node (q9) [state, above of=q6, accepting, minimum size=15pt] {};
+            \node (q10) [state, right of=q9, minimum size=15pt] {};
+            \node (q11) [state, right of=q10, minimum size=15pt] {};
+            \node (q12) [state, right of=q11, accepting, minimum size=15pt] {};
+
+            \path[thick]
+            (qa) edge [bend left] node [above] {$\lambda$} (q9)
+            (qa) edge node [above] {$\lambda$} (q6)
+            (qa) edge [bend right] node [below] {$\lambda$} (q0)
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q1) edge [bend left] node [above] {$c$} (q2)
+            (q2) edge [bend left] node [above] {$a,b,c$} (q3)
+            (q3) edge [bend left] node [above] {$\lambda$} (q4)
+            (q4) edge [bend left] node [above] {$b$} (q5)
+            (q4) edge [loop above] node [above] {$a$} ()
+            (q5) edge [loop above] node [above] {$b$} ()
+            (q3) edge [bend left] node [below] {$\lambda$} (q1)
+            (q0) edge [bend right=45] node [below] {$\lambda$} (q4)
+            (q6) edge [bend left] node [above] {$c$} (q7)
+            (q7) edge [loop above] node [above] {$b$}
+            (q7) edge [bend left] node [above] {$a$}  (q8)
+            (q8) edge [bend left] node [below] {$\lambda$} (q6)
+            (q9) edge [bend left] node [above] {$\lambda$} (q10)
+            (q10) edge [loop above] node [above] {$a$}
+            (q10) edge [bend left] node [above] {$b$}  (q11)
+            (q11) edge [bend left] node [above] {$c$}  (q12)
+            (q12) edge [bend left] node [below] {$\lambda$} (q10);
+         \end{tikzpicture}
+     \end{basedtikz}
+\end{itemize}
+\textbf{Punto 5: }$a^*b^*(ca^+\cup b\cup\lambda)(b\cup bc)^*\cup(b\cup\lambda)(b^*ac)^*.$
+\begin{itemize}
+    \item[i)] Autómata que acepta $a^*b^*(ca^+\cup b\cup\lambda)(b\cup bc)^*$
+     
+    \begin{basedtikz}
+    \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q1) [state, initial, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, above right of=q2, minimum size=15pt] {};
+            \node (q4) [state, right of=q3, minimum size=15pt] {};
+            \node (q5) [state, below right of=q2, minimum size=15pt] {};
+            \node (q6) [state, right of=q5, accepting, minimum size=15pt] {};
+            \node (q7) [state, right of=q6, minimum size=15pt] {};
+            \node (q8) [state, right of=q7, minimum size=15pt] {};
+            \node (q9) [state, right of=q8, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q2) edge [loop right] node [right] {$b$} ()
+            (q1) edge [bend left] node [above] {$\lambda$} (q2)
+            (q2) edge [bend left] node [above] {$c$} (q3)
+            (q3) edge [bend left] node [above] {$a$} (q4)
+            (q4) edge [loop above] node [above] {$a$} ()
+            (q2) edge [bend right] node [below] {$b,\lambda$} (q5)
+            (q4) edge node [right] {$\lambda$} (q6)
+            (q5) edge [bend left] node [above] {$\lambda$} (q6)
+            (q6) edge [bend left] node [above] {$\lambda$} (q7)
+            (q7) edge [bend left] node [above] {$b$} (q8)
+            (q8) edge [bend left] node [above] {$c,\lambda$} (q9)
+            (q9) edge [bend left] node [below] {$\lambda$} (q7);
+         \end{tikzpicture}
+     \end{basedtikz}
+    \item[ii)] Autómata que acepta $(b\cup\lambda)(b^*ac)^*$
+    \begin{basedtikz}
+    \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q10) [state, initial, minimum size=15pt] {};
+            \node (q11) [state, right of=q10, accepting, minimum size=15pt] {};
+            \node (q12) [state, right of=q11, minimum size=15pt] {};
+            \node (q13) [state, right of=q12, minimum size=15pt] {};
+            \node (q14) [state, right of=q13, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q10) edge [bend left] node [above] {$b,\lambda$} (q11)
+            (q11) edge [bend left] node [above] {$\lambda$} (q12)
+            (q12) edge [loop above] node [above] {$b$} ()
+            (q12) edge [bend left] node [above] {$a$} (q13)
+            (q13) edge [bend left] node [above] {$c$} (q14)
+            (q14) edge [bend left] node [below] {$\lambda$} (q12);
+         \end{tikzpicture}
+     \end{basedtikz}
+     \item[iii)] Autómata que acepta $a^*b^*(ca^+\cup b\cup\lambda)(b\cup bc)^*\cup(b\cup\lambda)(b^*ac)^*$
+     \begin{basedtikz}
+     \centering
+         \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+            \node (q0) [state, initial, minimum size=15pt] {};
+            \node (q1) [state, above right of=q0, minimum size=15pt] {};
+            \node (q2) [state, right of=q1, minimum size=15pt] {};
+            \node (q3) [state, above right of=q2, minimum size=15pt] {};
+            \node (q4) [state, right of=q3, minimum size=15pt] {};
+            \node (q5) [state, below right of=q2, minimum size=15pt] {};
+            \node (q6) [state, right of=q5, accepting, minimum size=15pt] {};
+            \node (q7) [state, right of=q6, minimum size=15pt] {};
+            \node (q8) [state, right of=q7, minimum size=15pt] {};
+            \node (q9) [state, right of=q8, accepting, minimum size=15pt] {};
+            \node (q10) [state, below right of=q0, minimum size=15pt] {};
+            \node (q11) [state, right of=q10, accepting, minimum size=15pt] {};
+            \node (q12) [state, right of=q11, minimum size=15pt] {};
+            \node (q13) [state, right of=q12, minimum size=15pt] {};
+            \node (q14) [state, right of=q13, accepting, minimum size=15pt] {};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$\lambda$} (q1)
+            (q0) edge [bend right] node [below] {$\lambda$} (q10)
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q2) edge [loop right] node [right] {$b$} ()
+            (q1) edge [bend left] node [above] {$\lambda$} (q2)
+            (q2) edge [bend left] node [above] {$c$} (q3)
+            (q3) edge [bend left] node [above] {$a$} (q4)
+            (q4) edge [loop above] node [above] {$a$} ()
+            (q2) edge [bend right] node [left] {$b,\lambda$} (q5)
+            (q4) edge node [right] {$\lambda$} (q6)
+            (q5) edge [bend left] node [above] {$\lambda$} (q6)
+            (q6) edge [bend left] node [above] {$\lambda$} (q7)
+            (q7) edge [bend left] node [above] {$b$} (q8)
+            (q8) edge [bend left] node [above] {$c,\lambda$} (q9)
+            (q9) edge [bend left] node [below] {$\lambda$} (q7)
+            (q10) edge [bend left] node [above] {$b,\lambda$} (q11)
+            (q11) edge [bend left] node [above] {$\lambda$} (q12)
+            (q12) edge [loop below] node [below] {$b$} ()
+            (q12) edge [bend left] node [above] {$a$} (q13)
+            (q13) edge [bend left] node [above] {$c$} (q14)
+            (q14) edge [bend left] node [below] {$\lambda$} (q12);
+         \end{tikzpicture}
+     \end{basedtikz}
+\end{itemize}
+
+Cabe aclarar que las construcciones realizadas no son únicas ya que este procedimiento es bastante flexible, después de todo las construcciones presentadas aquí tienen bastantes simplificaciones.
+
+$\hfill \blacklozenge$

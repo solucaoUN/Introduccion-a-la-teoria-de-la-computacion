@@ -1,0 +1,182 @@
+%!TEX root = ../main.tex
+
+A continuación construiremos AFN los cuales no tienen las mismas restricciones que los AFD y por tanto son bastante mas sencillos de construir, eso si algo de vital importancia es que al igual que en los AFD debemos tener cuidado de no construir caminos que acepten cadenas que no son contempladas por el lenguaje.\\
+
+  \textbf{Punto 1: }Sea $\Sigma=\{a,b\}.$ Diseñar AFN que acepten los siguientes lenguajes:
+
+  \begin{itemize}[label={$\bullet$}]
+
+        \item $a(a\cup ab)^*$\\
+
+         Tenemos que asegurar que toda cadena empiece por una $a$, luego simplemente generamos los dos bucles necesarios uno para $aes$ arbitrarias y el otro para bloques $ab$.
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+               \node (q0) [state, initial] {$q_0$}; 
+               \node (q1) [state, right of=q0, accepting] {$q_1$};
+               \node (q2) [state, right of=q1] {$q_2$};
+               \path[thick]
+               (q0) edge node [above] {$a$} (q1)
+               (q1) edge [loop above] node [above] {$a$} ()
+               (q1) edge [bend left] node [above] {$a$} (q2)
+               (q2) edge [bend left] node [below] {$b$} (q1);
+            \end{tikzpicture}
+        \end{basedtikz}
+        Observe que este es un AFN ya que hay dos flechas con etiqueta $a$ saliendo desde $q_1$.
+        \item $a^+b^*a$\\
+
+         Para la construcción forzamos la cadena mínima $aa$ junto a el bucle de $aes$ inicial.
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+               \node (q0) [state, initial] {$q_0$}; 
+               \node (q1) [state, right of=q0] {$q_1$};
+               \node (q2) [state, right of=q1, accepting] {$q_2$};
+               \node (q3) [state, below of=q1] {$q_3$};
+               \path[thick]
+               (q0) edge node [above] {$a$} (q1)
+               (q1) edge [loop above] node [above] {$a$} ()
+               (q1) edge node [above] {$a$} (q2)
+               (q1) edge node [left] {$b$} (q3)
+               (q3) edge [loop below] node [below] {$b$} ()
+               (q3) edge [bend right] node [below] {$a$} (q2);  
+            \end{tikzpicture}
+        \end{basedtikz}
+        Note que las $bes$ intermedias las agregamos por medio de un estado extra generando un camino nuevo.
+        \item $a^*b\cup b^*a$\\
+
+         Basta con construir un camino para las cadenas mínimas $a$ y $b$, luego construimos dos caminos extra para aceptar $a^*b$ y $b^*a$ respectivamente.
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+               \node (q0) [state, initial] {$q_0$}; 
+               \node (q1) [state, above right of=q0] {$q_1$}; 
+               \node (q2) [state, below right of=q0] {$q_2$};
+               \node (q3) [state, below right of=q1, accepting] {$q_3$};
+               \path[thick]
+               (q0) edge node [above] {$a,b$} (q3)
+               (q0) edge [bend left] node [above] {$a$} (q1)
+               (q1) edge [bend left] node [above] {$b$} (q3)
+               (q0) edge [bend right] node [below] {$b$} (q2)
+               (q2) edge [bend right] node [below] {$a$} (q3)
+               (q1) edge [loop above] node [above] {$a$} ()
+               (q2) edge [loop below] node [below] {$b$} ();
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item $b^*(ab\cup ba)^*$\\
+
+         Forzaremos las $bes$ arbitrarias en el primer estado y luego generamos los caminos correspondientes para la concatenación de $ab$ y $ba$.
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+               \node (q0) [state, initial, accepting] {$q_0$}; 
+               \node (q1) [state, above right of=q0] {$q_1$}; 
+               \node (q2) [state, below right of=q0] {$q_2$};
+               \node (q3) [state, below right of=q1, accepting] {$q_3$};
+               \path[thick]
+               (q0) edge [loop above] node [above] {$b$} ()
+               (q0) edge [bend left=15] node [above] {$a$} (q1)
+               (q1) edge [bend left] node [above] {$b$} (q3)
+               (q3) edge [bend left] node [below] {$a$} (q1)
+               (q0) edge [bend right=15] node [below] {$b$} (q2)
+               (q2) edge [bend right] node [below] {$a$} (q3)
+               (q3) edge [bend right] node [above] {$b$} (q2);
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item $b^*(ab\cup ba)^*a^*$\\
+
+         Observe que el lenguaje es exactamente igual al anterior a excepción de que ahora las cadenas pueden terminar en un numero arbitrario de $aes$, pero como estamos construyendo un AFN basta con notar que agregando un nuevo estado que sea de aceptación con un bucle de $aes$ es suficiente.
+        \begin{basedtikz}
+        \centering
+        \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+               \node (q0) [state, initial, accepting] {$q_0$}; 
+               \node (q1) [state, above right of=q0] {$q_1$}; 
+               \node (q2) [state, below right of=q0] {$q_2$};
+               \node (q3) [state, below right of=q1, accepting] {$q_3$};
+               \node (q4) [state, right of=q3, accepting] {$q_4$};
+               \path[thick]
+               (q0) edge [loop above] node [above] {$b$} ()
+               (q0) edge [bend left=15] node [above] {$a$} (q1)
+               (q1) edge [bend left] node [above] {$b$} (q3)
+               (q3) edge [bend left] node [below] {$a$} (q1)
+               (q0) edge [bend right=15] node [below] {$b$} (q2)
+               (q2) edge [bend right] node [below] {$a$} (q3)
+               (q3) edge [bend right] node [above] {$b$} (q2)
+               (q3) edge node [above] {$a$} (q4)
+               (q4) edge [loop above] node [above] {$a$} ();
+            \end{tikzpicture}
+        \end{basedtikz}
+    \end{itemize}
+
+    \textbf{Punto 2: }Sea $\Sigma=\{0,1\}.$ Diseñar AFN que acepten los siguientes lenguajes:  
+
+    \begin{itemize}[label={$\bullet$}]
+        \item $(01\cup001)^*$\\
+
+         Simplemente construimos los caminos para aceptar $01$ y $001$ por separado.
+          
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, above right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \node (q3) [state, right of=q2] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$0$} (q1)
+            (q1) edge [bend left] node [below] {$1$} (q0)
+            (q0) edge node [left] {$0$} (q2)
+            (q2) edge node [below] {$0$} (q3)
+            (q3) edge node [above] {$1$} (q0);
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item $(01^*0\cup10^*)^*$\\
+
+         Nuevamente basta con construir los caminos correspondientes a $01^*0$ y $10^*$.
+        
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$0$} (q1)
+            (q1) edge [bend left] node [below] {$0$} (q0)
+            (q0) edge [bend right] node [left] {$1$} (q2)
+            (q2) edge [bend right] node [right] {$0$} (q0)
+            (q2) edge [loop below] node [below] {$0$} ()
+            (q0) edge [loop above] node [above] {$1$} ()
+            (q1) edge [loop above] node [above] {$1$} ();
+            \end{tikzpicture}
+        \end{basedtikz}
+
+        Observe que es necesario incluir ese bucle con etiqueta $1$ para aceptar cuando solo hay unos en la expresión $10^*$ (es decir en el caso donde $1$ se concatena con $\lambda$). 
+
+        \item $1^*01\cup10^*1$\\
+
+         Construimos los caminos de las cadenas $10^*1$ y $01$.
+          
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, right of=q1, accepting] {$q_2$};
+            \node (q3) [state, above of=q1] {$q_3$};
+            \node (q4) [state, below of=q0] {$q_4$};
+            \path[thick]
+            (q0) edge node [above] {$0$} (q1)
+            (q1) edge node [above] {$1$} (q2)
+            (q0) edge [bend left] node [above] {$1$} (q3)
+            (q3) edge [bend left] node [above] {$1$} (q2)
+            (q3) edge [loop above] node [above] {$0$} ()
+            (q0) edge node [left] {$1$} (q4)
+            (q4) edge node [below] {$0$} (q1)
+            (q4) edge [loop below] node [below] {$1$} ();
+            \end{tikzpicture}
+        \end{basedtikz}
+        Note que usamos un estado adicional para construir el camino para aceptar $1^*01$.
+    \end{itemize}
+
+    $\hfill \blacklozenge$

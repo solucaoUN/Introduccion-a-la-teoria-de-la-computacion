@@ -31,15 +31,43 @@ Teoría de la Compu-\\\\tación}
 \titlepagedecoration
 \end{titlepage}
 
+Este manual de solución de las notas de introducción a la teoría de la computación tiene como objetivo ser de ayuda para estudiantes que se encuentren viendo la materia en futuros semestres, a la fecha (2023-1) no hay ningún manual de solución de los ejercicios de este curso y nos pareció importante poder dar un poco de ayuda o soporte a las personas que en el futuro vean el curso, todo ha sido separado en secciones para que sea más sencillo encontrar los ejercicios específicos que el estudiante pueda necesitar.\\
+
+Las soluciones que presentemos no necesariamente son correctas pero trabajaremos para que lo sean y ante cualquier error nos pueden escribir a los correos que están en la portada.\\
 
 \tableofcontents
 \cleardoublepage
 
 
 \chapter{Alfabetos, lenguajes y cadenas}
-\input{Chapters/1}
+\input{Chapter 1/1}
 \chapter{Lenguajes Regulares y Autómatas Finitos}
-\input{Chapters/2}
+En este capítulo comenzamos la segunda parte de las notas de clase, en estas secciones resaltamos que no hay una única solución a los ejercicios y que algunas de las soluciones pueden llegar a ser redundantes, sin embargo son funcionales y esto es lo que más nos interesa.
+    \section{Expresiones regulares}
+        \input{Chapter 2/2.1}
+    \section{Diseño de autómatas}
+        \input{Chapter 2/2.2}
+    \section{Autómatas finitos no-deterministas (AFN)}
+        \input{Chapter 2/2.3}
+    \section{Equivalencia computacional entre los AFD y los AFN}
+        \input{Chapter 2/2.4}
+    \section{Autómatas con transiciones \texorpdfstring{\boldmath$\lambda$}{lambda} (AFN-\texorpdfstring{\boldmath$\lambda$}{lambda})}    \input{Chapter 2/2.5}
+    \section{Equivalencia computacional entre los AFN-\texorpdfstring{\boldmath$\lambda$}{lambda} y los AFN}
+        \input{Chapter 2/2.6}
+    \section{Complemento de un autómata determinista}
+        \input{Chapter 2/2.7}
+    \section{Producto cartesiano de autómatas deterministas}
+        \input{Chapter 2/2.8}
+    \section{Teorema de Kleene, parte I}
+        \input{Chapter 2/2.9}
+    \section{Teorema de Kleene, parte II}
+        \input{Chapter 2/2.10}
+    \section{Teorema de Myhill-Nerode}
+        \input{Chapter 2/2.11}
+    \section{Algoritmo de minimización de AFDs}
+        \input{Chapter 2/2.12}
 \chapter{Lenguajes no regulares}
-\input{Chapters/3}
+El capitulo 3 de las notas de clase se centra en darnos metodos para demostrar que un lenguaje no es regular, es decir, que no podemos encontrar expresiones regulares por medio de los metodos empleados en el capitulo previo. Este capitulo es un preambulo de que debemos introducir nuevas herramientas si queremos trabajar con este tipo de lenguajes.
+    \section{Criterio de no Regularidad}
+        \input{Chapter 3/3.1}
 \end{document}

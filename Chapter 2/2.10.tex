@@ -1,0 +1,589 @@
+%!TEX root = ../main.tex
+
+\textit{Dado un Autómata Finito, siempre podemos encontrar una expresión regular que sea aceptada por el mismo.} Anteriormente nos dimos cuenta que habían problemas al momento de encontrar expresiones regulares para algunos lenguajes mientras que construir un autómata para el mismo era bastante sencillo, en esta sección se explora un algoritmo que nos permite hallar siempre la expresión regular de un lenguaje dado el autómata que acepta ese lenguaje.\\
+
+\textbf{Punto 1: }Utilizar el procedimiento presentado en la presente sección para encontrar expresiones regulares para los lenguajes aceptados por los siguientes autómatas.
+\begin{itemize}[label={$\bullet$}]
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, right of=q1] {$q_2$};
+            \node (q3) [state, below of=q1] {$q_3$};
+            \path[thick]
+            (q0) edge node [above] {$a$} (q1)
+            (q1) edge node [above] {$b$} (q2)
+            (q1) edge [loop above] node [above] {$b$} ()
+            (q3) edge [loop above] node [above] {$b$} ()
+            (q2) edge [bend left] node [below] {$a$} (q3)
+            (q3) edge [bend left] node [below] {$b$} (q0);
+            \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{itemize}
+        \item[i)] Eliminar estado $q_2$:
+        \begin{basedtikz}
+        \centering
+          \begin{tikzpicture}[node distance = 3cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0, accepting] {$q_1$};
+             \node (q3) [state, below of=q1] {$q_3$};
+             \path[thick]
+             (q0) edge node [above] {$a$} (q1)
+             (q1) edge [loop above] node [above] {$b$} () 
+             (q3) edge [loop above] node [above] {$b$} ()
+             (q3) edge [bend left] node [left] {$b$} (q0)
+             (q1) edge [bend left] node [right] {$ba$} (q3);  
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[ii)] Eliminar estado $q_3$:
+         \begin{basedtikz}
+         \centering
+          \begin{tikzpicture}[node distance = 3cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0, accepting] {$q_1$};
+             \path[thick]
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [loop above] node [above] {$b$} ()
+             (q1) edge [bend left] node [below] {$bab^*b$} (q0);  
+             \end{tikzpicture}   
+         \end{basedtikz}
+    \end{itemize}
+    Teniendo en cuenta que $b^*b=b^+$, por simple inspección obtenemos que:
+    $$L(M)=a(b^*\cup bab^+a)^*$$
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 3cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q2) [state, below right of=q0, accepting] {$q_2$};
+            \node (q1) [state, above right of=q2, accepting] {$q_1$};
+            \path[thick]
+            (q0) edge [bend left=20] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b$} ()
+            (q2) edge node [below] {$a$} (q1)
+            (q1) edge [bend left=20] node [below] {$a$} (q0)
+            (q2) edge [bend left=20] node [below] {$b$} (q0)
+            (q0) edge [bend left=20] node [right] {$b$} (q2);
+            \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo,de paso lo acomodaremos de forma que sea mas sencillo trabajar:
+    \begin{itemize}
+        \item[i)] Agregamos un nuevo estado de aceptación $q$:
+        \begin{basedtikz}
+        \centering
+          \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0] {$q_1$};
+             \node (q2) [state, below of=q0] {$q_2$};
+             \node (q) [state, right of=q2, accepting] {$q$};
+             \path[thick]
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [bend left] node [below] {$a$} (q0)
+             (q0) edge [bend left] node [right] {$b$} (q2)
+             (q2) edge [bend left] node [left] {$b$} (q0) 
+             (q1) edge [loop above] node [above] {$b$} ()
+             (q2) edge node [below] {$a$} (q1)
+             (q1) edge node [right] {$\lambda$} (q)
+             (q2) edge node [above] {$\lambda$} (q); 
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[ii)] Eliminar estado $q_2$:
+         \begin{basedtikz}
+         \centering
+          \begin{tikzpicture}[node distance = 3cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0] {$q_1$};
+             \node (q) [state, below of=q1, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b^2$} ()
+             (q0) edge node [below] {$b$} (q)
+             (q0) edge [bend left] node [above] {$a\cup ba$} (q1)
+             (q1) edge [bend left] node [below] {$a$} (q0) 
+             (q1) edge [loop above] node [above] {$b$} ()
+             (q1) edge node [right] {$\lambda$} (q); 
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[iii)] Eliminar estado $q_1$:
+          
+         \begin{basedtikz}
+         \centering
+         \begin{tikzpicture}[node distance = 4.5cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q) [state, right of=q0, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b^2\cup[(a\cup ba)b^*a]$} ()
+             (q0) edge  node [above] {$b\cup(a\cup ba)b^*$} (q); 
+             \end{tikzpicture}   
+         \end{basedtikz} 
+    \end{itemize}
+    Ahora por simple inspección llegamos a que:
+    $$L(M)=\left(b^2\cup[(a\cup ba)b^*a]\right)^*(b\cup(a\cup ba)b^*)$$
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, right of=q1, accepting] {$q_2$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$b$} (q1)
+            (q1) edge [bend left] node [above] {$b$} (q2)
+            (q1) edge [bend left] node [below] {$a$} (q0)
+            (q2) edge [bend left] node [below] {$a$} (q1)
+            (q2) edge [bend left=60] node [below] {$b$} (q0)
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q2) edge [loop above] node [above] {$b$} ();
+            \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{itemize}
+        \item[i)] Eliminar estado $q_1$ 
+        \begin{basedtikz}
+        \centering
+         \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial, accepting] {$q_0$};
+             \node (q2) [state, right of=q0, accepting] {$q_2$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$ba^*a$} ()
+             (q0) edge [bend left] node [above] {$b\cup ba^*b$} (q2)
+             (q2) edge [bend left] node [below] {$aa^*a$} (q0)
+             (q2) edge [loop above] node [above] {$b\cup aa^*b$} ();
+             \end{tikzpicture}   
+         \end{basedtikz}
+         \item[ii)] Agregamos un nuevo estado de aceptación $q$:
+          
+         \begin{basedtikz}
+         \centering
+         \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q2) [state, right of=q0] {$q_2$};
+             \node (q) [state, below of=q2, accepting] {$q$}; 
+             \path[thick]
+             (q0) edge [loop above] node [above] {$ba^*a$} ()
+             (q0) edge [bend left] node [above] {$b\cup ba^*b$} (q2)
+             (q2) edge [bend left] node [below] {$aa^*a$} (q0)
+             (q2) edge [loop above] node [above] {$b\cup aa^*b$} ()
+             (q0) edge [bend right] node [below] {$\lambda$} (q)
+             (q2) edge node [right] {$\lambda$} (q);
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[iii)] Eliminar estado $q_2$:
+         \begin{basedtikz}
+         \centering
+         \begin{tikzpicture}[node distance = 6cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q) [state, right of=q0, accepting] {$q$}; 
+             \path[thick]
+             (q0) edge [loop above] node [above] {$ba^*a\cup[(b\cup ba^*b)(b\cup aa^*b)^*aa^*a]$} ()
+             (q0) edge node [above] {$\lambda\cup (b\cup ba^*b)(b\cup aa^*b)^*$} (q);
+             \end{tikzpicture}   
+         \end{basedtikz}
+    \end{itemize}
+    Teniendo en cuenta que $a^*a=aa^*=a^+$, por simple inspección obtenemos que:
+    $$L(M)=\left(ba^*a\cup[(b\cup ba^*b)(b\cup aa^*b)^*aa^*a]\right)^*(\lambda\cup (b\cup ba^*b)(b\cup aa^*b)^*)$$
+
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, right of=q1] {$q_2$};
+            \node (q3) [state, below of=q1, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge node [above] {$b$} (q2)
+            (q0) edge [loop above] node [above] {$b$} ()
+            (q2) edge [loop above] node [above] {$a$} ()
+            (q2) edge node [below] {$b$} (q3)
+            (q3) edge node [below] {$a$} (q0)
+            (q1) edge [bend left] node [below] {$a$} (q0);
+            \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{itemize}
+        \item[i)] Eliminar estado $q_2$:
+         
+        \begin{basedtikz}
+        \centering
+          \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0, accepting] {$q_1$};
+             \node (q3) [state, below of=q1, accepting] {$q_3$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b$} ()
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [bend left] node [below] {$a$} (q0)
+             (q3) edge node [below] {$a$} (q0)
+             (q1) edge node [right] {$ba^*b$} (q3);
+             \end{tikzpicture}   
+         \end{basedtikz} 
+         \item[ii)] Agregamos un nuevo estado de aceptación $q$:
+         \begin{basedtikz}
+         \centering
+          \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0] {$q_1$};
+             \node (q3) [state, below of=q1] {$q_3$};
+             \node (q) [state, right of=q1, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b$} ()
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [bend left] node [below] {$a$} (q0)
+             (q3) edge node [below] {$a$} (q0)
+             (q1) edge node [right] {$ba^*b$} (q3)
+             (q1) edge node [above] {$\lambda$} (q)
+             (q3) edge node [below] {$\lambda$} (q);
+             \end{tikzpicture}   
+         \end{basedtikz}
+         \item[iii)] Eliminar estado $q_3$:
+         \begin{basedtikz}
+         \centering
+          \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q1) [state, right of=q0] {$q_1$};
+             \node (q) [state, right of=q1, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b$} ()
+             (q0) edge [bend left] node [above] {$a$} (q1)
+             (q1) edge [bend left] node [below] {$a\cup ba^*ba$} (q0)
+             (q1) edge node [above] {$\lambda\cup ba^*b$} (q);
+             \end{tikzpicture}  
+         \end{basedtikz}
+         \item[iv)] Eliminar estado $q_1$: 
+          
+         \begin{basedtikz}
+         \centering
+         \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+             \node (q0) [state, initial] {$q_0$};
+             \node (q) [state, right of=q0, accepting] {$q$};
+             \path[thick]
+             (q0) edge [loop above] node [above] {$b\cup[a(a\cup ba^*ba)]$} ()
+             (q0) edge node [above] {$a(\lambda\cup ba^*b)$} (q);
+             \end{tikzpicture}  
+         \end{basedtikz}      
+    \end{itemize}
+    Por simple inspección obtenemos que:
+    $$L(M)=\left(b\cup[a(a\cup ba^*ba)]\right)^*\left(a(\lambda\cup ba^*b)\right)$$ 
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1,accepting] {$q_2$};
+        \node (q3) [state, right of=q2] {$q_3$};
+        \node (q4) [state, right of=q3, accepting] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$a$} (q1)
+        (q1) edge node [above] {$a$} (q2)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q2) edge node [above] {$b$} (q3)
+        (q3) edge [loop above] node [above] {$a$} ()
+        (q3) edge [bend left] node [above] {$b$} (q4)
+        (q4) edge [bend left] node [below] {$a$} (q3)
+        (q4) edge [bend left=60] node [below] {$a$} (q2);   
+        \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{itemize}
+        \item[i)] Eliminar estado $q_1$:
+        \begin{basedtikz}
+        \centering
+        \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state,  right of=q0,accepting] {$q_2$};
+        \node (q3) [state, right of=q2] {$q_3$};
+        \node (q4) [state, right of=q3, accepting] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$aa$} (q2)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q2) edge node [above] {$b$} (q3)
+        (q3) edge [loop above] node [above] {$a$} ()
+        (q3) edge [bend left] node [above] {$b$} (q4)
+        (q4) edge [bend left] node [below] {$a$} (q3)
+        (q4) edge [bend left=60] node [below] {$a$} (q2);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[ii)] Eliminar estado $q_3$:
+    \begin{basedtikz}
+    \centering
+        \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state,  right of=q0,accepting] {$q_2$};
+        \node (q4) [state, right of=q2, accepting] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$aa$} (q2)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q2) edge [bend left] node [above] {$ba^*b$} (q4)
+        (q4) edge [loop above] node [above] {$aa^*b$} ()
+        (q4) edge [bend left] node [below] {$a$} (q2);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[iii)] Agregamos un nuevo estado de aceptación $q$:
+    \begin{basedtikz}
+    \centering
+        \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state,  right of=q0] {$q_2$};
+        \node (q4) [state, right of=q2] {$q_4$};
+        \node (q) [state, below of=q2, accepting] {$q$};
+        \path[thick]
+        (q0) edge node [above] {$aa$} (q2)
+        (q2) edge [loop above] node [above] {$b$} ()
+        (q2) edge [bend left] node [above] {$ba^*b$} (q4)
+        (q4) edge [loop above] node [above] {$aa^*b$} ()
+        (q4) edge [bend left] node [below] {$a$} (q2)
+        (q2) edge node [left] {$\lambda$} (q)
+        (q4) edge node [right] {$\lambda$} (q);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[iv)] Eliminar estado $q_4$:
+    \begin{basedtikz}
+    \centering
+        \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q2) [state,  right of=q0] {$q_2$};
+        \node (q) [state, below of=q2, accepting] {$q$};
+        \path[thick]
+        (q0) edge node [above] {$aa$} (q2)
+        (q2) edge [loop above] node [above] {$b\cup[ba^*b(aa^*b)^*a]$} ()
+        (q2) edge node [left] {$\lambda\cup[ba^*b(aa^*b)^*]$} (q);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \item[v)] Eliminar estado $q_2$:
+    \begin{basedtikz}
+    \centering
+        \begin{tikzpicture}[node distance = 5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q) [state, right of=q0, accepting] {$q$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$aa\left(b\cup[ba^*b(aa^*b)^*a]\right)^*(\lambda\cup[ba^*b(aa^*b)^*])$} (q);   
+        \end{tikzpicture}
+    \end{basedtikz}
+    \end{itemize}
+    Realizando las respectivas simplificaciones y por simple inspección obtenemos que:
+    $$L(M)=a^2\left(b\cup[ba^*b(a^+b)^*a]\right)^*(\lambda\cup[ba^*b(a^+b)^*])$$
+     
+    \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \node (q3) [state, below of=q0, accepting] {$q_3$};
+        \node (q4) [state, right of=q3] {$q_4$};
+        \path[thick]
+        (q0) edge node [above] {$a$} (q1)
+        (q1) edge node [above] {$b$} (q2)
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q2) edge [bend right=75] node [above] {$a$} (q0)
+        (q2) edge node [below] {$b$} (q4)
+        (q3) edge node [left] {$b$} (q0)
+        (q3) edge node [above] {$a$} (q1)
+        (q4) edge node [left] {$b$} (q1)
+        (q4) edge [loop right] node [right] {$a$} ()
+        (q4) edge node [below] {$a$} (q3);   
+        \end{tikzpicture}
+            \end{center} 
+    Como el grafo de M ya esta en su forma GEC procedemos con el algoritmo:
+    \begin{itemize}
+        \item[i)] Eliminar estado $q_2$:
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q3) [state, below of=q0, accepting] {$q_3$};
+            \node (q4) [state, right of=q3] {$q_4$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b$} ()
+            (q1) edge [bend left] node [below] {$ba$} (q0)
+            (q1) edge [bend right] node [left] {$b^2$} (q4) 
+            (q3) edge node [left] {$b$} (q0)
+            (q3) edge node [above] {$a$} (q1)
+            (q4) edge [loop right] node [right] {$a$} ()
+            (q4) edge node [below] {$a$} (q3)
+            (q4) edge [bend right] node [right] {$b$} (q1);     
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item[ii)] Eliminar estado $q_4$:
+         
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q3) [state, below of=q0, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b\cup b^2a^*b$} ()
+            (q1) edge [bend left] node [below] {$ba$} (q0) 
+            (q1) edge [bend left] node [right] {$b^2a^*a$} (q3)
+            (q3) edge node [left] {$b$} (q0)
+            (q3) edge node [above] {$a$} (q1);     
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item[iii)] Agregamos un nuevo estado de aceptación $q$:
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q3) [state, below of=q0] {$q_3$};
+            \node (q) [state, right of=q3, accepting] {$q$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b\cup b^2a^*b$} ()
+            (q1) edge [bend left] node [below] {$ba$} (q0) 
+            (q1) edge [bend left] node [right] {$b^2a^*a$} (q3)
+            (q3) edge node [left] {$b$} (q0)
+            (q3) edge node [above] {$a$} (q1)
+            (q1) edge node [right] {$\lambda$} (q)
+            (q3) edge node [below] {$\lambda$} (q);     
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item[iv)] Eliminar estado $q_3$:
+         
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q) [state, below of=q1, accepting] {$q$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a$} (q1)
+            (q1) edge [loop above] node [above] {$b\cup b^2a^*b\cup b^2a^*a^2$} ()
+            (q1) edge [bend left] node [below] {$ba\cup b^2a^*ab$} (q0) 
+            (q1) edge node [right] {$\lambda\cup b^2a^*a$} (q);     
+            \end{tikzpicture}
+        \end{basedtikz}
+        \item[v)] Eliminar estado $q_1$:
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 6cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q) [state, right of=q0, accepting] {$q$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$a[b\cup b^2a^*b\cup b^2a^*a^2]^*(\lambda\cup b^2a^*a)$} (q)
+            (q0) edge [loop below] node [below] {$a[b\cup b^2a^*b\cup b^2a^*a^2]^*[ba\cup b^2a^*ab]$} ();     
+            \end{tikzpicture}
+        \end{basedtikz}
+    \end{itemize}
+    Luego por simple inspección obtenemos que:
+    $$L(M)=\left(a[b\cup b^2a^*b\cup b^2a^*a^2]^*[ba\cup b^2a^*ab]\right)^*a[b\cup b^2a^*b\cup b^2a^*a^2]^*(\lambda\cup b^2a^*a)$$
+\end{itemize}
+\textbf{Punto 2: } Sea $\Sigma=\{a,b,c\}$ y $L$ el lenguaje de todas las cadenas que no contienen la subcadena $bc.$ Diseñar un autómata $M$ que acepte el lenguaje $L$, y luego utilizar el procedimiento presentado en la presente sección para encontrar una expresión regular para $L.$\\
+
+Primero hagamos el grafo de todas las cadenas que contienen la subcadena $bc$:
+\begin{basedtikz}
+\centering
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q2) [state, right of=q1, accepting] {$q_2$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a,c$} () 
+        (q0) edge [bend left] node [above] {$b$} (q1)
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q1) edge [bend left] node [below] {$a$} (q0)
+        (q1) edge node [above] {$c$} (q2)
+        (q2) edge [loop above] node [above] {$a,b,c$} ();
+    \end{tikzpicture}
+\end{basedtikz}
+Note que este es un AFD por lo tanto basta considerar el complemento del mismo para obtener el grafo de todas las cadenas que no contienen la subcadena $bc:$
+\begin{basedtikz}
+\centering
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial, accepting] {$q_0$};
+        \node (q1) [state, right of=q0, accepting] {$q_1$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a\cup c$} () 
+        (q0) edge [bend left] node [above] {$b$} (q1)
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q1) edge [bend left] node [below] {$a$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Note que nos saltamos algunos pasos de simplificación ya que al tomar el complemento, el estado $q_2$ se vuelve un estado limbo y puede ser eliminado. Ademas ya expresamos el grafo $M$ en su forma GEC por lo que podemos proceder con el algoritmo:
+\begin{itemize}
+    \item[i)] Agregar nuevo estado de aceptación $q$: 
+    \begin{basedtikz}
+    \centering
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0] {$q_1$};
+        \node (q) [state, below of=q1, accepting] {$q$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a\cup c$} () 
+        (q0) edge [bend left] node [above] {$b$} (q1)
+        (q1) edge [loop above] node [above] {$b$} ()
+        (q1) edge [bend left] node [below] {$a$} (q0)
+        (q0) edge node [left] {$\lambda$} (q)
+        (q1) edge node [right] {$\lambda$} (q);
+    \end{tikzpicture}
+\end{basedtikz}
+    \item[ii)] Eliminar estado $q_1$:
+    \begin{basedtikz}
+    \centering
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q) [state, right of=q0, accepting] {$q$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$a\cup c\cup bb^*a$} () 
+        (q0) edge node [above] {$\lambda\cup bb^*$} (q);
+    \end{tikzpicture}
+\end{basedtikz}
+\end{itemize}
+Ahora por simple inspección podemos observar que:
+$$L=L(M)=(a\cup c\cup bb^*a)^*(\lambda\cup bb^*)$$
+Este seria el lenguaje de todas las cadenas que no contienen la subcadena $bc$. Note que si realizamos las simplificaciones $bb^*=b^+$ y $\lambda\cup bb^*=\lambda\cup b^+=b^*$ obtenemos que: 
+$$L=(a\cup c\cup b^+a)^*b^*$$
+Note que la expresión encontrada es idéntica a una de las expresiones brindadas por las notas en el ultimo ejemplo de la sección 2.2.\\ 
+
+\textbf{Punto 3: } Sea $\Sigma=\{a,b\}$ y $L=\{u\in\Sigma^*:[\#_a(u)-\#_b(u)]\equiv 1(\mod3) \}.$ La notación $\#_a(u)$ representa el numero de $aes$ en la cadena $u$ mientras que $\#_b(u)$ es el numero de $bes.$ Diseñar un AFD $M$ con tres estados que acepte el lenguaje $L,$ y luego utilizar el procedimiento presentado en la presente sección para encontrar una expresión regular para $L.$\\ 
+
+Como estamos restringidos a tres estados basta por medio de cadenas básicas intuir como son las transiciones para $M$:
+\begin{basedtikz}
+\centering
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, , accepting] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a$} (q1) 
+        (q1) edge [bend left] node [above] {$a$} (q2)
+        (q2) edge [bend left=60] node [below] {$a$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+Note que si la cadena tiene solo $aes$ basta con ver que el numero sea congruente con 1 modulo 3, y por eso tenemos ese bucle donde cada estado representa la congruencia y es por eso que $q_1$ es nuestro estado de aceptación. Ahora solo falta ver que pasa con las transiciones para las $bes$ pero esto es sencillo de ver si consideramos cadenas que solo tienen $bes$ a que numero serian congruentes:
+\begin{basedtikz}
+\centering
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, , accepting] {$q_1$};
+        \node (q2) [state, right of=q1] {$q_2$};
+        \path[thick]
+        (q0) edge [bend left] node [above] {$a$} (q1) 
+        (q1) edge [bend left] node [above] {$a$} (q2)
+        (q2) edge [bend left=60] node [below] {$a$} (q0)
+        (q2) edge [bend left] node [below] {$b$} (q1)
+        (q1) edge [bend left] node [below] {$b$} (q0)
+        (q0) edge [bend left=60] node [above] {$b$} (q2);
+    \end{tikzpicture}
+\end{basedtikz}
+Este seria nuestro grafo de $M$ que acepta $L$;  como ya esta en su forma GEC podemos eliminar el estado $q_2$ según el algoritmo presentado:
+ 
+\begin{basedtikz}
+\centering
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node (q0) [state, initial] {$q_0$};
+        \node (q1) [state, right of=q0, , accepting] {$q_1$};
+        \path[thick]
+        (q0) edge [loop above] node [above] {$ba$} ()
+        (q0) edge [bend left] node [above] {$a\cup b^2$} (q1) 
+        (q1) edge [loop above] node [above] {$ab$} ()
+        (q1) edge [bend left] node [below] {$b\cup a^2$} (q0);
+    \end{tikzpicture}
+\end{basedtikz}
+De aquí ya por simple inspección podemos observar que la expresión regular para $L$ es:
+$$L=L(M)=(ba)^*(a\cup b^2)(ab\cup(b\cup a^2)(ba)^*(a\cup b^2))^*$$
+$\hfill \blacklozenge$

@@ -1,0 +1,351 @@
+%!TEX root = ../main.tex
+
+En la anterior sección se hizo bastante notorio como la construcción de AFN es mucho mas sencilla que la de un AFD. En esta sección se nos enseña que por medio de un proceso podemos convertir cualquier AFN en un AFD, algo que resulta extremadamente conveniente pero aveces el proceso es algo tedioso.\\ 
+
+    \textbf{Punto 1: }Utilizando el procedimiento de conversión presentado en esta sección, encontrar AFD equivalentes a los siguientes AFN:\\ 
+    A continuación en cada AFD que construyamos omitiremos los estados inútiles.\\
+
+    \begin{itemize}[label={$\bullet$}]
+        \item \hfill 
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \node (q3) [state, right of=q2, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$b$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q0)
+            (q0) edge node [left] {$b$} (q2)
+            (q2) edge node [below] {$a$} (q3)
+            (q3) edge node [left] {$b$} (q0);
+            \end{tikzpicture}
+            \end{center}   
+        Primero realicemos la extensión de la tabla.
+       
+       \begin{center}
+               \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta$ & $a$ & $b$\\
+        \hline 
+        $q_0$ & $\varnothing$ & $\{q_1,q_2\}$ \\ 
+        \hline
+        $q_1$ &$\{q_0\}$ &$\varnothing$ \\ 
+        \hline
+        $q_2$& $\{q_3\}$& $\varnothing$ \\ 
+        \hline
+        $q_3$&$\varnothing$&$\{q_0\}$\\ 
+        \hline\hline
+        
+        $\{q_1,q_2\}$&$\{q_0,q_3\}$&$\varnothing$\\ 
+        \hline
+        $\{q_0,q_3\}$&$\varnothing$&$\{q_0,q_1,q_2\}$\\
+        \hline
+        $\{q_0,q_1,q_2\}$&$\{q_0,q_3\}$&$\{q_1,q_2\}$\\ 
+        \hline
+        \end{tabular}
+       \end{center}
+       
+        En el AFN original teníamos que los estados de aceptación eran $q_0$ y $q_3$ luego en el AFD los estados de aceptación son todos aquellos que contengan alguno de estos dos. Por  estética definiremos $q_4:=\{q_1,q_2\},q_5:=\{q_0,q_3\}$ y $q_6:=\{q_0,q_1,q_2\}$. 
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q4) [state, right of=q0] {$q_4$};
+            \node (q5) [state, right of=q4, accepting] {$q_5$};
+            \node (q6) [state, right of=q5, accepting] {$q_6$};
+            \path[thick]
+            (q0) edge node [above] {$b$} (q4)
+            (q4) edge node [above] {$a$} (q5)
+            (q5) edge [bend left] node [above] {$b$} (q6)
+            (q6) edge [bend left] node [below] {$a$} (q5)
+            (q6) edge [bend left=60] node [below] {$b$} (q4);
+            \end{tikzpicture}
+        \end{basedtikz}
+
+        \item \hfill
+        \begin{center}
+         \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, below of=q0] {$q_2$};
+            \node (q3) [state, right of=q2, accepting] {$q_3$};
+            \path[thick]
+            (q0) edge [bend left] node [above] {$b$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q0)
+            (q0) edge node [left] {$b$} (q2)
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q2) edge node [below] {$a$} (q3)
+            (q3) edge node [left] {$b$} (q0);
+            \end{tikzpicture}    
+         \end{center} 
+
+         Realicemos la extensión de la tabla.
+
+        \begin{center}
+            \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta$ & $a$ & $b$\\
+        \hline 
+        $q_0$ & $\varnothing$ & $\{q_1,q_2\}$ \\ 
+        \hline
+        $q_1$ &$\{q_0,q_1\}$ &$\varnothing$ \\ 
+        \hline
+        $q_2$& $\{q_3\}$& $\varnothing$ \\ 
+        \hline
+        $q_3$&$\varnothing$&$\{q_0\}$\\ 
+        \hline
+        \hline
+        $\{q_1,q_2\}$&$\{q_0,q_1,q_3\}$&$\varnothing$\\ 
+        \hline
+        $\{q_0,q_1\}$&$\{q_0,q_1\}$&$\{q_1,q_2\}$\\ 
+        \hline
+        $\{q_0,q_1,q_3\}$&$\{q_0,q_1\}$&$\{q_0,q_1,q_2\}$\\
+        \hline
+        $\{q_0,q_1,q_2\}$&$\{q_0,q_1,q_3\}$&$\{q_1,q_2\}$\\ 
+        \hline       
+        \end{tabular}   
+        \end{center}
+        Nuevamente los estados de aceptación del AFD son todos aquellos que contienen $q_0$ o $q_3$. Ahora definimos $q_4:=\{q_1,q_2\},q_5:=\{q_0,q_1,q_3\},q_6:=\{q_0,q_1\}$ y $q_7:=\{q_0,q_1,q_2\}$.
+
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q4) [state, right of=q0] {$q_4$};
+            \node (q5) [state, right of=q4, accepting] {$q_5$};
+            \node (q6) [state, right of=q5, accepting] {$q_6$};
+            \node (q7) [state, below of=q5, accepting] {$q_7$};
+            \path[thick]
+            (q0) edge node [above] {$b$} (q4)
+            (q4) edge node [above] {$a$} (q5)
+            (q5) edge node [above] {$a$} (q6)
+            (q6) edge [bend right=45] node [above] {$b$} (q4)
+            (q6) edge [loop below] node [below] {$a$} ()
+            (q5) edge [bend right] node [left] {$b$} (q7)
+            (q7) edge [bend right] node [right] {$a$} (q5)
+            (q7) edge [bend left] node [below] {$b$} (q4);
+            \end{tikzpicture}
+        \end{basedtikz}
+
+        \item \hfill 
+        \begin{center}
+          \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q1) [state, right of=q0, accepting] {$q_1$};
+            \node (q2) [state, right of=q1, accepting] {$q_2$};;
+            \path[thick]
+            (q0) edge [loop above] node [above] {$b$} ()
+            (q1) edge [loop above] node [above] {$a$} ()
+            (q0) edge node [above] {$b$} (q1)
+            (q1) edge [bend left] node [above] {$a$} (q2)
+            (q2) edge [bend left] node [below] {$b$} (q1);
+            \end{tikzpicture}   
+        \end{center}
+        Realicemos la extensión de la tabla.
+        \begin{center}
+             \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta$ & $a$ & $b$\\
+        \hline 
+        $q_0$ & $\varnothing$ & $\{q_0,q_1\}$\\ 
+        \hline
+        $q_1$ &$\{q_1,q_2\}$ &$\varnothing$ \\ 
+        \hline
+        $q_2$& $\varnothing$& $\{q_1\}$ \\  
+        \hline
+        \hline
+        $\{q_0,q_1\}$&$\{q_1,q_2\}$&$\{q_0,q_1\}$\\
+        \hline
+        $\{q_1,q_2\}$&$\{q_1,q_2\}$&$\{q_1\}$\\ 
+        \hline             
+        \end{tabular}   
+        \end{center}
+        Los estados de aceptación serán aquellos que contengan $q_1$ y $q_2$, ademas definimos $q_3:=\{q_0,q_1\}$ y $q_4:=\{q_1,q_2\}$.
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial] {$q_0$};
+            \node (q3) [state, right of=q0, accepting] {$q_3$};
+            \node (q4) [state, right of=q3, accepting] {$q_4$};
+            \node (q1) [state, right of=q4, accepting] {$q_1$};
+            \path[thick]
+            (q0) edge node [above] {$b$} (q3)
+            (q3) edge node [above] {$a$} (q4)
+            (q3) edge [loop above] node [above] {$b$} ()
+            (q4) edge [loop above] node [above] {$a$} ()
+            (q4) edge [bend left] node [above] {$b$} (q1)
+            (q1) edge [bend left] node [below] {$a$} (q4);
+            \end{tikzpicture}
+        \end{basedtikz}
+         
+        \item \hfill
+        \begin{center}
+          \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q1) [state, right of=q0] {$q_1$};
+            \node (q2) [state, right of=q1, accepting] {$q_2$};;
+            \path[thick]
+            (q0) edge [loop above] node [above] {$a$} ()
+            (q0) edge node [above] {$a$} (q1)
+            (q1) edge [bend left] node [above] {$b$} (q2)
+            (q2) edge [bend left] node [below] {$a$} (q1) 
+            (q2) edge [bend left=60] node [below] {$a$} (q0);
+            \end{tikzpicture}  
+        \end{center}
+        Creo que ya es evidente que es lo primero que haremos.
+      \begin{center}
+          \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta$ & $a$ & $b$\\
+        \hline 
+        $q_0$ & $\{q_0,q_1\}$ & $\varnothing$\\ 
+        \hline
+        $q_1$ &$\varnothing$ &$\{q_2\}$ \\ 
+        \hline
+        $q_2$& $\{q_0,q_1\}$& $\varnothing$ \\  
+        \hline
+        \hline
+        $\{q_0,q_1\}$&$\{q_0,q_1\}$&$\{q_2\}$\\
+        \hline           
+        \end{tabular}   
+      \end{center}
+        Los estados de aceptación son aquellos que contienen $q_0$ y $q_2$, ademas definimos $q_3:=\{q_0,q_1\}$.
+        \begin{basedtikz}
+        \centering
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+            \node (q0) [state, initial, accepting] {$q_0$};
+            \node (q3) [state, right of=q0, accepting] {$q_3$};
+            \node (q2) [state, right of=q3, accepting] {$q_2$};
+            \path[thick]
+            (q0) edge node [above] {$a$} (q3)
+            (q3) edge [loop above] node [above] {$a$} ()
+            (q3) edge [bend left] node [above] {$b$} (q2)
+            (q2) edge [bend left] node [below] {$a$} (q3);
+            \end{tikzpicture}
+        \end{basedtikz}
+    \end{itemize}
+
+    \textbf{Punto 2: }Sean $\Sigma=\{0,1\}$ y $L_3$ el lenguaje de todas las cadenas de longitud $\geq3$ en las que el tercer símbolo, de derecha a izquierda es un 1. Diseñar un AFN con cuatro estados que acepte a $L_3$ y aplicar luego el procedimiento de conversión para encontrar un AFD equivalente.\\
+
+Note primero como ayuda que la expresión regular que describe $L_3$ es:
+$$(0\cup1)^*1(0\cup1)^2$$
+ Luego el AFN que describe este lenguaje surge de una construcción bastante natural solo observando la expresión regular.
+ 
+ \begin{basedtikz}
+ \centering
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+    \node (q0) [state, initial] {$q_0$};
+    \node (q1) [state, right of=q0] {$q_1$};
+    \node (q2) [state, right of=q1] {$q_2$};
+    \node (q3) [state, right of=q2, accepting] {$q_3$};
+    \path[thick]
+    (q0) edge [loop above] node [above] {$0,1$} ()
+    (q0) edge node [above] {$1$} (q1)
+    (q1) edge node [above] {$0,1$} (q2)
+    (q2) edge node [above] {$0,1$} (q3);
+    \end{tikzpicture}
+\end{basedtikz}
+
+Ahora realicemos la extensión de la tabla.
+
+\begin{center}
+          \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta$ & $0$ & $1$\\
+        \hline 
+        $q_0$ & $\{q_0\}$ & $\{q_0,q_1\}$\\ 
+        \hline
+        $q_1$ &$\{q_2\}$ &$\{q_2\}$ \\ 
+        \hline
+        $q_2$& $\{q_3\}$& $\{q_3\}$ \\  
+        \hline
+        $q_3$& $\varnothing$& $\varnothing$ \\
+        \hline
+        \hline 
+        $\{q_0,q_1\}$&$\{q_0,q_2\}$&$\{q_0,q_1,q_2\}$\\
+        \hline
+        $\{q_0,q_2\}$&$\{q_0,q_3\}$&$\{q_0,q_1,q_3\}$\\
+        \hline
+        $\{q_0,q_1,q_2\}$&$\{q_0,q_2,q_3\}$&$\{q_0,q_1,q_2,q_3\}$\\
+        \hline
+        $\{q_0,q_3\}$&$\{q_0\}$&$\{q_0,q_1\}$\\
+        \hline
+        $\{q_0,q_1,q_3\}$&$\{q_0,q_2\}$&$\{q_0,q_1,q_2\}$\\
+        \hline
+        $\{q_0,q_2,q_3\}$&$\{q_0,q_3\}$&$\{q_0,q_1,q_3\}$\\
+        \hline
+        $\{q_0,q_1,q_2,q_3\}$&$\{q_0,q_2,q_3\}$&$\{q_0,q_1,q_2,q_3\}$\\
+        \hline
+        \end{tabular}
+      \end{center}
+Ahora observe que en el AFD los estados de aceptación serán aquellos que contengan a $q_3$, ademas definimos $q_4:=\{q_0,q_1\},q_5:=\{q_0,q_2\},q_6:=\{q_0,q_1,q_2\},q_7:=\{q_0,q_3\},q_8:=\{q_0,q_1,q_3\},q_9:=\{q_0,q_2,q_3\}$ y $q_{10}:=\{q_0,q_1,q_2,q_3\}$.
+\begin{basedtikz}
+\centering
+    \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+    \node (q0) [state, initial] {$q_0$};
+    \node (q4) [state, right of=q0] {$q_4$};
+    \node (q5) [state, right of=q4] {$q_5$};
+    \node (q7) [state, right of=q5, accepting] {$q_7$};
+    \node (q6) [state, below of=q4] {$q_6$};
+    \node (q8) [state, right of=q6, accepting] {$q_8$};
+    \node (q9) [state, right of=q8, accepting] {$q_9$};
+    \node (q10) [state, below of=q8, accepting] {$q_{10}$};
+    \path[thick]
+    (q0) edge [loop below] node [below] {$0$} ()
+    (q0) edge node [above] {$1$} (q4)
+    (q4) edge node [above] {$0$} (q5)
+    (q4) edge node [left] {$1$} (q6)
+    (q5) edge node [above] {$0$} (q7)
+    (q5) edge [bend left] node [right] {$1$} (q8)
+    (q7) edge [bend right=60] node [above] {$0$} (q0)
+    (q7) edge [bend right=45] node [above] {$1$} (q4)
+    (q6) edge [bend right=45] node [below] {$0$} (q9)
+    (q6) edge [bend right] node [below] {$1$} (q10)
+    (q8) edge [bend left] node [left] {$0$} (q5)
+    (q8) edge node [above] {$1$} (q6)
+    (q9) edge node [right] {$0$} (q7)
+    (q9) edge node [above] {$1$} (q8)
+    (q10) edge [bend right] node [below] {$0$} (q9)
+    (q10) edge [loop below] node [below] {$1$} ();
+    \end{tikzpicture}
+\end{basedtikz}
+
+\textbf{Punto 3: }Sea $M=\{\Sigma,Q,q_0,F,\delta\}$ un AFD. Demostrar por recursión sobre cadenas que la extensión $\delta$ satisface
+$$\delta(q_0,uv)=\delta(\delta(q,u),v),$$
+para todo estado $q\in Q$, y todas las cadenas $u,v\in\Sigma^*.$
+\begin{proof}
+Dados $q\in Q$ y $u,v\in\Sigma^*$ realizaremos recursión sobre la cadena $v$.\\
+Si $v=\lambda$ es evidente por la definición de la extensión de $\delta$ que:
+$$\delta(\delta(q,u),\lambda)=\delta(q,u)=\delta(q,u\lambda)$$
+Como tenemos el caso base consideremos que nuestra hipótesis recursiva se cumple es decir:
+$$\delta(q,uv)=\delta(\delta(q,u),v)$$ 
+Ahora veamos que ocurre con $va$ donde $a\in\Sigma$
+\begin{align*}
+      \delta(q,uva)&=\delta(\delta(q,uv),a)&(\text{Definición de la extensión de }\delta)\\
+      &=\delta(\delta(\delta(q,u),v),a)&(\text{Hipótesis recursiva})\\
+      &=\delta(\delta(q,u),va)&(\text{Definición de la extensión de }\delta)
+  \end{align*} 
+De esta manera concluimos que la propiedad se cumple. 
+
+\end{proof}
+\textbf{Punto 4: }Sea $M=\{\Sigma,Q,q_0,F,\Delta\}$ un AFN. Demostrar por recursión sobre cadenas que la extensión $\Delta$ satisface
+$$\Delta(q_0,uv)=\Delta(\Delta(q,u),v),$$
+para todo estado $q\in Q$, y todas las cadenas $u,v\in\Sigma^*.$ 
+\begin{proof}
+Dados $q\in Q$ y $u,v\in\Sigma^*$ procederemos igual que en el punto anterior.\\
+Si $v=\lambda$ por la definición de la extensión de $\Delta$ se tiene que:
+$$\Delta(\Delta(q,u),\lambda)=\bigcup_{p\in\Delta(q,u)}\Delta(p,\lambda)=\bigcup_{p\in\Delta(q,u)}\{p\}=\Delta(q,u)=\Delta(q,u\lambda)$$ 
+Como tenemos el caso base consideremos que nuestra hipótesis recursiva se cumple es decir:
+$$\Delta(q,uv)=\Delta(\Delta(q,u),v)$$ 
+Ahora veamos que ocurre con $va$ donde $a\in\Sigma$ 
+\begin{align*}
+    \Delta(q,uva)&=\Delta(\Delta(q,uv),a)&(\text{Definición de la extensión de }\Delta)\\
+      &=\Delta(\Delta(\Delta(q,u),v),a)&(\text{Hipótesis recursiva})\\
+      &=\Delta(\Delta(q,u),va)&(\text{Definición de la extensión de }\Delta)  
+  \end{align*} 
+De esta manera concluimos que la propiedad se cumple. 
+ 
+\end{proof}
+
+$\hfill \blacklozenge$
